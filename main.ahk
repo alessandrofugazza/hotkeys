@@ -1,4 +1,8 @@
-﻿CoordMode "Mouse", "Screen"
+﻿#Requires AutoHotkey v2.0
+
+#Include "functions.ahk"
+
+CoordMode "Mouse", "Screen"
 
 fans_active := IniRead("settings.ini", "states", "fans_active")
 active_vpn := IniRead("settings.ini", "states", "active_vpn")
@@ -16,58 +20,10 @@ multiPath := "C:\XboxGames\Halo Infinite\Content\HaloInfinite.exe"
 
 halo_mode := "C:\Users\aless\OneDrive\Desktop\Coding\Python\halo-mode\__pycache__\halo_mode.cpython-311.pyc"
 
-VPN(needed := 0) {
-    global active_vpn
-    if (needed != active_vpn) {
-        run proton
-        sleep long_interval
-        if WinActive("ahk_exe ProtonVPN.exe") {
-            click 168, 177
-            active_vpn := needed
-            sleep semilong_interval
-            WinClose("ahk_exe ProtonVPN.exe")
-        } else
-            msgbox("Error.")
-    }
-}
-
-fans(sivDown, sivUp?) {
-    Run siv
-    WinWait("ahk_exe ThermalConsole.exe")
-    WinActivate()
-    if WinActive() {
-        click 962, 548
-        sleep semilong_interval
-        send "{tab 3}"
-        sleep medium_interval
-        send "{space}"
-        sleep medium_interval
-        send "{tab 4}"
-        sleep medium_interval
-        send "{space}"
-        sleep medium_interval
-        send "{tab 3}"
-        sleep medium_interval
-        send "{down " sivDown "}"
-        sleep medium_interval
-        if IsSet(sivUp) {
-            send "{up " sivUp "}"
-            sleep medium_interval
-        }
-        send "{tab 3}"
-        sleep medium_interval
-        send "{space}"
-        sleep default_interval
-        winclose "ahk_exe ThermalConsole.exe"
-    }
-    else
-        msgbox("Error.")
-}
-
-numpadleft::{
-Run("C:\Users\aless\AppData\Local\GitHubDesktop\GitHubDesktop.exe")
-WinWait "GitHub Desktop"
-WinMaximize "A"
+numpadleft:: {
+    Run("C:\Users\aless\AppData\Local\GitHubDesktop\GitHubDesktop.exe")
+    WinWait "GitHub Desktop"
+    WinMaximize "A"
 }
 
 ; #HotIf WinActive("Visual Studio Code")
@@ -79,13 +35,13 @@ WinMaximize "A"
 
 #1:: WinActivate("Secondary")
 #2:: WinActivate("Webtest Left")
-#3::{
-if WinActive('Photos') {
-    WinMinimize('Photos')
-} else {
-    WinMaximize("Photos")
+#3:: {
+    if WinActive('Photos') {
+        WinMinimize('Photos')
+    } else {
+        WinMaximize("Photos")
 
-}
+    }
 }
 #4:: WinActivate("Webtest Right")
 #s::
@@ -101,7 +57,7 @@ if WinActive('Photos') {
 last_2nd_screen := ''
 +space::
 {
-    global last_2nd_screen
+    global
     if (last_2nd_screen == 'Secondary')
     {
         last_2nd_screen := 'Webtest Left'
@@ -111,12 +67,25 @@ last_2nd_screen := ''
         WinActivate("Secondary")
     }
 }
+last_3rd_screen := ''
+^+space::
+{
+    global
+    if (last_3rd_screen == 'Company')
+    {
+        last_3rd_screen := 'Spotify'
+        WinActivate("ahk_exe Spotify.exe")
+    } else {
+        last_3rd_screen := 'Company'
+        WinActivate("Company")
+    }
+}
 
-#WheelUp::{
-if WinActive("Main ahk_exe msedge.exe")
-    send ('!{home}')
-else
-    WinActivate("Main ahk_exe msedge.exe")
+#WheelUp:: {
+    if WinActive("Main ahk_exe msedge.exe")
+        send ('!{home}')
+    else
+        WinActivate("Main ahk_exe msedge.exe")
 }
 
 ; codeId := WinGetID("ahk_exe Code.exe")
@@ -154,8 +123,7 @@ else
 #z:: Send("#g")
 ; #g:: Send("#z")
 
-NumpadAdd::
-{
+NumpadSub:: {
     global fans_active
     if fans_active == 1 {
         fans(2)
@@ -171,17 +139,17 @@ NumpadAdd::
 }
 
 
-NumpadEnd::{
-if (WinActive("ahk-workspace")) {
-    send "^s"
-    sleep 50
-    ; WinClose("A")
-    reload
-} else {
-    run("C:\Users\aless\OneDrive\Desktop\ahk-workspace.code-workspace")
-    WinWaitActive("Visual Studio Code")
-    WinMaximize("A")
-}
+NumpadEnd:: {
+    if (WinActive("ahk-workspace")) {
+        send "^s"
+        sleep 50
+        ; WinClose("A")
+        reload
+    } else {
+        run("C:\Users\aless\OneDrive\Desktop\projects\personal\ahk\ahk-workspace.code-workspace")
+        WinWaitActive("Visual Studio Code")
+        WinMaximize("A")
+    }
 }
 
 LButton::
@@ -204,29 +172,28 @@ XButton1::
 }
 
 
-NumpadIns::{
-run("C:\Program Files\WindowsApps\Microsoft.Todos_2.102.62351.0_x64__8wekyb3d8bbwe\Todo.exe")
-sleep 1000
-Send "^n"
+NumpadIns:: {
+    run("C:\Program Files\WindowsApps\Microsoft.Todos_2.102.62351.0_x64__8wekyb3d8bbwe\Todo.exe")
+    sleep 1000
+    Send "^n"
 }
 
 
-NumpadSub::
-{
-    global fans_active
-    if fans_active == 1 {
-        WinClose("Halo Infinite")
-        send "!+{1}"
-        fans(2)
-        fans_active := 0
-    }
-    Else {
-        fans(1)
-        send "!+{2}"
-        run(multiPath)
-        fans_active := 1
-    }
-}
+; NumpadSub:: {
+;     global fans_active
+;     if fans_active == 1 {
+;         WinClose("Halo Infinite")
+;         send "!+{1}"
+;         fans(2)
+;         fans_active := 0
+;     }
+;     Else {
+;         fans(1)
+;         send "!+{2}"
+;         run(multiPath)
+;         fans_active := 1
+;     }
+; }
 
 ; Citra() {
 ;     send "{enter}"
@@ -280,7 +247,7 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 
 +XButton1:: Send "{Media_Play_Pause}"
 
-^+Space:: WinSetAlwaysOnTop -1, "A"
+; ^+Space:: WinSetAlwaysOnTop -1, "A"
 
 
 WheelDown::
@@ -354,12 +321,12 @@ Volume_Down::
 ; ^s:: send "^d"
 
 #HotIf WinActive("ahk_exe Kindle.exe")
-^c::{
-Send "^c"
-sleep 1
-sourceString := "Matthes, Eric. Python Crash Course, 3rd Edition: A Hands-On, Project-Based Introduction to Programming"
-sourcePos := InStr(A_Clipboard, sourceString) - 5
-A_Clipboard := SubStr(A_Clipboard, 1, sourcePos)
+^c:: {
+    Send "^c"
+    sleep 1
+    sourceString := "Matthes, Eric. Python Crash Course, 3rd Edition: A Hands-On, Project-Based Introduction to Programming"
+    sourcePos := InStr(A_Clipboard, sourceString) - 5
+    A_Clipboard := SubStr(A_Clipboard, 1, sourcePos)
 }
 
 #hotif WinActive("ahk_exe msedge.exe")
