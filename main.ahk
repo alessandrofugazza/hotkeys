@@ -5,10 +5,10 @@
 CoordMode "Mouse", "Screen"
 
 fans_active := IniRead("settings.ini", "states", "fans_active")
-active_vpn := IniRead("settings.ini", "states", "active_vpn")
+; active_vpn := IniRead("settings.ini", "states", "active_vpn")
 
 default_interval := 50
-medium_interval := 200
+medium_interval := 250
 semilong_interval := 1000
 long_interval := 4000
 superlong_interval := 7000
@@ -25,7 +25,7 @@ numpadleft:: {
     WinWait "GitHub Desktop"
     WinMaximize "A"
 }
-
+; #e:: Run("C:\Users\aless\OneDrive\Desktop\projects")
 ; #HotIf WinActive("Visual Studio Code")
 ; :o:cl::console.log(
 ; :o:c::const`s
@@ -33,17 +33,17 @@ numpadleft:: {
 ; :o:d::document.
 ; #HotIf
 
-#1:: WinActivate("Secondary")
-#2:: WinActivate("Webtest Left")
-#3:: {
-    if WinActive('Photos') {
-        WinMinimize('Photos')
-    } else {
-        WinMaximize("Photos")
+; #1:: WinActivate("Secondary")
+; #2:: WinActivate("Webtest Left")
+; #3:: {
+;     if WinActive('Photos') {
+;         WinMinimize('Photos')
+;     } else {
+;         WinMaximize("Photos")
 
-    }
-}
-#4:: WinActivate("Webtest Right")
+;     }
+; }
+; #4:: WinActivate("Webtest Right")
 #s::
 {
     WinActivate("Main ahk_exe msedge.exe")
@@ -146,7 +146,7 @@ NumpadEnd:: {
         ; WinClose("A")
         reload
     } else {
-        run("C:\Users\aless\OneDrive\Desktop\projects\personal\ahk\ahk-workspace.code-workspace")
+        run("C:\Users\aless\Desktop\projects\personal\ahk\ahk-workspace.code-workspace")
         WinWaitActive("Visual Studio Code")
         WinMaximize("A")
     }
@@ -172,28 +172,28 @@ XButton1::
 }
 
 
-NumpadIns:: {
+NumpadPgdn:: {
     run("C:\Program Files\WindowsApps\Microsoft.Todos_2.102.62351.0_x64__8wekyb3d8bbwe\Todo.exe")
     sleep 1000
     Send "^n"
 }
 
 
-; NumpadSub:: {
-;     global fans_active
-;     if fans_active == 1 {
-;         WinClose("Halo Infinite")
-;         send "!+{1}"
-;         fans(2)
-;         fans_active := 0
-;     }
-;     Else {
-;         fans(1)
-;         send "!+{2}"
-;         run(multiPath)
-;         fans_active := 1
-;     }
-; }
+NumpadUp:: {
+    global fans_active
+    if fans_active == 1 {
+        WinClose("Halo Infinite")
+        send "!+{1}"
+        fans(2)
+        fans_active := 0
+    }
+    Else {
+        fans(1)
+        send "!+{2}"
+        run(multiPath)
+        fans_active := 1
+    }
+}
 
 ; Citra() {
 ;     send "{enter}"
@@ -220,14 +220,15 @@ NumpadIns:: {
 ; }
 
 
-; NumpadLeft::
-; {
-;     run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Sound Blaster Command.lnk"
-;     WinWaitActive "Sound Blaster Command"
-;     MouseClick "Left", 47, 619
-;     WinClose "Sound Blaster Command"
-;     Return
-; }
+NumpadAdd:: {
+    run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Sound Blaster Command.lnk"
+    WinWaitActive "Sound Blaster Command"
+    sleep 50
+    WinActivate "Sound Blaster Command"
+    MouseClick "Left", 449, 820
+    sleep 50
+    WinClose "Sound Blaster Command"
+}
 
 ; NumpadEnter:: run("sndvol")
 
