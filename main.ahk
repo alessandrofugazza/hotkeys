@@ -33,8 +33,8 @@ numpadleft:: {
 ; :o:d::document.
 ; #HotIf
 
-; #1:: WinActivate("Secondary")
-; #2:: WinActivate("Webtest Left")
+; #1:: WinActivate("Left")
+; #2:: WinActivate("Webtest")
 ; #3:: {
 ;     if WinActive('Photos') {
 ;         WinMinimize('Photos')
@@ -58,26 +58,26 @@ last_2nd_screen := ''
 +space::
 {
     global
-    if (last_2nd_screen == 'Secondary')
+    if (last_2nd_screen == 'Left')
     {
-        last_2nd_screen := 'Webtest Left'
-        WinActivate("Webtest Left")
+        last_2nd_screen := 'Webtest'
+        WinActivate("Webtest")
     } else {
-        last_2nd_screen := 'Secondary'
-        WinActivate("Secondary")
+        last_2nd_screen := 'Left'
+        WinActivate("Left")
     }
 }
 last_3rd_screen := ''
 ^+space::
 {
     global
-    if (last_3rd_screen == 'Company')
+    if (last_3rd_screen == 'Right')
     {
         last_3rd_screen := 'Spotify'
         WinActivate("ahk_exe Spotify.exe")
     } else {
-        last_3rd_screen := 'Company'
-        WinActivate("Company")
+        last_3rd_screen := 'Right'
+        WinActivate("Right")
     }
 }
 
@@ -220,15 +220,15 @@ NumpadUp:: {
 ; }
 
 
-NumpadAdd:: {
-    run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Sound Blaster Command.lnk"
-    WinWaitActive "Sound Blaster Command"
-    sleep 50
-    WinActivate "Sound Blaster Command"
-    MouseClick "Left", 449, 820
-    sleep 50
-    WinClose "Sound Blaster Command"
-}
+; NumpadAdd:: {
+;     run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Sound Blaster Command.lnk"
+;     WinWaitActive "Sound Blaster Command"
+;     sleep 50
+;     WinActivate "Sound Blaster Command"
+;     MouseClick "Left", 449, 820
+;     sleep 50
+;     WinClose "Sound Blaster Command"
+; }
 
 ; NumpadEnter:: run("sndvol")
 
