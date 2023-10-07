@@ -172,12 +172,12 @@ XButton1::
     send "{XButton1 Up}"
 }
 
+; run("ToDo")
 
-NumpadPgdn:: {
-    run("C:\Program Files\WindowsApps\Microsoft.Todos_2.102.62351.0_x64__8wekyb3d8bbwe\Todo.exe")
-    sleep 1000
-    Send "^n"
-}
+; NumpadRight:: {
+;     sleep 1000
+;     Send "^n"
+; }
 
 
 NumpadUp:: {
