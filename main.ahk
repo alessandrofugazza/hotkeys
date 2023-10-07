@@ -3,6 +3,7 @@
 #Include "functions.ahk"
 
 CoordMode "Mouse", "Screen"
+A_MenuMaskKey := "vkE8"
 
 fans_active := IniRead("settings.ini", "states", "fans_active")
 ; active_vpn := IniRead("settings.ini", "states", "active_vpn")
@@ -334,8 +335,8 @@ Volume_Down::
 ~!WheelUp:: Send "{WheelUp 4}"
 ~!WheelDown:: send "{WheelDown 4}"
 
-#HotIf WinActive("To Do")
-~enter:: WinClose
+; #HotIf WinActive("To Do")
+; ~enter:: WinClose
 
 #HotIf MouseIsOver("ahk_class Shell_TrayWnd")
 
