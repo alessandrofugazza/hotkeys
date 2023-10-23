@@ -1,17 +1,17 @@
-VPN(needed := 0) {
-    global active_vpn
-    if (needed != active_vpn) {
-        run proton
-        sleep long_interval
-        if WinActive("ahk_exe ProtonVPN.exe") {
-            click 168, 177
-            active_vpn := needed
-            sleep semilong_interval
-            WinClose("ahk_exe ProtonVPN.exe")
-        } else
-            msgbox("Error.")
-    }
-}
+; VPN(needed := 0) {
+;     global active_vpn
+;     if (needed != active_vpn) {
+;         run proton
+;         sleep long_interval
+;         if WinActive("ahk_exe ProtonVPN.exe") {
+;             click 168, 177
+;             active_vpn := needed
+;             sleep semilong_interval
+;             WinClose("ahk_exe ProtonVPN.exe")
+;         } else
+;             msgbox("Error.")
+;     }
+; }
 
 fans(sivDown, sivUp?) {
     Run siv
@@ -44,4 +44,26 @@ fans(sivDown, sivUp?) {
     }
     else
         msgbox("Error.")
+}
+
+runProgram(path, win_name) {
+    Run(path)
+    WinWait win_name
+    WinMaximize "A"
+}
+
+openGoogle() {
+    WinActivate("Main ahk_exe msedge.exe")
+    run ("https://www.google.com/")
+}
+
+sideScreenSwitch(win1, win2, last_win) {
+    if (last_win == win1) {
+        last_win := win2
+        WinActivate(win2)
+    } else {
+        last_win := win1
+        WinActivate(win1)
+    }
+    return last_win
 }

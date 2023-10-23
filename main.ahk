@@ -5,8 +5,8 @@
 CoordMode "Mouse", "Screen"
 A_MenuMaskKey := "vkE8"
 
-fans_active := IniRead("settings.ini", "states", "fans_active")
 ; active_vpn := IniRead("settings.ini", "states", "active_vpn")
+fans_active := IniRead("settings.ini", "states", "fans_active")
 
 default_interval := 50
 medium_interval := 250
@@ -14,72 +14,24 @@ semilong_interval := 1000
 long_interval := 4000
 superlong_interval := 7000
 
-proton := "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Proton\Proton VPN.lnk"
 siv := ".\SIV_task_shortcut.lnk"
-soloPath := "C:\Users\aless\Whatever\PS\rpcs3-v0.0.27-14935-711afeb6_win64\rpcs3.exe"
-multiPath := "C:\XboxGames\Halo Infinite\Content\HaloInfinite.exe"
+; proton := "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Proton\Proton VPN.lnk"
+multi_path := "C:\XboxGames\Halo Infinite\Content\HaloInfinite.exe"
 
-halo_mode := "C:\Users\aless\OneDrive\Desktop\Coding\Python\halo-mode\__pycache__\halo_mode.cpython-311.pyc"
+numpadleft:: runProgram("C:\Users\aless\AppData\Local\GitHubDesktop\GitHubDesktop.exe", "GitHub Desktop")
+#s:: openGoogle()
 
-numpadleft:: {
-    Run("C:\Users\aless\AppData\Local\GitHubDesktop\GitHubDesktop.exe")
-    WinWait "GitHub Desktop"
-    WinMaximize "A"
-}
-; #e:: Run("C:\Users\aless\OneDrive\Desktop\projects")
-; #HotIf WinActive("Visual Studio Code")
-; :o:cl::console.log(
-; :o:c::const`s
-; :o:l::let`s
-; :o:d::document.
-; #HotIf
-
-; #1:: WinActivate("Left")
-; #2:: WinActivate("Webtest")
-; #3:: {
-;     if WinActive('Photos') {
-;         WinMinimize('Photos')
-;     } else {
-;         WinMaximize("Photos")
-
-;     }
-; }
-; #4:: WinActivate("Webtest Right")
-#s::
-{
-    WinActivate("Main ahk_exe msedge.exe")
-    run ("https://www.google.com/")
-}
-; #space::
-; {
-;     WinActivate("main ahk_exe msedge.exe")
-;     send "^t"
-; }
-last_2nd_screen := ''
-+space::
-{
-    global
-    if (last_2nd_screen == 'Left')
-    {
-        last_2nd_screen := 'Webtest'
-        WinActivate("Webtest")
-    } else {
-        last_2nd_screen := 'Left'
-        WinActivate("Left")
+NumpadEnter:: {
+    global fans_active
+    if fans_active == 1 {
+        fans(2)
+        fans_active := 0
     }
-}
-last_3rd_screen := ''
-^+space::
-{
-    global
-    if (last_3rd_screen == 'Right')
-    {
-        last_3rd_screen := 'Spotify'
-        WinActivate("ahk_exe Spotify.exe")
-    } else {
-        last_3rd_screen := 'Right'
-        WinActivate("Right")
+    Else {
+        fans(3)
+        fans_active := 1
     }
+    IniWrite fans_active, "settings.ini", "states", "fans_active"
 }
 
 #WheelUp:: {
@@ -124,21 +76,7 @@ last_3rd_screen := ''
 #z:: Send("#g")
 ; #g:: Send("#z")
 
-NumpadSub:: {
-    global fans_active
-    if fans_active == 1 {
-        fans(2)
-        fans_active := 0
-    }
-    Else {
-        fans(1)
-        ; run("https://learn.epicode.com/dashboard")
-        run("https://epicodeschool.webex.com/meet/fs0323bit")
-        fans_active := 1
-    }
-    IniWrite fans_active, "settings.ini", "states", "fans_active"
-}
-
+NumpadSub:: run("https://epicodeschool.webex.com/meet/fs0323bit")
 
 NumpadEnd:: {
     if (WinActive("ahk-workspace")) {
@@ -185,13 +123,11 @@ NumpadUp:: {
     if fans_active == 1 {
         WinClose("Halo Infinite")
         send "!+{1}"
-        fans(2)
         fans_active := 0
     }
     Else {
-        fans(1)
         send "!+{2}"
-        run(multiPath)
+        run(multi_path)
         fans_active := 1
     }
 }
@@ -221,15 +157,15 @@ NumpadUp:: {
 ; }
 
 
-; NumpadAdd:: {
-;     run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Sound Blaster Command.lnk"
-;     WinWaitActive "Sound Blaster Command"
-;     sleep 50
-;     WinActivate "Sound Blaster Command"
-;     MouseClick "Left", 449, 820
-;     sleep 50
-;     WinClose "Sound Blaster Command"
-; }
+NumpadAdd:: {
+    run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Sound Blaster Command.lnk"
+    WinWaitActive "Sound Blaster Command"
+    sleep 50
+    WinActivate "Sound Blaster Command"
+    MouseClick "Left", 449, 820
+    sleep 50
+    WinClose "Sound Blaster Command"
+}
 
 ; NumpadEnter:: run("sndvol")
 
@@ -238,7 +174,7 @@ NumpadUp:: {
 
 ; NumpadDown:: run(halo_mode)
 
-Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
+; Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 
 
 ^XButton1:: send "{enter}"
@@ -264,6 +200,20 @@ WheelDown::
 ; * HOTIF
 
 #Hotif !GetKeyState("ScrollLock", "T") and !GetKeyState("CapsLock", "T")
+
+last_left_screen := ''
++space:: {
+    global
+    p_last_left_screen := last_left_screen
+    last_left_screen := sideScreenSwitch("Left", "Webtest", p_last_left_screen)
+}
+last_right_screen := ''
+^+space::
+{
+    global
+    p_last_right_screen := last_right_screen
+    last_right_screen := sideScreenSwitch("Right", "ahk_exe Spotify.exe", p_last_right_screen)
+}
 
 Volume_Up::
 +WheelUp::
@@ -332,8 +282,16 @@ Volume_Down::
 }
 
 #hotif WinActive("ahk_exe msedge.exe")
-~!WheelUp:: Send "{WheelUp 4}"
-~!WheelDown:: send "{WheelDown 4}"
+!WheelUp:: {
+    loop 4 {
+        Send "{WheelUp}"
+    }
+}
+!WheelDown:: {
+    loop 4 {
+        Send "{WheelDown}"
+    }
+}
 
 ; #HotIf WinActive("To Do")
 ; ~enter:: WinClose
