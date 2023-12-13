@@ -2,7 +2,7 @@
 
 #Include "functions.ahk"
 
-CoordMode "Mouse", "Screen"
+; CoordMode "Mouse", "Screen"
 A_MenuMaskKey := "vkE8"
 
 ; active_vpn := IniRead("settings.ini", "states", "active_vpn")
@@ -21,7 +21,9 @@ multi_path := "C:\XboxGames\Halo Infinite\Content\HaloInfinite.exe"
 numpadleft:: runProgram("C:\Users\aless\AppData\Local\GitHubDesktop\GitHubDesktop.exe", "GitHub Desktop")
 #s:: openGoogle()
 
-NumpadEnter:: {
++XButton1:: Send "{Media_Play_Pause}"
+
+NumpadIns:: {
     global fans_active
     if fans_active == 1 {
         fans(2)
@@ -67,7 +69,7 @@ NumpadEnter:: {
 ;     }
 ; }
 
-#d:: Run("C:\Users\aless\OneDrive\Desktop")
+#d:: Run("C:\Users\aless\Desktop")
 
 ; NumpadSub:: run("https://epicodeschool.webex.com/meet/fs0323bit")
 
@@ -157,14 +159,21 @@ NumpadUp:: {
 ; }
 
 
-NumpadAdd:: {
-    run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Sound Blaster Command.lnk"
-    WinWaitActive "Sound Blaster Command"
-    sleep 50
+NumpadHome:: {
+    ; run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Sound Blaster Command.lnk"
+    ; WinWaitActive "Sound Blaster Command"
+    ; sleep 50
+    ; MouseGetPos(&savedX, &savedY)
     WinActivate "Sound Blaster Command"
-    MouseClick "Left", 449, 820
-    sleep 50
-    WinClose "Sound Blaster Command"
+    win := WinExist("A")
+    ; WinGetPos(winX, winY, , , win)
+    MouseClick "Left", 50, 618
+    sleep 100
+    WinMinimize
+    ; MouseMove(savedX, savedY, 0)
+    ; MouseClick("left", winX + 100, winY + 100)
+    ; sleep 50
+    ; WinClose "Sound Blaster Command"
 }
 
 ; NumpadEnter:: run("sndvol")
@@ -174,16 +183,17 @@ NumpadAdd:: {
 
 ; NumpadDown:: run(halo_mode)
 
-; Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
+Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 
 
 ^XButton1:: send "{enter}"
 
-+XButton2:: Send "{Media_Next}"
+XButton2:: Send "{Media_Next}"
++XButton2:: Send "{Browser_Forward}"
 
 +MButton:: Send "{Volume_Mute}"
 
-+XButton1:: Send "{Media_Play_Pause}"
+; NumpadHome:: Send "{Media_Play_Pause}"
 
 ; ^+Space:: WinSetAlwaysOnTop -1, "A"
 
