@@ -3,6 +3,11 @@
 A_MenuMaskKey := "vkE8"
 A_ScriptName := "Hotkeys"
 A_IconTip := "Hotkeys"
+
+
+IconPath := "C:\Users\aless\Desktop\projects\personal\ahk\hotkeys\tray-icon.png"
+TraySetIcon IconPath
+
 ; intervals
 
 defaultInterval := 50
@@ -10,11 +15,6 @@ mediumInterval := 250
 semilongInterval := 1000
 longInterval := 4000
 superlongInterval := 7000
-
-; paths
-
-multiPath := "C:\XboxGames\Halo Infinite\Content\HaloInfinite.exe"
-soloPath := "C:\Users\aless\Desktop\Warhammer 40,000 Dawn of War II.url"
 
 ; exes
 chromeExe := "ahk_exe chrome.exe"
@@ -31,7 +31,7 @@ chromeExe := "ahk_exe chrome.exe"
 #z:: Send("#g")
 
 
-NumpadSub:: {
+NumpadMult:: {
     choice := InputBox("1. Study`n2. Hotkeys`n3. Almost Fullscreen", "Quick Code", "w100 h200")
     choice := choice.Value
     if choice == "1"
@@ -45,30 +45,29 @@ NumpadSub:: {
 
 }
 
-NumpadClear:: {
-    SendInput "{Media_Stop}"
-    WinActivate "Sound Blaster Command"
-    win := WinExist("A")
-    MouseClick "Left", 50, 618
-    sleep 100
-    WinMinimize
-}
-
-; NumpadEnd:: {
-;     spotifyExe := "ahk_exe Spotify.exe"
-;     if WinActive(spotifyExe)
-;         WinMinimize(spotifyExe)
-;     else
-;         WinActivate(spotifyExe)
+; NumpadClear:: {
+;     SendInput "{Media_Stop}"
+;     WinActivate "Sound Blaster Command"
+;     win := WinExist("A")
+;     MouseClick "Left", 50, 618
+;     sleep 100
+;     WinMinimize
 ; }
+
+NumpadClear:: {
+    spotifyExe := "ahk_exe Spotify.exe"
+    if WinActive(spotifyExe)
+        WinMinimize(spotifyExe)
+    else
+        WinActivate(spotifyExe)
+}
 
 Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 
 ^XButton1:: send "{enter}"
 
-+XButton2:: Send "{Media_Next}"
++XButton1:: Send "{Media_Play_Pause}"
 
-; +MButton:: Send "{Volume_Mute}"
 
 ; * HOTIF
 
@@ -101,16 +100,16 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 ^c:: {
     Send "^c"
     sleep 1
-    sourceString := "Matthes, Eric. Python Crash Course, 3rd Edition: A Hands-On, Project-Based Introduction to Programming"
+    sourceString := "Wieruch, Robin. The Road to React: The React.js with Hooks in JavaScript Book (2024 Edition) (p. 78). leanpub.com. Kindle Edition."
     sourcePos := InStr(A_Clipboard, sourceString) - 5
     A_Clipboard := SubStr(A_Clipboard, 1, sourcePos)
 }
 
+
 #HotIf MouseIsOver("ahk_class Shell_TrayWnd")
 
 XButton2:: Send "{Media_Next}"
-
-MButton:: Send "{Volume_Mute}"
+XButton1:: Send "{Media_Play_Pause}"
 
 MouseIsOver(WinTitle) {
     MouseGetPos , , &Win
