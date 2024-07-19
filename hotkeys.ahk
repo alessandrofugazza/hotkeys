@@ -19,6 +19,7 @@ superlongInterval := 7000
 ; exes
 chromeExe := "ahk_exe chrome.exe"
 
+
 #WheelUp:: {
     if WinActive("Main " chromeExe)
         send ('!{home}')
@@ -95,14 +96,31 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
     send "{enter}"
 }
 
-
+KindleSourceStrings := [
+    "Meyers, Mike; Everett, Travis A.; Hutz, Andrew. CompTIA A+ Certification All-in-One Exam Guide, Eleventh Edition (Exams 220-1101 & 220-1102) (p. 16). McGraw Hill LLC. Kindle Edit"
+]
+EndingCharacters := [
+    ".",
+    ","
+]
 #HotIf WinActive("ahk_exe Kindle.exe")
 ^c:: {
+    SourcePos := 0
     Send "^c"
     sleep 1
-    sourceString := "Wieruch, Robin. The Road to React: The React.js with Hooks in JavaScript Book (2024 Edition) (p. 78). leanpub.com. Kindle Edition."
-    sourcePos := InStr(A_Clipboard, sourceString) - 5
-    A_Clipboard := SubStr(A_Clipboard, 1, sourcePos)
+    for String in KindleSourceStrings {
+        if SourcePos := (InStr(A_Clipboard, String) - 5) {
+            A_Clipboard := SubStr(A_Clipboard, 1, SourcePos)
+            LastCharacter := SubStr(A_Clipboard, -1)
+            for EndingCharacter in EndingCharacters {
+                if LastCharacter == EndingCharacter {
+                    A_Clipboard := SubStr(A_Clipboard, 1, -1)
+                    break
+                }
+            }
+            break
+        }
+    }
 }
 
 
@@ -115,3 +133,6 @@ MouseIsOver(WinTitle) {
     MouseGetPos , , &Win
     return WinExist(WinTitle . " ahk_id " . Win)
 }
+
+
+#HotIf WinActive("ahk_exe Kindle.exe")
