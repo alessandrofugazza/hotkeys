@@ -98,13 +98,20 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 
 KindleSourceStrings := [
     "Meyers, Mike; Everett, Travis A.; Hutz, Andrew. CompTIA A+ Certification All-in-One Exam Guide, Eleventh Edition (Exams 220-1101 & 220-1102)",
-    "Sartre, Jean-Paul. L'être et le néant. Essai d'ontologie phénoménologique (French Edition)"
+    "Sartre, Jean-Paul. L'être et le néant. Essai d'ontologie phénoménologique (French Edition)",
+    "McFedries, Paul. MOS Study Guide for Microsoft Excel Expert Exam MO-201",
+    "Rochester, Myrna Bell. Easy French Step-by-Step: Master High-Frequency Grammar for French Proficiency--Fast!"
 ]
 EndingCharacters := [
     ".",
     ","
 ]
 #HotIf WinActive("ahk_exe Kindle.exe")
+Space:: {
+    Send "{Right 3}"
+    sleep 10
+    Send "{Space}"
+}
 ^c:: {
     SourcePos := 0
     Send "^c"
@@ -113,14 +120,23 @@ EndingCharacters := [
         if (SourcePos := (InStr(A_Clipboard, String) - 5)) > 0 {
             A_Clipboard := SubStr(A_Clipboard, 1, SourcePos)
             LastCharacter := SubStr(A_Clipboard, -1)
-            for EndingCharacter in EndingCharacters {
-                if LastCharacter == EndingCharacter {
-                    A_Clipboard := SubStr(A_Clipboard, 1, -1)
-                    break
+            if !InStr(A_Clipboard, " ") || LastCharacter != "." {
+                for EndingCharacter in EndingCharacters {
+                    if LastCharacter == EndingCharacter {
+                        A_Clipboard := SubStr(A_Clipboard, 1, -1)
+                        break
+                    }
                 }
             }
             break
         }
+    }
+}
+Shift:: {
+    if WinGetTitle("A") == "Alessandro's Kindle for PC" {
+        Click 2
+    } else {
+        Send "^!l"
     }
 }
 
@@ -134,6 +150,3 @@ MouseIsOver(WinTitle) {
     MouseGetPos , , &Win
     return WinExist(WinTitle . " ahk_id " . Win)
 }
-
-
-#HotIf WinActive("ahk_exe Kindle.exe")
