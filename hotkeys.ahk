@@ -97,7 +97,8 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 }
 
 KindleSourceStrings := [
-    "Meyers, Mike; Everett, Travis A.; Hutz, Andrew. CompTIA A+ Certification All-in-One Exam Guide, Eleventh Edition (Exams 220-1101 & 220-1102) (p. 16). McGraw Hill LLC. Kindle Edit"
+    "Meyers, Mike; Everett, Travis A.; Hutz, Andrew. CompTIA A+ Certification All-in-One Exam Guide, Eleventh Edition (Exams 220-1101 & 220-1102)",
+    "Sartre, Jean-Paul. L'être et le néant. Essai d'ontologie phénoménologique (French Edition)"
 ]
 EndingCharacters := [
     ".",
@@ -107,9 +108,9 @@ EndingCharacters := [
 ^c:: {
     SourcePos := 0
     Send "^c"
-    sleep 1
+    sleep 100
     for String in KindleSourceStrings {
-        if SourcePos := (InStr(A_Clipboard, String) - 5) {
+        if (SourcePos := (InStr(A_Clipboard, String) - 5)) > 0 {
             A_Clipboard := SubStr(A_Clipboard, 1, SourcePos)
             LastCharacter := SubStr(A_Clipboard, -1)
             for EndingCharacter in EndingCharacters {
