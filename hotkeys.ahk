@@ -1,6 +1,4 @@
-﻿#Requires AutoHotkey v2.0
-
-A_MenuMaskKey := "vkE8"
+﻿A_MenuMaskKey := "vkE8"
 A_ScriptName := "Hotkeys"
 A_IconTip := "Hotkeys"
 
@@ -19,12 +17,25 @@ superlongInterval := 7000
 ; exes
 chromeExe := "ahk_exe chrome.exe"
 
-
 #WheelUp:: {
-    if WinActive("Main " chromeExe)
-        send ('!{home}')
-    else
-        WinActivate("Main " chromeExe)
+    WinActivate("Main " chromeExe)
+}
+#WheelDown:: {
+    WinMinimize("Main " chromeExe)
+}
+
+LButtonIsDown := false
+
+Ins:: {
+    global
+    if LButtonIsDown {
+        Send "{LButton Up}"
+        LButtonIsDown := false
+    } else {
+        Send "{LButton Down}"
+        ToolTip "LButton is down"
+        LButtonIsDown := true
+    }
 }
 
 #d:: Run("C:\Users\aless\Desktop")
@@ -72,6 +83,16 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 
 ; * HOTIF
 
+#HotIf MouseIsOver("ahk_class Shell_TrayWnd")
+
+XButton2:: Send "{Media_Next}"
+XButton1:: Send "{Media_Play_Pause}"
+
+MouseIsOver(WinTitle) {
+    MouseGetPos , , &Win
+    return WinExist(WinTitle . " ahk_id " . Win)
+}
+
 #HotIf WinActive(chromeExe)
 
 ^d::
@@ -100,19 +121,72 @@ KindleSourceStrings := [
     "Meyers, Mike; Everett, Travis A.; Hutz, Andrew. CompTIA A+ Certification All-in-One Exam Guide, Eleventh Edition (Exams 220-1101 & 220-1102)",
     "Sartre, Jean-Paul. L'être et le néant. Essai d'ontologie phénoménologique (French Edition)",
     "McFedries, Paul. MOS Study Guide for Microsoft Excel Expert Exam MO-201",
-    "Rochester, Myrna Bell. Easy French Step-by-Step: Master High-Frequency Grammar for French Proficiency--Fast!"
+    "Rochester, Myrna Bell. Easy French Step-by-Step: Master High-Frequency Grammar for French Proficiency--Fast!",
+    "Nietzsche, Friedrich Wilhelm. Menschliches, Allzumenschliches (German Edition)",
+    "Wright, Robert. The Moral Animal: Why We Are, the Way We Are: The New Science of Evolutionary Psychology",
+    "Rousseau, Jean-Jacques. Du Contrat Social (French Edition)",
 ]
 EndingCharacters := [
     ".",
-    ","
+    ",",
+    "—",
 ]
 #HotIf WinActive("ahk_exe Kindle.exe")
+
 Space:: {
-    Send "{Right 3}"
-    sleep 10
-    Send "{Space}"
+    KindleHighlight()
 }
+
 ^c:: {
+    KindleCopy()
+}
+
+Shift:: {
+    if WinGetTitle("A") == "Alessandro's Kindle for PC" {
+        Click 2
+    } else {
+        Send "^!l"
+    }
+}
+
+XButton2:: {
+    Send "{Right}"
+}
+
+XButton1:: {
+    Send "{RButton}"
+    KindleHighlight()
+}
+
+; XButton1:: {
+;     Send "{Left}"
+; }
+; ~XButton2 Up:: {
+~LButton & RButton:: {
+    BlockInput(true)
+    Send "{LButton Up}"
+    Send "{RButton Up}"
+    KindleCopy()
+    Send "{RButton}"
+    KindleHighlight()
+    BlockInput(false)
+}
+
+; ~RButton:: {
+;     ; When right mouse button is pressed down, send left mouse button down
+;     Send("{LButton down}")
+; }
+
+; ~RButton Up:: {
+;     ; When right mouse button is released, send left mouse button up
+;     Send("{LButton up}")
+; }
+
+; RButton:: {
+;     Send "{LButton}"
+; }
+
+KindleCopy() {
     SourcePos := 0
     Send "^c"
     sleep 100
@@ -132,21 +206,9 @@ Space:: {
         }
     }
 }
-Shift:: {
-    if WinGetTitle("A") == "Alessandro's Kindle for PC" {
-        Click 2
-    } else {
-        Send "^!l"
-    }
-}
 
-
-#HotIf MouseIsOver("ahk_class Shell_TrayWnd")
-
-XButton2:: Send "{Media_Next}"
-XButton1:: Send "{Media_Play_Pause}"
-
-MouseIsOver(WinTitle) {
-    MouseGetPos , , &Win
-    return WinExist(WinTitle . " ahk_id " . Win)
+KindleHighlight() {
+    Send "{Right 3}"
+    sleep 10
+    Send "{Space}"
 }
