@@ -45,14 +45,14 @@ Ins:: {
 
 
 NumpadMult:: {
-    choice := InputBox("1. Study`n2. Hotkeys`n3. Almost Fullscreen", "Quick Code", "w100 h200")
+    choice := InputBox("1. Hotkeys`n2. Study`n3. Almost Fullscreen", "Quick Code", "w100 h200")
     choice := choice.Value
     if choice == "1"
-        Run(A_ScriptDir . "`\..`\study-win`\study-win.code-workspace")
-    else if choice == "2"
         Run(A_ScriptDir . "`\..`\hotkeys`\hotkeys.code-workspace")
+    else if choice == "2"
+        Run(A_ScriptDir . "`\..`\study-win`\study-win.code-workspace")
     else if choice == "3"
-        Run(A_ScriptDir . "`\..`\..`\web development`\almost-fullscreen`\almost-fullscreen.code-workspace")
+        Run(A_ScriptDir . "`\..`\..`\web-development`\almost-fullscreen`\almost-fullscreen.code-workspace")
     else
         MsgBox "idiot"
 
