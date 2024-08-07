@@ -15,13 +15,14 @@ longInterval := 4000
 superlongInterval := 7000
 
 ; exes
-chromeExe := "ahk_exe chrome.exe"
+ChromeExe := "ahk_exe chrome.exe"
+KindleExe := "ahk_exe kindle.exe"
 
 #WheelUp:: {
-    WinActivate("Main " chromeExe)
+    WinActivate("Main " ChromeExe)
 }
 #WheelDown:: {
-    WinMinimize("Main " chromeExe)
+    WinMinimize("Main " ChromeExe)
 }
 
 LButtonIsDown := false
@@ -80,6 +81,10 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 
 +XButton1:: Send "{Media_Play_Pause}"
 
+MouseIsOver(WinTitle) {
+    MouseGetPos , , &Win
+    return WinExist(WinTitle . " ahk_id " . Win)
+}
 
 ; * HOTIF
 
@@ -88,12 +93,8 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 XButton2:: Send "{Media_Next}"
 XButton1:: Send "{Media_Play_Pause}"
 
-MouseIsOver(WinTitle) {
-    MouseGetPos , , &Win
-    return WinExist(WinTitle . " ahk_id " . Win)
-}
 
-#HotIf WinActive(chromeExe)
+#HotIf WinActive(ChromeExe)
 
 ^d::
 {
@@ -131,7 +132,8 @@ EndingCharacters := [
     ",",
     "—",
 ]
-#HotIf WinActive("ahk_exe Kindle.exe")
+
+#HotIf WinActive("ahk_exe Kindle.exe") || MouseIsOver("ahk_exe Kindle.exe")
 
 Space:: {
     KindleHighlight()
@@ -142,6 +144,7 @@ Space:: {
 }
 
 Shift:: {
+    CheckIfKindleIsActive()
     if WinGetTitle("A") == "Alessandro's Kindle for PC" {
         Click 2
     } else {
@@ -150,19 +153,17 @@ Shift:: {
 }
 
 XButton2:: {
+    CheckIfKindleIsActive()
     Send "{Right}"
 }
 
 XButton1:: {
-    Send "{RButton}"
-    KindleHighlight()
+    CheckIfKindleIsActive()
+    Send "{Left}"
 }
 
-; XButton1:: {
-;     Send "{Left}"
-; }
-; ~XButton2 Up:: {
 ~LButton & RButton:: {
+    CheckIfKindleIsActive()
     BlockInput(true)
     Send "{LButton Up}"
     Send "{RButton Up}"
@@ -171,20 +172,6 @@ XButton1:: {
     KindleHighlight()
     BlockInput(false)
 }
-
-; ~RButton:: {
-;     ; When right mouse button is pressed down, send left mouse button down
-;     Send("{LButton down}")
-; }
-
-; ~RButton Up:: {
-;     ; When right mouse button is released, send left mouse button up
-;     Send("{LButton up}")
-; }
-
-; RButton:: {
-;     Send "{LButton}"
-; }
 
 KindleCopy() {
     SourcePos := 0
@@ -211,4 +198,10 @@ KindleHighlight() {
     Send "{Right 3}"
     sleep 10
     Send "{Space}"
+}
+
+CheckIfKindleIsActive() {
+    if !WinActive(KindleExe) {
+        WinActivate(KindleExe)
+    }
 }
