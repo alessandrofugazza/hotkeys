@@ -34,7 +34,6 @@ Ins:: {
         LButtonIsDown := false
     } else {
         Send "{LButton Down}"
-        ToolTip "LButton is down"
         LButtonIsDown := true
     }
 }
@@ -57,15 +56,6 @@ NumpadMult:: {
         MsgBox "idiot"
 
 }
-
-; NumpadClear:: {
-;     SendInput "{Media_Stop}"
-;     WinActivate "Sound Blaster Command"
-;     win := WinExist("A")
-;     MouseClick "Left", 50, 618
-;     sleep 100
-;     WinMinimize
-; }
 
 NumpadClear:: {
     spotifyExe := "ahk_exe Spotify.exe"
@@ -107,9 +97,6 @@ XButton1:: Send "{Media_Play_Pause}"
         word := InputBox("Enter the word to define", "Dictionary").value
         search := "define " . word
     }
-    ; MsgBox search
-    ; A_Clipboard := search
-    ; ClipWait
     send "^t"
     send "https://www.bing.com/"
     send "{Enter}"
@@ -118,15 +105,6 @@ XButton1:: Send "{Media_Play_Pause}"
     send "{enter}"
 }
 
-KindleSourceStrings := [
-    "Meyers, Mike; Everett, Travis A.; Hutz, Andrew. CompTIA A+ Certification All-in-One Exam Guide, Eleventh Edition (Exams 220-1101 & 220-1102)",
-    "Sartre, Jean-Paul. L'être et le néant. Essai d'ontologie phénoménologique (French Edition)",
-    "McFedries, Paul. MOS Study Guide for Microsoft Excel Expert Exam MO-201",
-    "Rochester, Myrna Bell. Easy French Step-by-Step: Master High-Frequency Grammar for French Proficiency--Fast!",
-    "Nietzsche, Friedrich Wilhelm. Menschliches, Allzumenschliches (German Edition)",
-    "Wright, Robert. The Moral Animal: Why We Are, the Way We Are: The New Science of Evolutionary Psychology",
-    "Rousseau, Jean-Jacques. Du Contrat Social (French Edition)",
-]
 EndingCharacters := [
     ".",
     ",",
@@ -174,24 +152,28 @@ XButton1:: {
 }
 
 KindleCopy() {
-    SourcePos := 0
     Send "^c"
     sleep 100
-    for String in KindleSourceStrings {
-        if (SourcePos := (InStr(A_Clipboard, String) - 5)) > 0 {
-            A_Clipboard := SubStr(A_Clipboard, 1, SourcePos)
-            LastCharacter := SubStr(A_Clipboard, -1)
-            if !InStr(A_Clipboard, " ") || LastCharacter != "." {
-                for EndingCharacter in EndingCharacters {
-                    if LastCharacter == EndingCharacter {
-                        A_Clipboard := SubStr(A_Clipboard, 1, -1)
-                        break
-                    }
-                }
+    Lines := StrSplit(A_Clipboard, "`n")
+    Loop 2 {
+        Lines.RemoveAt(Lines.Length)
+    }
+    Result := ""
+    for Line in Lines {
+        Result .= Line "`n"
+    }
+    Result := SubStr(Result, 1, -2)
+    LastCharacter := SubStr(Result, -1)
+    if !InStr(Result, " ") || LastCharacter != "." {
+        for EndingCharacter in EndingCharacters {
+            if LastCharacter == EndingCharacter {
+                Result := SubStr(Result, 1, -1)
+                break
             }
-            break
         }
     }
+    A_Clipboard := Result
+
 }
 
 KindleHighlight() {
