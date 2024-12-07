@@ -2,6 +2,8 @@
 A_ScriptName := "Hotkeys"
 A_IconTip := "Hotkeys"
 
+CoordMode("Mouse", "Screen")
+
 
 IconPath := "C:\Users\aless\Desktop\projects\personal\ahk\hotkeys\tray-icon.png"
 TraySetIcon IconPath
@@ -14,9 +16,13 @@ semilongInterval := 1000
 longInterval := 4000
 superlongInterval := 7000
 
+KindlePointer := "select"
+AdobePointer := "select"
+
 ; exes
 ChromeExe := "ahk_exe chrome.exe"
 KindleExe := "ahk_exe kindle.exe"
+AdobeExe := "ahk_exe Acrobat.exe"
 
 #WheelUp:: {
     WinActivate("Main " ChromeExe)
@@ -40,30 +46,28 @@ Ins:: {
 
 #d:: Run("C:\Users\aless\Desktop")
 
-#z:: Send("#g")
+; #z:: Send("#g")
 
 
-NumpadMult:: {
-    choice := InputBox("1. Hotkeys`n2. Study`n3. Almost Fullscreen", "Quick Code", "w100 h200")
-    choice := choice.Value
-    if choice == "1"
-        Run(A_ScriptDir . "`\..`\hotkeys`\hotkeys.code-workspace")
-    else if choice == "2"
-        Run(A_ScriptDir . "`\..`\study-win`\study-win.code-workspace")
-    else if choice == "3"
-        Run(A_ScriptDir . "`\..`\..`\web-development`\almost-fullscreen`\almost-fullscreen.code-workspace")
-    else
-        MsgBox "idiot"
+; NumpadMult:: {
+;     choice := InputBox("1. Hotkeys`n2. Study", "Quick Code", "w100 h200")
+;     choice := choice.Value
+;     if choice == "1"
+;         Run(A_ScriptDir . "`\..`\hotkeys`\hotkeys.code-workspace")
+;     else if choice == "2"
+;         Run(A_ScriptDir . "`\..`\study-win`\study-win.code-workspace")
+;     else
+;         MsgBox "idiot"
 
-}
+; }
 
-NumpadClear:: {
-    spotifyExe := "ahk_exe Spotify.exe"
-    if WinActive(spotifyExe)
-        WinMinimize(spotifyExe)
-    else
-        WinActivate(spotifyExe)
-}
+; NumpadClear:: {
+;     spotifyExe := "ahk_exe Spotify.exe"
+;     if WinActive(spotifyExe)
+;         WinMinimize(spotifyExe)
+;     else
+;         WinActivate(spotifyExe)
+; }
 
 Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 
@@ -90,28 +94,50 @@ XButton1:: Send "{Media_Play_Pause}"
 {
     A_Clipboard := ''
     send '^c'
-    ClipWait
+    sleep 100
     if (A_Clipboard) {
         search := "define " . A_Clipboard
     } else {
         word := InputBox("Enter the word to define", "Dictionary").value
         search := "define " . word
     }
-    send "^t"
-    send "https://www.bing.com/"
-    send "{Enter}"
-    sleep 1000
+    Run("https://www.bing.com/")
+    sleep 500
     send search
     send "{enter}"
 }
+
+^s:: {
+    send("^d")
+}
+
+
+#HotIf MouseIsOver(AdobeExe)
+
+MButton::
+{
+    global AdobePointer
+    if AdobePointer == "select" {
+        ChangeCursorKey := "h"
+        AdobePointer := "pan"
+    } else if AdobePointer == "pan" {
+        ChangeCursorKey := "v"
+        AdobePointer := "select"
+    } else {
+        MsgBox "the fuck did you do"
+        return
+    }
+    Send(ChangeCursorKey)
+}
+
+
+#HotIf WinActive(KindleExe) || MouseIsOver(KindleExe)
 
 EndingCharacters := [
     ".",
     ",",
     "—",
 ]
-
-#HotIf WinActive("ahk_exe Kindle.exe") || MouseIsOver("ahk_exe Kindle.exe")
 
 Space:: {
     KindleHighlight()
@@ -130,11 +156,32 @@ Shift:: {
     }
 }
 
+MButton::
+{
+    global KindlePointer
+    MouseGetPos(&originalX, &originalY)
+    if KindlePointer == "select" {
+        targetX := 277
+        KindlePointer := "pan"
+    } else if KindlePointer == "pan" {
+        targetX := 334
+        KindlePointer := "select"
+    } else {
+        MsgBox "the fuck did you do"
+        return
+    }
+    targetY := 70
+    Click(targetX, targetY)
+    MouseMove(originalX, originalY)
+}
+
+d::
 XButton2:: {
     CheckIfKindleIsActive()
     Send "{Right}"
 }
 
+a::
 XButton1:: {
     CheckIfKindleIsActive()
     Send "{Left}"
@@ -142,21 +189,24 @@ XButton1:: {
 
 ~LButton & RButton:: {
     CheckIfKindleIsActive()
-    BlockInput(true)
     Send "{LButton Up}"
     Send "{RButton Up}"
     KindleCopy()
     Send "{RButton}"
     KindleHighlight()
-    BlockInput(false)
 }
 
 KindleCopy() {
     Send "^c"
     sleep 100
     Lines := StrSplit(A_Clipboard, "`n")
-    Loop 2 {
-        Lines.RemoveAt(Lines.Length)
+    if (Lines.Length > 2) {
+        Loop 2 {
+            Lines.RemoveAt(Lines.Length)
+        }
+    } else {
+        MsgBox "ERROR", , 1
+        return
     }
     Result := ""
     for Line in Lines {
