@@ -24,6 +24,29 @@ ChromeExe := "ahk_exe chrome.exe"
 KindleExe := "ahk_exe kindle.exe"
 AdobeExe := "ahk_exe Acrobat.exe"
 
+
+; MyGui := Gui()
+
+; checkbox := MyGui.Add("Checkbox", "vMyCheckbox", "Enable Feature")
+
+; button := MyGui.Add("Button", "Default", "Submit")
+
+; button.OnEvent("Click", OnButtonClick)
+
+; OnButtonClick(*) {
+;     MyGui.Submit()
+;     isChecked := MyGui["MyCheckbox"].Value
+;     MsgBox(isChecked ? "Feature Enabled" : "Feature Disabled")
+; }
+
+; MyGui.Show()
+
+!F1:: {
+    Send("{LWin Down}a{LWin Up}")
+    sleep 100
+    send("{Enter}")
+}
+
 #WheelUp:: {
     WinActivate("Main " ChromeExe)
 }
@@ -102,7 +125,7 @@ XButton1:: Send "{Media_Play_Pause}"
         search := "define " . word
     }
     Run("https://www.bing.com/")
-    sleep 500
+    sleep 700
     send search
     send "{enter}"
 }
@@ -130,8 +153,12 @@ MButton::
     Send(ChangeCursorKey)
 }
 
+IsCursorInMainMonitor() {
+    MouseGetPos(&x, &y)
+    return (x >= 0 && x <= 1920 && y >= 0 && y <= 1080)
+}
 
-#HotIf WinActive(KindleExe) || MouseIsOver(KindleExe)
+#HotIf (WinActive(KindleExe) && IsCursorInMainMonitor()) || MouseIsOver(KindleExe)
 
 EndingCharacters := [
     ".",
