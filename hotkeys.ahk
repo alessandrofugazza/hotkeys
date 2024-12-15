@@ -23,6 +23,7 @@ AdobePointer := "select"
 ChromeExe := "ahk_exe chrome.exe"
 KindleExe := "ahk_exe kindle.exe"
 AdobeExe := "ahk_exe Acrobat.exe"
+ChatGPT := "ahk_exe ChatGPT.exe"
 
 
 ; MyGui := Gui()
@@ -47,42 +48,40 @@ AdobeExe := "ahk_exe Acrobat.exe"
     send("{Enter}")
 }
 
+#WheelDown:: {
+    WinActivate(ChatGPT)
+}
 #WheelUp:: {
     WinActivate("Main " ChromeExe)
-}
-#WheelDown:: {
-    WinMinimize("Main " ChromeExe)
 }
 
 LButtonIsDown := false
 
-Ins:: {
-    global
-    if LButtonIsDown {
-        Send "{LButton Up}"
-        LButtonIsDown := false
-    } else {
-        Send "{LButton Down}"
-        LButtonIsDown := true
-    }
-}
+; Ins:: {
+;     global
+;     if LButtonIsDown {
+;         Send "{LButton Up}"
+;         LButtonIsDown := false
+;     } else {
+;         Send "{LButton Down}"
+;         LButtonIsDown := true
+;     }
+; }
 
 #d:: Run("C:\Users\aless\Desktop")
 
 ; #z:: Send("#g")
 
 
-; NumpadMult:: {
-;     choice := InputBox("1. Hotkeys`n2. Study", "Quick Code", "w100 h200")
-;     choice := choice.Value
-;     if choice == "1"
-;         Run(A_ScriptDir . "`\..`\hotkeys`\hotkeys.code-workspace")
-;     else if choice == "2"
-;         Run(A_ScriptDir . "`\..`\study-win`\study-win.code-workspace")
-;     else
-;         MsgBox "idiot"
+Ins:: {
+    choice := InputBox("1. Hotkeys", "Quick Code", "w100 h200")
+    choice := choice.Value
+    if choice == "1"
+        Run(A_ScriptDir . "`\..`\hotkeys`\hotkeys.code-workspace")
+    else
+        MsgBox "idiot"
 
-; }
+}
 
 ; NumpadClear:: {
 ;     spotifyExe := "ahk_exe Spotify.exe"
@@ -115,15 +114,17 @@ XButton1:: Send "{Media_Play_Pause}"
 
 ^d::
 {
-    A_Clipboard := ''
+    ; A_Clipboard := ''
     send '^c'
-    sleep 100
-    if (A_Clipboard) {
-        search := "define " . A_Clipboard
-    } else {
-        word := InputBox("Enter the word to define", "Dictionary").value
-        search := "define " . word
-    }
+    ; sleep 100
+    ClipWait
+    ; if (WinActive(ChromeExe)) {
+    ;     search := "define " . A_Clipboard
+    ; } else {
+    ;     word := InputBox("Enter the word to define", "Dictionary").value
+    ;     search := "define " . word
+    ; }
+    search := "define " . A_Clipboard
     Run("https://www.bing.com/")
     sleep 700
     send search
