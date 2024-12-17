@@ -16,8 +16,8 @@ semilongInterval := 1000
 longInterval := 4000
 superlongInterval := 7000
 
-KindlePointer := "select"
-AdobePointer := "select"
+KindlePointer := "pan"
+AdobePointer := "pan"
 
 ; exes
 ChromeExe := "ahk_exe chrome.exe"
