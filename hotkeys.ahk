@@ -116,8 +116,8 @@ XButton1:: Send "{Media_Play_Pause}"
 {
     ; A_Clipboard := ''
     send '^c'
-    ; sleep 100
-    ClipWait
+    sleep 100
+    ; ClipWait
     ; if (WinActive(ChromeExe)) {
     ;     search := "define " . A_Clipboard
     ; } else {
