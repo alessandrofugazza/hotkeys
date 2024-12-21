@@ -104,3 +104,14 @@ CheckIfKindleIsActive() {
         WinActivate(KindleExe)
     }
 }
+
+; Ins:: {
+;     global
+;     if LButtonIsDown {
+;         Send "{LButton Up}"
+;         LButtonIsDown := false
+;     } else {
+;         Send "{LButton Down}"
+;         LButtonIsDown := true
+;     }
+; }

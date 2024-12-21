@@ -25,6 +25,7 @@ KindleExe := "ahk_exe kindle.exe"
 AdobeExe := "ahk_exe Acrobat.exe"
 ChatGPT := "ahk_exe ChatGPT.exe"
 
+#Include UtilityFunctions.ahk
 
 ; MyGui := Gui()
 
@@ -57,16 +58,6 @@ ChatGPT := "ahk_exe ChatGPT.exe"
 
 LButtonIsDown := false
 
-; Ins:: {
-;     global
-;     if LButtonIsDown {
-;         Send "{LButton Up}"
-;         LButtonIsDown := false
-;     } else {
-;         Send "{LButton Down}"
-;         LButtonIsDown := true
-;     }
-; }
 
 #d:: Run("C:\Users\aless\Desktop")
 
@@ -97,10 +88,6 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 
 +XButton1:: Send "{Media_Play_Pause}"
 
-MouseIsOver(WinTitle) {
-    MouseGetPos , , &Win
-    return WinExist(WinTitle . " ahk_id " . Win)
-}
 
 ; * HOTIF
 
@@ -152,11 +139,6 @@ MButton::
         return
     }
     Send(ChangeCursorKey)
-}
-
-IsCursorInMainMonitor() {
-    MouseGetPos(&x, &y)
-    return (x >= 0 && x <= 1920 && y >= 0 && y <= 1080)
 }
 
 #Include Kindle.ahk
