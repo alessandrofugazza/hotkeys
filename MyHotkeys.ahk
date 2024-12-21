@@ -39,6 +39,11 @@ ChatGPTExe := "ahk_exe ChatGPT.exe"
     WinActivate("Main " ChromeExe)
 }
 
+^!a::
+{
+    WinActivate("ahk_exe AutoHotkey64_UIA.exe")
+}
+
 LButtonIsDown := false
 
 
