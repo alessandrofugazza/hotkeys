@@ -24,21 +24,7 @@ ChatGPTExe := "ahk_exe ChatGPT.exe"
 
 #Include UtilityFunctions.ahk
 
-; MyGui := Gui()
-
-; checkbox := MyGui.Add("Checkbox", "vMyCheckbox", "Enable Feature")
-
-; button := MyGui.Add("Button", "Default", "Submit")
-
-; button.OnEvent("Click", OnButtonClick)
-
-; OnButtonClick(*) {
-;     MyGui.Submit()
-;     isChecked := MyGui["MyCheckbox"].Value
-;     MsgBox(isChecked ? "Feature Enabled" : "Feature Disabled")
-; }
-
-; MyGui.Show()
+#Include GUI.ahk
 
 !F1:: {
     Send("{LWin Down}a{LWin Up}")
