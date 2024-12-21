@@ -1,3 +1,5 @@
+KindleExe := "ahk_exe kindle.exe"
+
 #HotIf (WinActive(KindleExe) && IsCursorInMainMonitor()) || MouseIsOver(KindleExe)
 
 EndingCharacters := [
