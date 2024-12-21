@@ -80,3 +80,4 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 #Include Chrome.ahk
 #Include Adobe.ahk
 #Include Kindle.ahk
+#Include Tray.ahk
