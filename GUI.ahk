@@ -65,9 +65,20 @@ MyGui := Gui()
 ; button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap["CompTIA"][1], StudyWindowsMap["CompTIA"][2]))
 
 ButtonWidth := 120
+buttonHeight := 30
+verticalSpacing := 1
+
+HorizontalSpacing := 5
+
+ButtonsPerColumn := 10
 
 for StudySubjectName in SortedStudyWindowsMapKeys {
-    button := MyGui.Add("Button", "w" ButtonWidth, StudyWindowsMap[StudySubjectName][2])
+    colIndex := (A_Index - 1) // ButtonsPerColumn
+    rowIndex := Mod((A_Index - 1), ButtonsPerColumn)
+    xPos := colIndex * (ButtonWidth + HorizontalSpacing)
+    yPos := rowIndex * (buttonHeight + verticalSpacing)
+
+    button := MyGui.Add("Button", "x" xPos " y" ypos " w" ButtonWidth, StudyWindowsMap[StudySubjectName][2])
     button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2]))
 }
 
@@ -78,4 +89,4 @@ OnButtonClick(app, name, *) {
     WinActivate(name " " app)
 }
 
-MyGui.Show("w400")
+MyGui.Show()
