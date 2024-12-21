@@ -1,4 +1,5 @@
 ChromeExe := "ahk_exe chrome.exe"
+AdobeExe := "ahk_exe Acrobat.exe"
 
 
 StudyWindowsMap := Map()
@@ -37,6 +38,11 @@ StudyWindowsMap["Data Science"] := [ChromeExe, "Data Science"]
 StudyWindowsMap["Character.AI"] := [ChromeExe, "Character.AI"]
 StudyWindowsMap["ML Algorithms"] := [ChromeExe, "ML Algorithms"]
 StudyWindowsMap["Canva"] := [ChromeExe, "Canva"]
+
+StudyWindowsMap["Soldering"] := [AdobeExe, "hrjp520_manual.pdf"]
+StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf"]
+StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf"]
+
 
 StudyWindowsMapKeys := []
 
@@ -78,7 +84,7 @@ for StudySubjectName in SortedStudyWindowsMapKeys {
     xPos := colIndex * (ButtonWidth + HorizontalSpacing)
     yPos := rowIndex * (buttonHeight + verticalSpacing)
 
-    button := MyGui.Add("Button", "x" xPos " y" ypos " w" ButtonWidth, StudyWindowsMap[StudySubjectName][2])
+    button := MyGui.Add("Button", "x" xPos " y" ypos " w" ButtonWidth, StudySubjectName)
     button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2]))
 }
 
