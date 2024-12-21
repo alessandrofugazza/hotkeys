@@ -38,17 +38,35 @@ StudyWindowsMap["Character.AI"] := [ChromeExe, "Character.AI"]
 StudyWindowsMap["ML Algorithms"] := [ChromeExe, "ML Algorithms"]
 StudyWindowsMap["Canva"] := [ChromeExe, "Canva"]
 
+StudyWindowsMapKeys := []
+
+for key in StudyWindowsMap
+    StudyWindowsMapKeys.Push(key)
+
+; Convert the array to a newline-separated string
+stringToSort := ""
+for each, item in StudyWindowsMapKeys
+    stringToSort .= item "`n"
+
+; Remove the trailing newline character
+stringToSort := RTrim(stringToSort, "`n")
+
+; Sort the string in ascending alphabetical order
+sortedString := Sort(stringToSort)
+
+; Split the sorted string back into an array
+SortedStudyWindowsMapKeys := StrSplit(sortedString, "`n")
 
 MyGui := Gui()
 
 ; checkbox := MyGui.Add("Checkbox", "vMyCheckbox", "Enable Feature")
 
-button := MyGui.Add("Button", "Default", StudyWindowsMap["CompTIA"][2])
-button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap["CompTIA"][1], StudyWindowsMap["CompTIA"][2]))
+; button := MyGui.Add("Button", "Default", StudyWindowsMap["CompTIA"][2])
+; button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap["CompTIA"][1], StudyWindowsMap["CompTIA"][2]))
 
-for key, value in StudyWindowsMap {
-    button := MyGui.Add("Button", "Default", value[2])
-    button.OnEvent("Click", OnButtonClick.Bind(value[1], value[2]))
+for StudySubjectName in SortedStudyWindowsMapKeys {
+    button := MyGui.Add("Button", "Default", StudyWindowsMap[StudySubjectName][2])
+    button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2]))
 }
 
 OnButtonClick(app, name, *) {
