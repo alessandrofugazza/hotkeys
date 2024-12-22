@@ -26,11 +26,16 @@ ChatGPTExe := "ahk_exe ChatGPT.exe"
 
 #Include GUI.ahk
 
-!F1:: {
-    Send("{LWin Down}a{LWin Up}")
-    sleep 100
-    send("{Enter}")
-}
+
+; !F1:: {
+;     WinActivate("Alessandro's Kindle for PC")
+
+; }
+; !F1:: {
+;     Send("{LWin Down}a{LWin Up}")
+;     sleep 100
+;     send("{Enter}")
+; }
 
 #WheelDown:: {
     WinActivate(ChatGPTExe)
