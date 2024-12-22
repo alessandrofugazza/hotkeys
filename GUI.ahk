@@ -11,14 +11,12 @@ StudyWindowsMap["CompTIA"] := [ChromeExe, "CompTIA"]
 StudyWindowsMap["Chrome DevTools"] := [ChromeExe, "Chrome DevTools"]
 StudyWindowsMap["GitHub Copilot"] := [ChromeExe, "GitHub Copilot"]
 StudyWindowsMap["AHK"] := [ChromeExe, "AHK"]
-StudyWindowsMap["IFTS"] := [ChromeExe, "IFTS"]
 StudyWindowsMap["ROS"] := [ChromeExe, "ROS"]
 StudyWindowsMap["RoboDK"] := [ChromeExe, "RoboDK"]
 StudyWindowsMap["English"] := [ChromeExe, "English"]
 StudyWindowsMap["Modern Robotics"] := [ChromeExe, "Modern Robotics"]
 StudyWindowsMap["CoppeliaSim"] := [ChromeExe, "CoppeliaSim"]
 StudyWindowsMap["SOLIDWORKS"] := [ChromeExe, "SOLIDWORKS"]
-StudyWindowsMap["CB125R"] := [ChromeExe, "CB125R"]
 StudyWindowsMap["Barman"] := [ChromeExe, "Barman"]
 StudyWindowsMap["cFos"] := [ChromeExe, "cFos"]
 StudyWindowsMap["Tweak III"] := [ChromeExe, "Tweak III"]
@@ -32,16 +30,17 @@ StudyWindowsMap["LRP"] := [ChromeExe, "LRP"]
 StudyWindowsMap["Anaconda"] := [ChromeExe, "Anaconda"]
 StudyWindowsMap["Raspberry Pi"] := [ChromeExe, "Raspberry Pi"]
 StudyWindowsMap["PCC"] := [ChromeExe, "PCC"]
-StudyWindowsMap["Robotics"] := [ChromeExe, "Robotics"]
 StudyWindowsMap["Adobe"] := [ChromeExe, "Adobe"]
 StudyWindowsMap["Data Science"] := [ChromeExe, "Data Science"]
 StudyWindowsMap["Character.AI"] := [ChromeExe, "Character.AI"]
 StudyWindowsMap["ML Algorithms"] := [ChromeExe, "ML Algorithms"]
 StudyWindowsMap["Canva"] := [ChromeExe, "Canva"]
+StudyWindowsMap["Jupyter"] := [ChromeExe, "Jupyter"]
 
-StudyWindowsMap["Soldering"] := [AdobeExe, "hrjp520_manual.pdf"]
-StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf"]
-StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf"]
+StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf "]
+StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
+StudyWindowsMap["SH125"] := [AdobeExe, "sh125.pdf "]
+StudyWindowsMap["IFTS Del Vecchio"] := [AdobeExe, "AMMI_ConsapevolezzaDigitale_Shared "]
 
 
 StudyWindowsMapKeys := []
@@ -72,17 +71,19 @@ MyGui := Gui()
 
 ButtonWidth := 120
 buttonHeight := 30
-verticalSpacing := 1
+PaddingTop := 7
+PaddingLeft := 2
 
-HorizontalSpacing := 5
+HorizontalSpacing := 7
 
 ButtonsPerColumn := 10
 
 for StudySubjectName in SortedStudyWindowsMapKeys {
     colIndex := (A_Index - 1) // ButtonsPerColumn
     rowIndex := Mod((A_Index - 1), ButtonsPerColumn)
-    xPos := colIndex * (ButtonWidth + HorizontalSpacing)
-    yPos := rowIndex * (buttonHeight + verticalSpacing)
+    xPos := PaddingLeft + HorizontalSpacing + colIndex * (ButtonWidth + HorizontalSpacing)
+    yPos := PaddingTop + rowIndex * (buttonHeight)
+    ; yPos := rowIndex * (buttonHeight + verticalSpacing)
 
     button := MyGui.Add("Button", "x" xPos " y" ypos " w" ButtonWidth, StudySubjectName)
     button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2]))
