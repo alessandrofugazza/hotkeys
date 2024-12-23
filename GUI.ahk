@@ -27,7 +27,7 @@ StudyWindowsMap["AHK"] := [ChromeExe, "AHK"]
 StudyWindowsMap["ROS"] := [ChromeExe, "ROS"]
 StudyWindowsMap["RoboDK"] := [ChromeExe, "RoboDK"]
 StudyWindowsMap["English"] := [ChromeExe, "English"]
-StudyWindowsMap["Coursera Robotics Engineering"] := [ChromeExe, "Robotics Engineering"]
+StudyWindowsMap["COU Robotics Engineering"] := [ChromeExe, "Robotics Engineering"]
 StudyWindowsMap["Robotics Engineering Book"] := [KindleExe, KindleImageSearchPathsMap["Robotics Engineering"]]
 StudyWindowsMap["CoppeliaSim"] := [ChromeExe, "CoppeliaSim"]
 StudyWindowsMap["SOLIDWORKS"] := [ChromeExe, "SOLIDWORKS"]
@@ -53,6 +53,7 @@ StudyWindowsMap["Character.AI"] := [ChromeExe, "Character.AI"]
 StudyWindowsMap["ML Algorithms"] := [ChromeExe, "ML Algorithms"]
 StudyWindowsMap["Canva"] := [ChromeExe, "Canva"]
 StudyWindowsMap["Jupyter"] := [ChromeExe, "Jupyter"]
+StudyWindowsMap["Shortcuts"] := [ChromeExe, "Shortcuts"]
 
 StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf "]
 StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
@@ -90,7 +91,7 @@ MyGui := Gui()
 ; button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap["CompTIA"][1], StudyWindowsMap["CompTIA"][2]))
 
 ButtonWidth := 120
-buttonHeight := 30
+buttonHeight := 40
 PaddingTop := 7
 PaddingLeft := 2
 
@@ -105,7 +106,7 @@ for StudySubjectName in SortedStudyWindowsMapKeys {
     yPos := PaddingTop + rowIndex * (buttonHeight)
     ; yPos := rowIndex * (buttonHeight + verticalSpacing)
 
-    button := MyGui.Add("Button", "x" xPos " y" ypos " w" ButtonWidth, StudySubjectName)
+    button := MyGui.Add("Button", "x" xPos " y" ypos " w" ButtonWidth " h" buttonHeight, StudySubjectName)
     button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2]))
 }
 
