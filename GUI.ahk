@@ -125,7 +125,7 @@ OnButtonClick(app, name, *) {
         WinActivate("Alessandro's Kindle for PC")
         ; sleep 1000
         Send "^!l"
-        sleep 500
+        sleep 1000
         foundX := 0
         foundY := 0
         if ImageSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, name)
