@@ -54,11 +54,15 @@ StudyWindowsMap["ML Algorithms"] := [ChromeExe, "ML Algorithms"]
 StudyWindowsMap["Canva"] := [ChromeExe, "Canva"]
 StudyWindowsMap["Jupyter"] := [ChromeExe, "Jupyter"]
 StudyWindowsMap["Shortcuts"] := [ChromeExe, "Shortcuts"]
+; StudyWindowsMap["COMAU"] := [AdobeExe, "Programmatore_di_sistemi_robotizzati_4.0-Presentazione.pdf "]
+StudyWindowsMap["COMAU"] := [ChromeExe, "COMAU"]
+StudyWindowsMap["Markdown"] := [ChromeExe, "Markdown"]
 
 StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf "]
 StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
 StudyWindowsMap["SH125"] := [AdobeExe, "sh125.pdf "]
 StudyWindowsMap["IFTS Del Vecchio"] := [AdobeExe, "AMMI_ConsapevolezzaDigitale_Shared "]
+StudyWindowsMap["RoboShop Manual"] := [AdobeExe, "lb-rc-c5e-roboshop_it.pdf "]
 
 StudyWindowsMap["Patente"] := [KindleExe, KindleImageSearchPathsMap["Patente"]]
 StudyWindowsMap["React"] := [KindleExe, KindleImageSearchPathsMap["React"]]
@@ -84,18 +88,21 @@ sortedString := Sort(stringToSort)
 SortedStudyWindowsMapKeys := StrSplit(sortedString, "`n")
 
 MyGui := Gui()
+MyGui.SetFont("s10 w500")
 
+; MyGui.BackColor := 0x1E1E1E
 ; checkbox := MyGui.Add("Checkbox", "vMyCheckbox", "Enable Feature")
 
 ; button := MyGui.Add("Button", "Default", StudyWindowsMap["CompTIA"][2])
 ; button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap["CompTIA"][1], StudyWindowsMap["CompTIA"][2]))
 
-ButtonWidth := 120
-buttonHeight := 40
+ButtonWidth := 140
+buttonHeight := 50
 PaddingTop := 7
 PaddingLeft := 2
 
 HorizontalSpacing := 7
+VerticalSpacing := 5  ; Define the vertical spacing between buttons
 
 ButtonsPerColumn := 10
 
@@ -103,10 +110,9 @@ for StudySubjectName in SortedStudyWindowsMapKeys {
     colIndex := (A_Index - 1) // ButtonsPerColumn
     rowIndex := Mod((A_Index - 1), ButtonsPerColumn)
     xPos := PaddingLeft + HorizontalSpacing + colIndex * (ButtonWidth + HorizontalSpacing)
-    yPos := PaddingTop + rowIndex * (buttonHeight)
-    ; yPos := rowIndex * (buttonHeight + verticalSpacing)
+    yPos := PaddingTop + rowIndex * (buttonHeight + VerticalSpacing)  ; Apply vertical spacing
 
-    button := MyGui.Add("Button", "x" xPos " y" ypos " w" ButtonWidth " h" buttonHeight, StudySubjectName)
+    button := MyGui.Add("Button", "x" xPos " y" yPos " w" ButtonWidth " h" buttonHeight, StudySubjectName)
     button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2]))
 }
 
