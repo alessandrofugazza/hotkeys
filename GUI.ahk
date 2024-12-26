@@ -119,6 +119,11 @@ VerticalSpacing := 5  ; Define the vertical spacing between buttons
 
 ButtonsPerColumn := 10
 
+ButtonTimersFile := A_ScriptDir "\data\button-timers-data.txt"
+
+; Load ButtonTimers data from file
+LoadButtonTimersData()
+
 for StudySubjectName in SortedStudyWindowsMapKeys {
     colIndex := (A_Index - 1) // ButtonsPerColumn
     rowIndex := Mod((A_Index - 1), ButtonsPerColumn)
@@ -129,7 +134,9 @@ for StudySubjectName in SortedStudyWindowsMapKeys {
     NewButton.SetColor("00FF00")  ; Initial color green
     NewButton.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2], StudySubjectName))
     ButtonTimers[StudySubjectName] := NewButton
-    ButtonClickTimes[StudySubjectName] := A_TickCount
+    if !ButtonClickTimes.Has(StudySubjectName) {
+        ButtonClickTimes[StudySubjectName] := A_TickCount
+    }
 }
 
 OnButtonClick(app, name, StudySubjectName, *) {
@@ -138,12 +145,13 @@ OnButtonClick(app, name, StudySubjectName, *) {
     ; MsgBox(isChecked ? "Feature Enabled" : "Feature Disabled")
 
     ButtonClickTimes[StudySubjectName] := A_TickCount  ; Reset the click time for the button
+    SaveButtonTimersData()  ; Save ButtonTimers data after each click
 
     if (app = KindleExe) {
         WinActivate("Alessandro's Kindle for PC")
         ; sleep 1000
         Send "^!l"
-        sleep 1000
+        sleep 500
         foundX := 0
         foundY := 0
         if ImageSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, name)
@@ -155,8 +163,10 @@ OnButtonClick(app, name, StudySubjectName, *) {
         {
             MsgBox "Image not found on the screen."
         }
-    } else {
+    } else if (app = ChromeExe || app = AdobeExe) {
         WinActivate(name " " app)
+    } else {
+        MsgBox "Physical"
     }
 }
 
@@ -189,6 +199,31 @@ UpdateButtonColors() {
                 color := Format("{:02X}{:02X}00", redValue, greenValue)
             }
             Button.SetColor(color)
+        }
+    }
+}
+
+; Save ButtonTimers data to file
+SaveButtonTimersData() {
+    global ButtonClickTimes, ButtonTimersFile
+    FileDelete(ButtonTimersFile)  ; Delete the file if it exists
+    for StudySubjectName, ClickTime in ButtonClickTimes {
+        FileAppend(StudySubjectName "=" ClickTime "`n", ButtonTimersFile)
+    }
+}
+
+; Load ButtonTimers data from file
+LoadButtonTimersData() {
+    global ButtonClickTimes, ButtonTimersFile
+    if FileExist(ButtonTimersFile) {
+        if FileExist(ButtonTimersFile) {
+            fileContent := FileRead(ButtonTimersFile)
+            for line in StrSplit(fileContent, "`n") {
+                lineArray := StrSplit(line, "=")
+                if (lineArray.Length = 2) {
+                    ButtonClickTimes[lineArray[1]] := lineArray[2]
+                }
+            }
         }
     }
 }
