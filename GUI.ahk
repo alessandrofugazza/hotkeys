@@ -76,6 +76,7 @@ StudyWindowsMap["Raspberry Pi"] := [AdobeExe, "BeginnersGuide-5thEd-Eng_v4.pdf "
 StudyWindowsMap["Patente"] := [KindleExe, KindleImageSearchPathsMap["Patente"]]
 StudyWindowsMap["React"] := [KindleExe, KindleImageSearchPathsMap["React"]]
 
+StudyWindowsMap["MOS"] := ["ahk_exe GMetrix SMSe.exe", ""]
 
 StudyWindowsMapKeys := []
 
@@ -159,14 +160,14 @@ OnButtonClick(app, name, StudySubjectName, *) {
     }
 }
 
-Hours := 2
+MaxHours := 2
 
 UpdateButtonColors() {
     global ButtonTimers, ButtonClickTimes
     for StudySubjectName, Button in ButtonTimers {
         ; BRILLIANT GOOD JOB CHATGPT GOTTA LEARN THIS
         elapsed := A_TickCount - ButtonClickTimes[StudySubjectName]
-        Hours := 1 * 60 * 60 * 1000  ; 8 hours in milliseconds
+        maxTime := MaxHours * 60 * 60 * 1000  ; 8 hours in milliseconds
         numShades := 48
         shadeInterval := maxTime / numShades
 
