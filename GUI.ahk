@@ -1,7 +1,15 @@
+#Include C:/Users/aless/Desktop/projects/personal/ahk/hotkeys/dependencies/ColorButton.ahk
+
 ChromeExe := "ahk_exe chrome.exe"
 AdobeExe := "ahk_exe Acrobat.exe"
 KindleExe := "ahk_exe Kindle.exe"
 
+^!a::
+{
+
+    WinActivate("ahk_exe AutoHotkey64_UIA.exe")
+    UpdateButtonColors()  ; Update button colors when any button is clicked
+}
 
 KindleImageSearchPathsMap := Map()
 
@@ -63,6 +71,7 @@ StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
 StudyWindowsMap["SH125"] := [AdobeExe, "sh125.pdf "]
 StudyWindowsMap["IFTS Del Vecchio"] := [AdobeExe, "AMMI_ConsapevolezzaDigitale_Shared "]
 StudyWindowsMap["RoboShop Manual"] := [AdobeExe, "lb-rc-c5e-roboshop_it.pdf "]
+StudyWindowsMap["Raspberry Pi"] := [AdobeExe, "BeginnersGuide-5thEd-Eng_v4.pdf "]
 
 StudyWindowsMap["Patente"] := [KindleExe, KindleImageSearchPathsMap["Patente"]]
 StudyWindowsMap["React"] := [KindleExe, KindleImageSearchPathsMap["React"]]
@@ -90,11 +99,14 @@ SortedStudyWindowsMapKeys := StrSplit(sortedString, "`n")
 MyGui := Gui()
 MyGui.SetFont("s10 w500")
 
-; MyGui.BackColor := 0x1E1E1E
+MyGui.BackColor := 0x1E1E1E
 ; checkbox := MyGui.Add("Checkbox", "vMyCheckbox", "Enable Feature")
 
 ; button := MyGui.Add("Button", "Default", StudyWindowsMap["CompTIA"][2])
 ; button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap["CompTIA"][1], StudyWindowsMap["CompTIA"][2]))
+
+ButtonTimers := Map()  ; Map to store timers for each button
+ButtonClickTimes := Map()  ; Map to store the last click time for each button
 
 ButtonWidth := 140
 buttonHeight := 50
@@ -112,14 +124,19 @@ for StudySubjectName in SortedStudyWindowsMapKeys {
     xPos := PaddingLeft + HorizontalSpacing + colIndex * (ButtonWidth + HorizontalSpacing)
     yPos := PaddingTop + rowIndex * (buttonHeight + VerticalSpacing)  ; Apply vertical spacing
 
-    button := MyGui.Add("Button", "x" xPos " y" yPos " w" ButtonWidth " h" buttonHeight, StudySubjectName)
-    button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2]))
+    NewButton := MyGui.Add("Button", "x" xPos " y" yPos " w" ButtonWidth " h" buttonHeight, StudySubjectName)
+    NewButton.SetColor("00FF00")  ; Initial color green
+    NewButton.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2], StudySubjectName))
+    ButtonTimers[StudySubjectName] := NewButton
+    ButtonClickTimes[StudySubjectName] := A_TickCount
 }
 
-OnButtonClick(app, name, *) {
+OnButtonClick(app, name, StudySubjectName, *) {
     ; MyGui.Submit()
     ; isChecked := MyGui["MyCheckbox"].Value
     ; MsgBox(isChecked ? "Feature Enabled" : "Feature Disabled")
+
+    ButtonClickTimes[StudySubjectName] := A_TickCount  ; Reset the click time for the button
 
     if (app = KindleExe) {
         WinActivate("Alessandro's Kindle for PC")
@@ -139,7 +156,39 @@ OnButtonClick(app, name, *) {
         }
     } else {
         WinActivate(name " " app)
+    }
+}
 
+Hours := 2
+
+UpdateButtonColors() {
+    global ButtonTimers, ButtonClickTimes
+    for StudySubjectName, Button in ButtonTimers {
+        ; BRILLIANT GOOD JOB CHATGPT GOTTA LEARN THIS
+        elapsed := A_TickCount - ButtonClickTimes[StudySubjectName]
+        Hours := 1 * 60 * 60 * 1000  ; 8 hours in milliseconds
+        numShades := 48
+        shadeInterval := maxTime / numShades
+
+        ; Calculate the color based on the elapsed time
+        if (elapsed >= maxTime) {
+            Button.SetColor("FF0000")  ; Red
+        } else {
+            shadeIndex := Floor(elapsed / shadeInterval)
+            ; Calculate the color gradient from green to yellow to red
+            if (shadeIndex < numShades / 2) {
+                ; Green to yellow
+                greenValue := 255
+                redValue := Floor(255 * (shadeIndex / (numShades / 2)))
+                color := Format("{:02X}{:02X}00", redValue, greenValue)
+            } else {
+                ; Yellow to red
+                redValue := 255
+                greenValue := Floor(255 * ((numShades - shadeIndex) / (numShades / 2)))
+                color := Format("{:02X}{:02X}00", redValue, greenValue)
+            }
+            Button.SetColor(color)
+        }
     }
 }
 
