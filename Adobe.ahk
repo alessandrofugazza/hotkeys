@@ -3,7 +3,8 @@
 AdobeExe := "ahk_exe Acrobat.exe"
 
 ; FIX why doesnt this work but kindle does
-#HotIf MouseIsOver(AdobeExe)
+#HotIf (WinActive(AdobeExe) && IsCursorInMainMonitor()) || MouseIsOver(AdobeExe)
+
 
 MButton::
 {

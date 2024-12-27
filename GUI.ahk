@@ -4,6 +4,9 @@ ChromeExe := "ahk_exe chrome.exe"
 AdobeExe := "ahk_exe Acrobat.exe"
 KindleExe := "ahk_exe Kindle.exe"
 
+MaxHours := 3
+
+
 ^!a::
 {
 
@@ -69,7 +72,7 @@ StudyWindowsMap["Markdown"] := [ChromeExe, "Markdown"]
 StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf "]
 StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
 StudyWindowsMap["SH125"] := [AdobeExe, "sh125.pdf "]
-StudyWindowsMap["IFTS Del Vecchio"] := [AdobeExe, "AMMI_ConsapevolezzaDigitale_Shared "]
+StudyWindowsMap["IFTS Del Vecchio"] := [AdobeExe, "Reti Informatiche - Documenti Google - "]
 StudyWindowsMap["RoboShop Manual"] := [AdobeExe, "lb-rc-c5e-roboshop_it.pdf "]
 StudyWindowsMap["Raspberry Pi"] := [AdobeExe, "BeginnersGuide-5thEd-Eng_v4.pdf "]
 
@@ -98,7 +101,7 @@ sortedString := Sort(stringToSort)
 SortedStudyWindowsMapKeys := StrSplit(sortedString, "`n")
 
 MyGui := Gui()
-MyGui.SetFont("s10 w500")
+MyGui.SetFont("s10 w500")  ; Set font size to 10 and weight to 700 (bold)
 
 MyGui.BackColor := 0x1E1E1E
 ; checkbox := MyGui.Add("Checkbox", "vMyCheckbox", "Enable Feature")
@@ -124,6 +127,7 @@ ButtonTimersFile := A_ScriptDir "\data\button-timers-data.txt"
 ; Load ButtonTimers data from file
 LoadButtonTimersData()
 
+
 for StudySubjectName in SortedStudyWindowsMapKeys {
     colIndex := (A_Index - 1) // ButtonsPerColumn
     rowIndex := Mod((A_Index - 1), ButtonsPerColumn)
@@ -137,6 +141,8 @@ for StudySubjectName in SortedStudyWindowsMapKeys {
     if !ButtonClickTimes.Has(StudySubjectName) {
         ButtonClickTimes[StudySubjectName] := A_TickCount
     }
+    UpdateButtonFontColor(NewButton, "00FF00")  ; Set initial font color
+    UpdateButtonColors()
 }
 
 OnButtonClick(app, name, StudySubjectName, *) {
@@ -163,14 +169,13 @@ OnButtonClick(app, name, StudySubjectName, *) {
         {
             MsgBox "Image not found on the screen."
         }
-    } else if (app = ChromeExe || app = AdobeExe) {
+    } else if (app = ChromeExe || app = AdobeExe || app = "ahk_exe GMetrix SMSe.exe") { ; fix this shit
         WinActivate(name " " app)
     } else {
         MsgBox "Physical"
     }
 }
 
-MaxHours := 2
 
 UpdateButtonColors() {
     global ButtonTimers, ButtonClickTimes
@@ -184,6 +189,7 @@ UpdateButtonColors() {
         ; Calculate the color based on the elapsed time
         if (elapsed >= maxTime) {
             Button.SetColor("FF0000")  ; Red
+            UpdateButtonFontColor(Button, "FF0000")
         } else {
             shadeIndex := Floor(elapsed / shadeInterval)
             ; Calculate the color gradient from green to yellow to red
@@ -199,7 +205,26 @@ UpdateButtonColors() {
                 color := Format("{:02X}{:02X}00", redValue, greenValue)
             }
             Button.SetColor(color)
+            UpdateButtonFontColor(Button, color)
         }
+    }
+}
+
+; Function to update button font color based on background color
+UpdateButtonFontColor(Button, bgColor) {
+    ; Convert hex color to RGB
+    red := "0x" SubStr(bgColor, 1, 2)
+    green := "0x" SubStr(bgColor, 3, 2)
+    blue := "0x" SubStr(bgColor, 5, 2)
+
+    ; Calculate brightness (perceived luminance)
+    brightness := (0.299 * red + 0.587 * green + 0.114 * blue)
+
+    ; Set font color to white if background is dark, otherwise set to black
+    if (brightness < 128) {
+        Button.SetFont("cFFFFFF")  ; White
+    } else {
+        Button.SetFont("c000000")  ; Black
     }
 }
 

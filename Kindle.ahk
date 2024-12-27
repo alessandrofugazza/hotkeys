@@ -44,13 +44,13 @@ MButton::
     MouseMove(originalX, originalY)
 }
 
-d::
+; d::
 XButton2:: {
     CheckIfKindleIsActive()
     Send "{Right}"
 }
 
-a::
+; a::
 XButton1:: {
     CheckIfKindleIsActive()
     Send "{Left}"
