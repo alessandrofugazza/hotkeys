@@ -4,7 +4,7 @@ ChromeExe := "ahk_exe chrome.exe"
 AdobeExe := "ahk_exe Acrobat.exe"
 KindleExe := "ahk_exe Kindle.exe"
 
-MaxHours := 3
+MaxHours := 8
 
 
 ^!a::
@@ -157,7 +157,7 @@ OnButtonClick(app, name, StudySubjectName, *) {
         WinActivate("Alessandro's Kindle for PC")
         ; sleep 1000
         Send "^!l"
-        sleep 500
+        sleep 1000
         foundX := 0
         foundY := 0
         if ImageSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, name)
