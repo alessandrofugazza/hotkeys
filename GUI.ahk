@@ -68,6 +68,7 @@ StudyWindowsMap["Shortcuts"] := [ChromeExe, "Shortcuts"]
 ; StudyWindowsMap["COMAU"] := [AdobeExe, "Programmatore_di_sistemi_robotizzati_4.0-Presentazione.pdf "]
 StudyWindowsMap["COMAU"] := [ChromeExe, "COMAU"]
 StudyWindowsMap["Markdown"] := [ChromeExe, "Markdown"]
+StudyWindowsMap["Gamma"] := [ChromeExe, "Gamma"]
 
 StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf "]
 StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
