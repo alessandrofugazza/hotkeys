@@ -158,7 +158,7 @@ OnButtonClick(app, name, StudySubjectName, *) {
 
     if (app = KindleExe) {
         WinActivate("Alessandro's Kindle for PC")
-        ; sleep 1000
+        sleep 1000
         Send "^!l"
         sleep 1000
         foundX := 0
