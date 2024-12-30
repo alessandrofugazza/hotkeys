@@ -14,15 +14,23 @@ MaxHours := 8
     UpdateButtonColors()  ; Update button colors when any button is clicked
 }
 
-KindleImageSearchPathsMap := Map()
+KindlePixelSearchColorsMap := Map()
+; KindleImageSearchPathsMap := Map()
 
-KindleImageSearchPathsMap["CompTIA"] := A_ScriptDir "\imagesearch\lrp.png"
-KindleImageSearchPathsMap["HOML"] := A_ScriptDir "\imagesearch\homl.png"
-KindleImageSearchPathsMap["LRP"] := A_ScriptDir "\imagesearch\lrp.png"
-KindleImageSearchPathsMap["Robotics Engineering"] := A_ScriptDir "\imagesearch\modern-robotics.png"
-KindleImageSearchPathsMap["Patente"] := A_ScriptDir "\imagesearch\patente.png"
-KindleImageSearchPathsMap["Python"] := A_ScriptDir "\imagesearch\pcc.png"
-KindleImageSearchPathsMap["React"] := A_ScriptDir "\imagesearch\react.png"
+KindlePixelSearchColorsMap["CompTIA"] := "907351"
+KindlePixelSearchColorsMap["HOML"] := "EBA02D"
+KindlePixelSearchColorsMap["LRP"] := "102B39"
+KindlePixelSearchColorsMap["Robotics Engineering"] := "6C7886"
+KindlePixelSearchColorsMap["Patente"] := "114A9B"
+KindlePixelSearchColorsMap["Python"] := "FAE57A"
+KindlePixelSearchColorsMap["React"] := "EBCA70"
+; KindleImageSearchPathsMap["CompTIA"] := A_ScriptDir "\imagesearch\lrp.png"
+; KindleImageSearchPathsMap["HOML"] := A_ScriptDir "\imagesearch\homl.png"
+; KindleImageSearchPathsMap["LRP"] := A_ScriptDir "\imagesearch\lrp.png"
+; KindleImageSearchPathsMap["Robotics Engineering"] := A_ScriptDir "\imagesearch\modern-robotics.png"
+; KindleImageSearchPathsMap["Patente"] := A_ScriptDir "\imagesearch\patente.png"
+; KindleImageSearchPathsMap["Python"] := A_ScriptDir "\imagesearch\pcc.png"
+; KindleImageSearchPathsMap["React"] := A_ScriptDir "\imagesearch\react.png"
 
 
 StudyWindowsMap := Map()
@@ -30,7 +38,7 @@ StudyWindowsMap := Map()
 
 ; IMPROVE really bad
 
-StudyWindowsMap["CompTIA"] := [KindleExe, KindleImageSearchPathsMap["CompTIA"]]
+StudyWindowsMap["CompTIA"] := [KindleExe, KindlePixelSearchColorsMap["CompTIA"]]
 ; StudyWindowsMap["CompTIA"] := [ChromeExe, "CompTIA"]
 StudyWindowsMap["Chrome DevTools"] := [ChromeExe, "Chrome DevTools"]
 StudyWindowsMap["GitHub Copilot"] := [ChromeExe, "GitHub Copilot"]
@@ -39,7 +47,7 @@ StudyWindowsMap["ROS"] := [ChromeExe, "ROS"]
 StudyWindowsMap["RoboDK"] := [ChromeExe, "RoboDK"]
 StudyWindowsMap["English"] := [ChromeExe, "English"]
 StudyWindowsMap["COU Robotics Engineering"] := [ChromeExe, "Robotics Engineering"]
-StudyWindowsMap["Robotics Engineering Book"] := [KindleExe, KindleImageSearchPathsMap["Robotics Engineering"]]
+StudyWindowsMap["Robotics Engineering Book"] := [KindleExe, KindlePixelSearchColorsMap["Robotics Engineering"]]
 StudyWindowsMap["CoppeliaSim"] := [ChromeExe, "CoppeliaSim"]
 StudyWindowsMap["SOLIDWORKS"] := [ChromeExe, "SOLIDWORKS"]
 StudyWindowsMap["Barman"] := [ChromeExe, "Barman"]
@@ -49,13 +57,13 @@ StudyWindowsMap["IntelliJ"] := [ChromeExe, "IntelliJ"]
 StudyWindowsMap["pgAdmin"] := [ChromeExe, "pgAdmin"]
 StudyWindowsMap["Flipper Zero"] := [ChromeExe, "Flipper Zero"]
 StudyWindowsMap["VS Code"] := [ChromeExe, "VS Code"]
-StudyWindowsMap["HOML"] := [KindleExe, KindleImageSearchPathsMap["HOML"]]
+StudyWindowsMap["HOML"] := [KindleExe, KindlePixelSearchColorsMap["HOML"]]
 ; StudyWindowsMap["HOML"] := [ChromeExe, "HOML"]
-StudyWindowsMap["LRP"] := [KindleExe, KindleImageSearchPathsMap["LRP"]]
+StudyWindowsMap["LRP"] := [KindleExe, KindlePixelSearchColorsMap["LRP"]]
 ; StudyWindowsMap["LRP"] := [ChromeExe, "LRP"]
 StudyWindowsMap["Anaconda"] := [ChromeExe, "Anaconda"]
 StudyWindowsMap["Raspberry Pi"] := [ChromeExe, "Raspberry Pi"]
-StudyWindowsMap["Python"] := [KindleExe, KindleImageSearchPathsMap["Python"]]
+StudyWindowsMap["Python"] := [KindleExe, KindlePixelSearchColorsMap["Python"]]
 ; StudyWindowsMap["PCC"] := [ChromeExe, "PCC"]
 StudyWindowsMap["Adobe"] := [ChromeExe, "Adobe"]
 StudyWindowsMap["Data Science"] := [ChromeExe, "Data Science"]
@@ -79,8 +87,8 @@ StudyWindowsMap["IFTS Del Vecchio"] := [AdobeExe, "Reti Informatiche - Documenti
 StudyWindowsMap["RoboShop Manual"] := [AdobeExe, "lb-rc-c5e-roboshop_it.pdf "]
 StudyWindowsMap["Raspberry Pi"] := [AdobeExe, "BeginnersGuide-5thEd-Eng_v4.pdf "]
 
-StudyWindowsMap["Patente"] := [KindleExe, KindleImageSearchPathsMap["Patente"]]
-StudyWindowsMap["React"] := [KindleExe, KindleImageSearchPathsMap["React"]]
+StudyWindowsMap["Patente"] := [KindleExe, KindlePixelSearchColorsMap["Patente"]]
+StudyWindowsMap["React"] := [KindleExe, KindlePixelSearchColorsMap["React"]]
 
 StudyWindowsMap["MOS"] := ["ahk_exe GMetrix SMSe.exe", ""]
 
@@ -158,14 +166,17 @@ OnButtonClick(app, name, StudySubjectName, *) {
 
     if (app = KindleExe) {
         WinActivate("Alessandro's Kindle for PC")
-        sleep 1000
+        ; sleep 1000
         Send "^!l"
-        sleep 1000
+        sleep 200
         foundX := 0
         foundY := 0
-        if ImageSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, name)
+
+        ; if ImageSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, name)
+        if PixelSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "0x" name)
         {
-            MouseMove foundX + 70, foundY
+            MouseMove foundX, foundY
+            ; MouseMove foundX + 70, foundY
             Click 2
         }
         else
