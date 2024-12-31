@@ -92,6 +92,8 @@ StudyWindowsMap["React"] := [KindleExe, KindlePixelSearchColorsMap["React"]]
 
 StudyWindowsMap["MOS"] := ["ahk_exe GMetrix SMSe.exe", ""]
 
+StudyWindowsMap["CB125R"] := ["", ""]
+
 StudyWindowsMapKeys := []
 
 for key in StudyWindowsMap
@@ -156,6 +158,9 @@ for StudySubjectName in SortedStudyWindowsMapKeys {
     UpdateButtonColors()
 }
 
+ResetButton := MyGui.Add("Button", "x" PaddingLeft " y" (PaddingTop + ButtonsPerColumn * (buttonHeight + VerticalSpacing)) " w" ButtonWidth " h" buttonHeight, "Reset Timers")
+ResetButton.OnEvent("Click", ResetButtonTimers)
+
 OnButtonClick(app, name, StudySubjectName, *) {
     ; MyGui.Submit()
     ; isChecked := MyGui["MyCheckbox"].Value
@@ -168,7 +173,7 @@ OnButtonClick(app, name, StudySubjectName, *) {
         WinActivate("Alessandro's Kindle for PC")
         ; sleep 1000
         Send "^!l"
-        sleep 200
+        sleep 300
         foundX := 0
         foundY := 0
 
@@ -265,6 +270,15 @@ LoadButtonTimersData() {
             }
         }
     }
+}
+
+ResetButtonTimers(*) {
+    global ButtonClickTimes, ButtonTimersFile
+    for StudySubjectName in ButtonClickTimes {
+        ButtonClickTimes[StudySubjectName] := -999999999999
+    }
+    SaveButtonTimersData()
+    UpdateButtonColors()
 }
 
 MyGui.Show()
