@@ -16,7 +16,7 @@ ChromeExe := "ahk_exe chrome.exe"
     ; }
     search := "define " . A_Clipboard
     Run("https://www.bing.com/")
-    sleep 700
+    sleep 1000
     send search
     send "{enter}"
 }

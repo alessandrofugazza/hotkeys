@@ -3,6 +3,7 @@
 ChromeExe := "ahk_exe chrome.exe"
 AdobeExe := "ahk_exe Acrobat.exe"
 KindleExe := "ahk_exe Kindle.exe"
+FirefoxExe := "ahk_exe firefox.exe"
 
 MaxHours := 8
 
@@ -17,10 +18,10 @@ MaxHours := 8
 KindlePixelSearchColorsMap := Map()
 ; KindleImageSearchPathsMap := Map()
 
-KindlePixelSearchColorsMap["CompTIA"] := "907351"
+KindlePixelSearchColorsMap["CompTIA"] := "B12C1B"
 KindlePixelSearchColorsMap["HOML"] := "EBA02D"
 KindlePixelSearchColorsMap["LRP"] := "102B39"
-KindlePixelSearchColorsMap["Robotics Engineering"] := "6C7886"
+; KindlePixelSearchColorsMap["Robotics Engineering"] := "6C7886"
 KindlePixelSearchColorsMap["Patente"] := "114A9B"
 KindlePixelSearchColorsMap["Python"] := "FAE57A"
 KindlePixelSearchColorsMap["React"] := "EBCA70"
@@ -46,9 +47,10 @@ StudyWindowsMap["AHK"] := [ChromeExe, "AHK"]
 StudyWindowsMap["ROS"] := [ChromeExe, "ROS"]
 StudyWindowsMap["RoboDK"] := [ChromeExe, "RoboDK"]
 StudyWindowsMap["English"] := [ChromeExe, "English"]
-StudyWindowsMap["COU Robotics Engineering"] := [ChromeExe, "Robotics Engineering"]
-StudyWindowsMap["Robotics Engineering Book"] := [KindleExe, KindlePixelSearchColorsMap["Robotics Engineering"]]
+StudyWindowsMap["Robotics"] := [ChromeExe, "Robotics"]
+; StudyWindowsMap["Robotics Engineering Book"] := [KindleExe, KindlePixelSearchColorsMap["Robotics Engineering"]]
 StudyWindowsMap["CoppeliaSim"] := [ChromeExe, "CoppeliaSim"]
+; StudyWindowsMap["SOLIDWORKS"] := [FirefoxExe, ""]
 StudyWindowsMap["SOLIDWORKS"] := [ChromeExe, "SOLIDWORKS"]
 StudyWindowsMap["Barman"] := [ChromeExe, "Barman"]
 StudyWindowsMap["cFos"] := [ChromeExe, "cFos"]
@@ -63,6 +65,7 @@ StudyWindowsMap["LRP"] := [KindleExe, KindlePixelSearchColorsMap["LRP"]]
 ; StudyWindowsMap["LRP"] := [ChromeExe, "LRP"]
 StudyWindowsMap["Anaconda"] := [ChromeExe, "Anaconda"]
 StudyWindowsMap["Raspberry Pi"] := [ChromeExe, "Raspberry Pi"]
+StudyWindowsMap["IFTS Python"] := [ChromeExe, "IFTS Python"]
 StudyWindowsMap["Python"] := [KindleExe, KindlePixelSearchColorsMap["Python"]]
 ; StudyWindowsMap["PCC"] := [ChromeExe, "PCC"]
 StudyWindowsMap["Adobe"] := [ChromeExe, "Adobe"]
@@ -73,19 +76,24 @@ StudyWindowsMap["Canva"] := [ChromeExe, "Canva"]
 StudyWindowsMap["Jupyter"] := [ChromeExe, "Jupyter"]
 StudyWindowsMap["Shortcuts"] := [ChromeExe, "Shortcuts"]
 ; StudyWindowsMap["COMAU"] := [AdobeExe, "Programmatore_di_sistemi_robotizzati_4.0-Presentazione.pdf "]
-StudyWindowsMap["COMAU"] := [ChromeExe, "COMAU"]
+; StudyWindowsMap["COMAU"] := [ChromeExe, "COMAU"]
 StudyWindowsMap["Markdown"] := [ChromeExe, "Markdown"]
 StudyWindowsMap["Gamma"] := [ChromeExe, "Gamma"]
 StudyWindowsMap["Swift"] := [ChromeExe, "Swift"]
 StudyWindowsMap["Spring Boot"] := [ChromeExe, "Spring Boot"]
+StudyWindowsMap["PDL2"] := [ChromeExe, "PDL2"]
+StudyWindowsMap["TP"] := [ChromeExe, "TP"]
+StudyWindowsMap["Guitar"] := [ChromeExe, "Guitar"]
+; StudyWindowsMap["PLC"] := [ChromeExe, "PLC"]
 
 StudyWindowsMap["RoboSIM"] := [AdobeExe, "lb-rc-c5e-roboSIM_en.pdf "]
 StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf "]
 StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
 ; StudyWindowsMap["SH125"] := [AdobeExe, "sh125.pdf "]
-StudyWindowsMap["IFTS Del Vecchio"] := [AdobeExe, "Reti Informatiche - Documenti Google - "]
+StudyWindowsMap["Cybersecurity"] := [AdobeExe, "ROB2_Cybersecurity.pdf "]
 StudyWindowsMap["RoboShop Manual"] := [AdobeExe, "lb-rc-c5e-roboshop_it.pdf "]
 StudyWindowsMap["Raspberry Pi"] := [AdobeExe, "BeginnersGuide-5thEd-Eng_v4.pdf "]
+StudyWindowsMap["3D Printing"] := [AdobeExe, "NEPTUNE 4 MAX User Manual（Multilingual）-V1.8.pdf "]
 
 StudyWindowsMap["Patente"] := [KindleExe, KindlePixelSearchColorsMap["Patente"]]
 StudyWindowsMap["React"] := [KindleExe, KindlePixelSearchColorsMap["React"]]
@@ -188,11 +196,13 @@ OnButtonClick(app, name, StudySubjectName, *) {
         {
             MsgBox "Image not found on the screen."
         }
-    } else if (app = ChromeExe || app = AdobeExe || app = "ahk_exe GMetrix SMSe.exe") { ; fix this shit
+    } else if (app = ChromeExe || app = AdobeExe || app = "ahk_exe GMetrix SMSe.exe" || app = FirefoxExe) { ; fix this shit
         WinActivate(name " " app)
     } else {
         MsgBox "Physical"
     }
+
+    UpdateButtonColors()
 }
 
 
