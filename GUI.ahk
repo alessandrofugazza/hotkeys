@@ -5,7 +5,9 @@ AdobeExe := "ahk_exe Acrobat.exe"
 KindleExe := "ahk_exe Kindle.exe"
 FirefoxExe := "ahk_exe firefox.exe"
 
-MaxHours := 8
+MaxHours := 4
+
+LastKindleBook := ""
 
 
 ^!a::
@@ -25,6 +27,7 @@ KindlePixelSearchColorsMap["LRP"] := "102B39"
 KindlePixelSearchColorsMap["Patente"] := "114A9B"
 KindlePixelSearchColorsMap["Python"] := "FAE57A"
 KindlePixelSearchColorsMap["React"] := "EBCA70"
+KindlePixelSearchColorsMap["Manners"] := "DB3D60"
 ; KindleImageSearchPathsMap["CompTIA"] := A_ScriptDir "\imagesearch\lrp.png"
 ; KindleImageSearchPathsMap["HOML"] := A_ScriptDir "\imagesearch\homl.png"
 ; KindleImageSearchPathsMap["LRP"] := A_ScriptDir "\imagesearch\lrp.png"
@@ -39,68 +42,99 @@ StudyWindowsMap := Map()
 
 ; IMPROVE really bad
 
-StudyWindowsMap["CompTIA"] := [KindleExe, KindlePixelSearchColorsMap["CompTIA"]]
-; StudyWindowsMap["CompTIA"] := [ChromeExe, "CompTIA"]
-StudyWindowsMap["Chrome DevTools"] := [ChromeExe, "Chrome DevTools"]
-StudyWindowsMap["GitHub Copilot"] := [ChromeExe, "GitHub Copilot"]
-StudyWindowsMap["AHK"] := [ChromeExe, "AHK"]
-StudyWindowsMap["ROS"] := [ChromeExe, "ROS"]
-StudyWindowsMap["RoboDK"] := [ChromeExe, "RoboDK"]
-StudyWindowsMap["English"] := [ChromeExe, "English"]
-StudyWindowsMap["Robotics"] := [ChromeExe, "Robotics"]
+; HOLD
+
+; StudyWindowsMap["ROS"] := [ChromeExe, "ROS"]
+; StudyWindowsMap["English"] := [ChromeExe, "English"]
 ; StudyWindowsMap["Robotics Engineering Book"] := [KindleExe, KindlePixelSearchColorsMap["Robotics Engineering"]]
-StudyWindowsMap["CoppeliaSim"] := [ChromeExe, "CoppeliaSim"]
+; StudyWindowsMap["CoppeliaSim"] := [ChromeExe, "CoppeliaSim"]
+; StudyWindowsMap["HOML"] := [KindleExe, KindlePixelSearchColorsMap["HOML"]]
+; StudyWindowsMap["Anaconda"] := [ChromeExe, "Anaconda"]
+; StudyWindowsMap["Adobe"] := [ChromeExe, "Adobe"]
+; StudyWindowsMap["Canva"] := [ChromeExe, "Canva"]
+; StudyWindowsMap["Jupyter"] := [ChromeExe, "Jupyter"]
+; StudyWindowsMap["Gamma"] := [ChromeExe, "Gamma"]
+; StudyWindowsMap["RoboSIM"] := [AdobeExe, "lb-rc-c5e-roboSIM_en.pdf "]
+; StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
+; StudyWindowsMap["RoboShop Manual"] := [AdobeExe, "lb-rc-c5e-roboshop_it.pdf "]
+
+; WEBDEV
+
+; StudyWindowsMap["Chrome DevTools"] := [ChromeExe, "Chrome DevTools"]
+; StudyWindowsMap["pgAdmin"] := [ChromeExe, "pgAdmin"]
+; StudyWindowsMap["Spring Boot"] := [ChromeExe, "Spring Boot"]
+; StudyWindowsMap["React"] := [KindleExe, KindlePixelSearchColorsMap["React"]]
+
+; CODING
+
+; StudyWindowsMap["GitHub Copilot"] := [ChromeExe, "GitHub Copilot"]
+; StudyWindowsMap["Markdown"] := [ChromeExe, "Markdown"]
+; StudyWindowsMap["VS Code"] := [ChromeExe, "VS Code"]
+; StudyWindowsMap["AHK"] := [ChromeExe, "AHK"]
+; StudyWindowsMap["IntelliJ"] := [ChromeExe, "IntelliJ"]
+
+;PC Software
+
+; StudyWindowsMap["Tweak III"] := [ChromeExe, "Tweak III"]
+; StudyWindowsMap["cFos"] := [ChromeExe, "cFos"]
+
+; ELECTRONICS
+
+; StudyWindowsMap["Raspberry Pi"] := [ChromeExe, "Raspberry Pi"]
+
+
+StudyWindowsMap["iOS Development"] := [ChromeExe, "Swift"]
+StudyWindowsMap["CompTIA"] := [KindleExe, KindlePixelSearchColorsMap["CompTIA"]]
+StudyWindowsMap["LRP"] := [KindleExe, KindlePixelSearchColorsMap["LRP"]]
+; StudyWindowsMap["CompTIA"] := [ChromeExe, "CompTIA"]
+StudyWindowsMap["RoboDK"] := [ChromeExe, "RoboDK"]
+StudyWindowsMap["Robotics"] := [ChromeExe, "Robotics"]
 ; StudyWindowsMap["SOLIDWORKS"] := [FirefoxExe, ""]
 StudyWindowsMap["SOLIDWORKS"] := [ChromeExe, "SOLIDWORKS"]
-StudyWindowsMap["Barman"] := [ChromeExe, "Barman"]
-StudyWindowsMap["cFos"] := [ChromeExe, "cFos"]
-StudyWindowsMap["Tweak III"] := [ChromeExe, "Tweak III"]
-StudyWindowsMap["IntelliJ"] := [ChromeExe, "IntelliJ"]
-StudyWindowsMap["pgAdmin"] := [ChromeExe, "pgAdmin"]
-StudyWindowsMap["Flipper Zero"] := [ChromeExe, "Flipper Zero"]
-StudyWindowsMap["VS Code"] := [ChromeExe, "VS Code"]
-StudyWindowsMap["HOML"] := [KindleExe, KindlePixelSearchColorsMap["HOML"]]
+; StudyWindowsMap["Barman"] := [ChromeExe, "Barman"]
+StudyWindowsMap["Flipper"] := [ChromeExe, "Flipper Zero"]
 ; StudyWindowsMap["HOML"] := [ChromeExe, "HOML"]
-StudyWindowsMap["LRP"] := [KindleExe, KindlePixelSearchColorsMap["LRP"]]
 ; StudyWindowsMap["LRP"] := [ChromeExe, "LRP"]
-StudyWindowsMap["Anaconda"] := [ChromeExe, "Anaconda"]
-StudyWindowsMap["Raspberry Pi"] := [ChromeExe, "Raspberry Pi"]
-StudyWindowsMap["IFTS Python"] := [ChromeExe, "IFTS Python"]
+; StudyWindowsMap["Python WebAcademy"] := [ChromeExe, "IFTS Python"]
 StudyWindowsMap["Python"] := [KindleExe, KindlePixelSearchColorsMap["Python"]]
 ; StudyWindowsMap["PCC"] := [ChromeExe, "PCC"]
-StudyWindowsMap["Adobe"] := [ChromeExe, "Adobe"]
-StudyWindowsMap["Data Science"] := [ChromeExe, "Data Science"]
+; StudyWindowsMap["Data Science"] := [ChromeExe, "Data Science"]
 StudyWindowsMap["Character.AI"] := [ChromeExe, "Character.AI"]
-StudyWindowsMap["ML Algorithms"] := [ChromeExe, "ML Algorithms"]
-StudyWindowsMap["Canva"] := [ChromeExe, "Canva"]
-StudyWindowsMap["Jupyter"] := [ChromeExe, "Jupyter"]
+; StudyWindowsMap["Machine Learning"] := [ChromeExe, "Machine Learning"]
 StudyWindowsMap["Shortcuts"] := [ChromeExe, "Shortcuts"]
+StudyWindowsMap["Practical"] := [ChromeExe, "Practical"]
 ; StudyWindowsMap["COMAU"] := [AdobeExe, "Programmatore_di_sistemi_robotizzati_4.0-Presentazione.pdf "]
 ; StudyWindowsMap["COMAU"] := [ChromeExe, "COMAU"]
-StudyWindowsMap["Markdown"] := [ChromeExe, "Markdown"]
-StudyWindowsMap["Gamma"] := [ChromeExe, "Gamma"]
-StudyWindowsMap["Swift"] := [ChromeExe, "Swift"]
-StudyWindowsMap["Spring Boot"] := [ChromeExe, "Spring Boot"]
-StudyWindowsMap["PDL2"] := [ChromeExe, "PDL2"]
-StudyWindowsMap["TP"] := [ChromeExe, "TP"]
+StudyWindowsMap["TP Manuals"] := [AdobeExe, "COMAU_c5e-uso-tp5_it_manual (1)[1].pdf "]
+; StudyWindowsMap["PDL2"] := [ChromeExe, "PDL2"]
+StudyWindowsMap["TP WebAcademy"] := [ChromeExe, "TP"]
 StudyWindowsMap["Guitar"] := [ChromeExe, "Guitar"]
+StudyWindowsMap["Blender"] := [ChromeExe, "Blender"]
 ; StudyWindowsMap["PLC"] := [ChromeExe, "PLC"]
+StudyWindowsMap["Electronics"] := [ChromeExe, "Electronics"]
+StudyWindowsMap["Web Development"] := [ChromeExe, "Web Development"]
+StudyWindowsMap["PC Software"] := [ChromeExe, "Tweak III"]
+StudyWindowsMap["CT"] := [ChromeExe, "CT"]
+StudyWindowsMap["JavaScript"] := [ChromeExe, "JavaScript"]
+StudyWindowsMap["WordPress Plugins"] := [ChromeExe, "WordPress Plugins"]
+StudyWindowsMap["PHP"] := [ChromeExe, "PHP"]
+StudyWindowsMap["Tkinter"] := [ChromeExe, "Tkinter"]
+StudyWindowsMap["Tutor"] := [ChromeExe, "Tutor"]
+StudyWindowsMap["Soft Skills"] := [ChromeExe, "Soft Skills"]
 
-StudyWindowsMap["RoboSIM"] := [AdobeExe, "lb-rc-c5e-roboSIM_en.pdf "]
-StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf "]
-StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
+; StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf "]
 ; StudyWindowsMap["SH125"] := [AdobeExe, "sh125.pdf "]
-StudyWindowsMap["Cybersecurity"] := [AdobeExe, "ROB2_Cybersecurity.pdf "]
-StudyWindowsMap["RoboShop Manual"] := [AdobeExe, "lb-rc-c5e-roboshop_it.pdf "]
-StudyWindowsMap["Raspberry Pi"] := [AdobeExe, "BeginnersGuide-5thEd-Eng_v4.pdf "]
+; StudyWindowsMap["Cybersecurity"] := [AdobeExe, "ROB2_Cybersecurity.pdf "]
+; StudyWindowsMap["Raspberry Pi"] := [AdobeExe, "BeginnersGuide-5thEd-Eng_v4.pdf "]
 StudyWindowsMap["3D Printing"] := [AdobeExe, "NEPTUNE 4 MAX User Manual（Multilingual）-V1.8.pdf "]
 
 StudyWindowsMap["Patente"] := [KindleExe, KindlePixelSearchColorsMap["Patente"]]
-StudyWindowsMap["React"] := [KindleExe, KindlePixelSearchColorsMap["React"]]
+StudyWindowsMap["Manners"] := [KindleExe, KindlePixelSearchColorsMap["Manners"]]
 
 StudyWindowsMap["MOS"] := ["ahk_exe GMetrix SMSe.exe", ""]
+StudyWindowsMap["Adobe"] := ["ahk_exe Photoshop.exe", ""]
 
-StudyWindowsMap["CB125R"] := ["", ""]
+StudyWindowsMap["Automotive"] := ["", ""]
 
 StudyWindowsMapKeys := []
 
@@ -178,25 +212,39 @@ OnButtonClick(app, name, StudySubjectName, *) {
     SaveButtonTimersData()  ; Save ButtonTimers data after each click
 
     if (app = KindleExe) {
+        global LastKindleBook
         WinActivate("Alessandro's Kindle for PC")
         ; sleep 1000
-        Send "^!l"
-        sleep 300
-        foundX := 0
-        foundY := 0
+        SlowWarning := false
+        if (name != LastKindleBook) {
 
-        ; if ImageSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, name)
-        if PixelSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "0x" name)
-        {
-            MouseMove foundX, foundY
-            ; MouseMove foundX + 70, foundY
-            Click 2
+            Send "^!l"
+            sleep 400
+SlowWaringLabel:
+            foundX := 0
+            foundY := 0
+
+            ; if ImageSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, name)
+            if PixelSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "0x" name)
+            {
+                MouseMove foundX, foundY
+                ; MouseMove foundX + 70, foundY
+                Click 2
+            }
+            else
+            {
+                if SlowWarning {
+                    MsgBox "Image not found on the screen."
+                    return
+                } else {
+                    SlowWarning := true
+                    sleep 100
+                    goto SlowWaringLabel
+                }
+            }
+            LastKindleBook := name
         }
-        else
-        {
-            MsgBox "Image not found on the screen."
-        }
-    } else if (app = ChromeExe || app = AdobeExe || app = "ahk_exe GMetrix SMSe.exe" || app = FirefoxExe) { ; fix this shit
+    } else if (app = ChromeExe || app = AdobeExe || app = "ahk_exe GMetrix SMSe.exe" || app = "ahk_exe Photoshop.exe" || app = FirefoxExe) { ; fix this shit
         WinActivate(name " " app)
     } else {
         MsgBox "Physical"
