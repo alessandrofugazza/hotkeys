@@ -5,7 +5,7 @@ A_IconTip := "Hotkeys"
 CoordMode("Mouse", "Screen")
 
 
-IconPath := "C:\Users\aless\Desktop\projects\personal\ahk\hotkeys\tray-icon.png"
+IconPath := ".\tray-icon.png"
 TraySetIcon IconPath
 
 ; intervals
