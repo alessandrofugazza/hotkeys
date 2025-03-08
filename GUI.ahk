@@ -181,28 +181,50 @@ VERTICAL_SPACING := 5  ; Define the vertical spacing between buttons
 
 BUTTONS_PER_COLUMN := 10
 
+; Create maps to separate windows based on whether they have "true" attribute
+RegularStudyWindows := Map()
+ImportantStudyWindows := Map()
+
+; Populate the maps based on the third parameter (true/false)
+for SubjectName, WindowInfo in StudyWindowsMap {
+    if (WindowInfo.Length >= 3 && WindowInfo[3] = true) {
+        ImportantStudyWindows[SubjectName] := WindowInfo
+    } else {
+        RegularStudyWindows[SubjectName] := WindowInfo
+    }
+}
+
+
 ButtonTimersFile := A_ScriptDir "\data\button-timers-data.txt"
 
 ; Load ButtonTimers data from file
 LoadButtonTimersData()
 
+PreviousGuiWidth := 0
 
+CreateButtons(ImportantStudyWindows)
+CreateButtons(RegularStudyWindows)
 
-for StudySubjectName in SortedStudyWindowsMapKeys {
-    colIndex := (A_Index - 1) // BUTTONS_PER_COLUMN
-    rowIndex := Mod((A_Index - 1), BUTTONS_PER_COLUMN)
-    xPos := PADDING_LEFT + HORIZONTAL_SPACING + colIndex * (BUTTON_WIDTH + HORIZONTAL_SPACING)
-    yPos := PADDING_TOP + rowIndex * (BUTTON_HEIGHT + VERTICAL_SPACING)  ; Apply vertical spacing
+; Function to create all buttons for the GUI
+CreateButtons(Map) {
+    global
 
-    NewButton := MyGui.Add("Button", "x" xPos " y" yPos " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, StudySubjectName)
-    NewButton.SetColor("00FF00")  ; Initial color green
-    NewButton.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2], StudySubjectName))
-    ButtonTimers[StudySubjectName] := NewButton
-    if !ButtonClickTimes.Has(StudySubjectName) {
-        ButtonClickTimes[StudySubjectName] := A_TickCount
+    for StudySubjectName in Map {
+        colIndex := (A_Index - 1) // BUTTONS_PER_COLUMN
+        rowIndex := Mod((A_Index - 1), BUTTONS_PER_COLUMN)
+        xPos := PreviousGuiWidth + PADDING_LEFT + HORIZONTAL_SPACING + colIndex * (BUTTON_WIDTH + HORIZONTAL_SPACING)
+        yPos := PADDING_TOP + rowIndex * (BUTTON_HEIGHT + VERTICAL_SPACING)  ; Apply vertical spacing
+
+        NewButton := MyGui.Add("Button", "x" xPos " y" yPos " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, StudySubjectName)
+        NewButton.SetColor("00FF00")  ; Initial color green
+        NewButton.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2], StudySubjectName))
+        ButtonTimers[StudySubjectName] := NewButton
+        if !ButtonClickTimes.Has(StudySubjectName) {
+            ButtonClickTimes[StudySubjectName] := A_TickCount
+        }
+        UpdateButtonFontColor(NewButton, "00FF00")  ; Set initial font color
     }
-    UpdateButtonFontColor(NewButton, "00FF00")  ; Set initial font color
-    ; UpdateButtonColors()
+    PreviousGuiWidth := Max(PreviousGuiWidth, xPos + BUTTON_WIDTH + PADDING_LEFT)
 }
 
 ResetButton := MyGui.Add("Button", "x" PADDING_LEFT " y" (PADDING_TOP + BUTTONS_PER_COLUMN * (BUTTON_HEIGHT + VERTICAL_SPACING)) " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, "Reset Timers")
