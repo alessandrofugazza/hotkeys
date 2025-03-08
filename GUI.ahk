@@ -134,7 +134,9 @@ StudyWindowsMap["Patente"] := [KindleExe, KindlePixelSearchColorsMap["Patente"]]
 ; StudyWindowsMap["Manners"] := [KindleExe, KindlePixelSearchColorsMap["Manners"]]
 
 StudyWindowsMap["MOS"] := ["ahk_exe GMetrix SMSe.exe", "", true]
-StudyWindowsMap["Adobe"] := ["ahk_exe Photoshop.exe", ""]
+
+; StudyWindowsMap["Adobe"] := ["ahk_exe Photoshop.exe", ""]
+StudyWindowsMap["Adobe"] := ["ahk_exe AfterFX.exe", ""]
 
 StudyWindowsMap["Automotive"] := ["", "", true]
 
@@ -169,15 +171,15 @@ MyGui.BackColor := 0x1E1E1E
 ButtonTimers := Map()  ; Map to store timers for each button
 ButtonClickTimes := Map()  ; Map to store the last click time for each button
 
-ButtonWidth := 140
-buttonHeight := 50
-PaddingTop := 7
-PaddingLeft := 2
+BUTTON_WIDTH := 140
+BUTTON_HEIGHT := 50
+PADDING_TOP := 7
+PADDING_LEFT := 2
 
-HorizontalSpacing := 7
-VerticalSpacing := 5  ; Define the vertical spacing between buttons
+HORIZONTAL_SPACING := 7
+VERTICAL_SPACING := 5  ; Define the vertical spacing between buttons
 
-ButtonsPerColumn := 10
+BUTTONS_PER_COLUMN := 10
 
 ButtonTimersFile := A_ScriptDir "\data\button-timers-data.txt"
 
@@ -185,13 +187,14 @@ ButtonTimersFile := A_ScriptDir "\data\button-timers-data.txt"
 LoadButtonTimersData()
 
 
-for StudySubjectName in SortedStudyWindowsMapKeys {
-    colIndex := (A_Index - 1) // ButtonsPerColumn
-    rowIndex := Mod((A_Index - 1), ButtonsPerColumn)
-    xPos := PaddingLeft + HorizontalSpacing + colIndex * (ButtonWidth + HorizontalSpacing)
-    yPos := PaddingTop + rowIndex * (buttonHeight + VerticalSpacing)  ; Apply vertical spacing
 
-    NewButton := MyGui.Add("Button", "x" xPos " y" yPos " w" ButtonWidth " h" buttonHeight, StudySubjectName)
+for StudySubjectName in SortedStudyWindowsMapKeys {
+    colIndex := (A_Index - 1) // BUTTONS_PER_COLUMN
+    rowIndex := Mod((A_Index - 1), BUTTONS_PER_COLUMN)
+    xPos := PADDING_LEFT + HORIZONTAL_SPACING + colIndex * (BUTTON_WIDTH + HORIZONTAL_SPACING)
+    yPos := PADDING_TOP + rowIndex * (BUTTON_HEIGHT + VERTICAL_SPACING)  ; Apply vertical spacing
+
+    NewButton := MyGui.Add("Button", "x" xPos " y" yPos " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, StudySubjectName)
     NewButton.SetColor("00FF00")  ; Initial color green
     NewButton.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2], StudySubjectName))
     ButtonTimers[StudySubjectName] := NewButton
@@ -199,10 +202,10 @@ for StudySubjectName in SortedStudyWindowsMapKeys {
         ButtonClickTimes[StudySubjectName] := A_TickCount
     }
     UpdateButtonFontColor(NewButton, "00FF00")  ; Set initial font color
-    UpdateButtonColors()
+    ; UpdateButtonColors()
 }
 
-ResetButton := MyGui.Add("Button", "x" PaddingLeft " y" (PaddingTop + ButtonsPerColumn * (buttonHeight + VerticalSpacing)) " w" ButtonWidth " h" buttonHeight, "Reset Timers")
+ResetButton := MyGui.Add("Button", "x" PADDING_LEFT " y" (PADDING_TOP + BUTTONS_PER_COLUMN * (BUTTON_HEIGHT + VERTICAL_SPACING)) " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, "Reset Timers")
 ResetButton.OnEvent("Click", ResetButtonTimers)
 
 OnButtonClick(app, name, StudySubjectName, *) {
