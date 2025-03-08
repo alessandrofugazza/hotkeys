@@ -180,6 +180,7 @@ HORIZONTAL_SPACING := 7
 VERTICAL_SPACING := 5  ; Define the vertical spacing between buttons
 
 BUTTONS_PER_COLUMN := 10
+SECTIONS_MARGIN := 30
 
 ; Create maps to separate windows based on whether they have "true" attribute
 RegularStudyWindows := Map()
@@ -224,7 +225,7 @@ CreateButtons(Map) {
         }
         UpdateButtonFontColor(NewButton, "00FF00")  ; Set initial font color
     }
-    PreviousGuiWidth := Max(PreviousGuiWidth, xPos + BUTTON_WIDTH + PADDING_LEFT)
+    PreviousGuiWidth := Max(PreviousGuiWidth, xPos + BUTTON_WIDTH + PADDING_LEFT + SECTIONS_MARGIN)
 }
 
 ResetButton := MyGui.Add("Button", "x" PADDING_LEFT " y" (PADDING_TOP + BUTTONS_PER_COLUMN * (BUTTON_HEIGHT + VERTICAL_SPACING)) " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, "Reset Timers")
