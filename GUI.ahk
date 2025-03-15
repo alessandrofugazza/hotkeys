@@ -52,8 +52,6 @@ StudyWindowsMap := Map()
 ; StudyWindowsMap["HOML"] := [KindleExe, KindlePixelSearchColorsMap["HOML"]]
 ; StudyWindowsMap["Anaconda"] := [ChromeExe, "Anaconda"]
 ; StudyWindowsMap["Adobe"] := [ChromeExe, "Adobe"]
-StudyWindowsMap["Canva"] := [ChromeExe, "Canva", 4]
-StudyWindowsMap["Jupyter"] := [ChromeExe, "Jupyter", 4]
 ; StudyWindowsMap["Gamma"] := [ChromeExe, "Gamma"]
 ; StudyWindowsMap["RoboSIM"] := [AdobeExe, "lb-rc-c5e-roboSIM_en.pdf "]
 ; StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
@@ -61,91 +59,82 @@ StudyWindowsMap["Jupyter"] := [ChromeExe, "Jupyter", 4]
 
 ; WEBDEV
 
-StudyWindowsMap["Chrome DevTools"] := [ChromeExe, "Chrome DevTools", 4]
-StudyWindowsMap["pgAdmin"] := [ChromeExe, "pgAdmin", 3]
-StudyWindowsMap["SQL"] := [ChromeExe, "SQL", 3]
-StudyWindowsMap["Spring"] := [ChromeExe, "Spring", 3]
-StudyWindowsMap["Java"] := [ChromeExe, "Java", 3]
 ; StudyWindowsMap["Codecademy"] := [ChromeExe, "Codecademy", 1]
-StudyWindowsMap["React"] := [KindleExe, KindlePixelSearchColorsMap["React"], 2]
 
 ; CODING
 
-StudyWindowsMap["GitHub Copilot"] := [ChromeExe, "GitHub Copilot", 4]
-StudyWindowsMap["Markdown"] := [ChromeExe, "Markdown", 4]
-StudyWindowsMap["VS Code"] := [ChromeExe, "VS Code", 4]
-StudyWindowsMap["AHK"] := [ChromeExe, "AHK", 4]
-StudyWindowsMap["IntelliJ"] := [ChromeExe, "IntelliJ", 4]
 
 ;PC Software
 
-StudyWindowsMap["Tweak III"] := [ChromeExe, "Tweak III", 4]
-StudyWindowsMap["cFos"] := [ChromeExe, "cFos", 4]
 
 ; ELECTRONICS
 
-StudyWindowsMap["Raspberry Pi"] := [ChromeExe, "Raspberry Pi", 4]
 
-
-StudyWindowsMap["iOS Development"] := [ChromeExe, "iOS Development", 1]
 ; StudyWindowsMap["CompTIA"] := [KindleExe, KindlePixelSearchColorsMap["CompTIA"], 1]
-StudyWindowsMap["LRP"] := [KindleExe, KindlePixelSearchColorsMap["LRP"], 1]
 ; StudyWindowsMap["CompTIA"] := [ChromeExe, "CompTIA"]
-StudyWindowsMap["RoboDK"] := [ChromeExe, "RoboDK", 2]
-StudyWindowsMap["Robotics"] := [ChromeExe, "Robotics", 2]
 ; StudyWindowsMap["SOLIDWORKS"] := [FirefoxExe, ""]
-StudyWindowsMap["SOLIDWORKS"] := [ChromeExe, "SOLIDWORKS", 2]
 ; StudyWindowsMap["Barman"] := [ChromeExe, "Barman"]
-StudyWindowsMap["Flipper"] := [ChromeExe, "Flipper Zero", 3]
 ; StudyWindowsMap["HOML"] := [ChromeExe, "HOML"]
 ; StudyWindowsMap["LRP"] := [ChromeExe, "LRP"]
 ; StudyWindowsMap["Python WebAcademy"] := [ChromeExe, "IFTS Python"]
 ; StudyWindowsMap["Python"] := [KindleExe, KindlePixelSearchColorsMap["Python"]]
 ; StudyWindowsMap["PCC"] := [ChromeExe, "PCC"]
 ; StudyWindowsMap["Data Science"] := [ChromeExe, "Data Science"]
-StudyWindowsMap["Character.AI"] := [ChromeExe, "Character.AI", 2]
-StudyWindowsMap["Python"] := [ChromeExe, "Python", 1]
 ; StudyWindowsMap["Machine Learning"] := [ChromeExe, "Machine Learning"]
-StudyWindowsMap["Shortcuts"] := [ChromeExe, "Shortcuts", 3]
-StudyWindowsMap["Practical"] := [ChromeExe, "Practical", 1]
 ; StudyWindowsMap["COMAU"] := [AdobeExe, "Programmatore_di_sistemi_robotizzati_4.0-Presentazione.pdf "]
 ; StudyWindowsMap["COMAU"] := [ChromeExe, "COMAU"]
-StudyWindowsMap["TP Manuals"] := [AdobeExe, "COMAU_c5e-uso-tp5_it_manual (1)[1].pdf ", 2]
 ; StudyWindowsMap["PDL2"] := [ChromeExe, "PDL2"]
-StudyWindowsMap["WebAcademy"] := [ChromeExe, "WebAcademy", 1]
-StudyWindowsMap["Guitar"] := [ChromeExe, "Guitar", 3]
-StudyWindowsMap["Blender"] := [ChromeExe, "Blender", 3]
 ; StudyWindowsMap["PLC"] := [ChromeExe, "PLC"]
-StudyWindowsMap["Electronics"] := [ChromeExe, "Electronics", 2]
-StudyWindowsMap["WordPress"] := [ChromeExe, "WordPress", 1]
-StudyWindowsMap["PC Software"] := [ChromeExe, "Tweak III", 2]
-StudyWindowsMap["CT"] := [ChromeExe, "CT", 2]
-StudyWindowsMap["JavaScript"] := [ChromeExe, "JavaScript", 1]
-StudyWindowsMap["WordPress Plugins"] := [ChromeExe, "WordPress Plugins", 2]
-StudyWindowsMap["PHP"] := [ChromeExe, "PHP", 2]
-StudyWindowsMap["Tkinter"] := [ChromeExe, "Tkinter", 2]
-StudyWindowsMap["Tutor"] := [ChromeExe, "Tutor", 3]
-StudyWindowsMap["Soft Skills"] := [ChromeExe, "Soft Skills", 3]
-StudyWindowsMap["MOS"] := [ChromeExe, "MOS", 1]
-StudyWindowsMap["Chrome Extensions Development"] := [ChromeExe, "Chrome Extensions Development", 1]
+
 
 ; StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf "]
 ; StudyWindowsMap["SH125"] := [AdobeExe, "sh125.pdf "]
 ; StudyWindowsMap["Cybersecurity"] := [AdobeExe, "ROB2_Cybersecurity.pdf "]
 ; StudyWindowsMap["Raspberry Pi"] := [AdobeExe, "BeginnersGuide-5thEd-Eng_v4.pdf "]
-StudyWindowsMap["ELEGOO"] := [AdobeExe, "NEPTUNE 4 MAX User Manual（Multilingual）-V1.8.pdf ", 2]
-StudyWindowsMap["3D Printing"] := [ChromeExe, "3D Printing", 1]
 
-StudyWindowsMap["Law"] := [KindleExe, KindlePixelSearchColorsMap["Patente"], 2]
 ; StudyWindowsMap["Manners"] := [KindleExe, KindlePixelSearchColorsMap["Manners"]]
 
 ; StudyWindowsMap["MOS"] := ["ahk_exe GMetrix SMSe.exe", "", 1]
 
-StudyWindowsMap["Photoshop"] := ["ahk_exe Photoshop.exe", "", 4]
-StudyWindowsMap["AfterFX"] := ["ahk_exe AfterFX.exe", "", 3]
-
-StudyWindowsMap["Automotive"] := ["", "", 1]
 ; StudyWindowsMap["Work"] := ["", "", 1]
+
+P1Windows := []
+P2Windows := []
+P3Windows := []
+P4Windows := []
+
+ImportStudyWindowsMapFromCSV() {
+    global StudyWindowsMap
+    csvFile := A_ScriptDir "\data\StudyWindowsMap.csv"
+
+    if FileExist(csvFile) {
+        fileContent := FileRead(csvFile)
+        for line in StrSplit(fileContent, "`n") {
+            lineArray := StrSplit(line, ",")
+            StudyWindowsMap[lineArray[1]] := [lineArray[2], lineArray[3], lineArray[4], lineArray[5]]
+            switch lineArray[4] {
+                case 1:
+                    P1Windows.Push(lineArray[1])
+                case 2:
+                    P2Windows.Push(lineArray[1])
+                case 3:
+                    P3Windows.Push(lineArray[1])
+                case 4:
+                    P4Windows.Push(lineArray[1])
+                default:
+                    MsgBox "Invalid priority level"
+
+            }
+        }
+    }
+}
+
+ImportStudyWindowsMapFromCSV()
+
+MsgBox "P1Windows: " P1Windows.Length
+MsgBox "P2Windows: " P2Windows.Length
+MsgBox "P3Windows: " P3Windows.Length
+MsgBox "P4Windows: " P4Windows.Length
 
 StudyWindowsMapKeys := []
 
@@ -385,5 +374,16 @@ ResetButtonTimers(*) {
     SaveButtonTimersData()
     UpdateButtonColors()
 }
+
+; ExportStudyWindowsMapToCSV() {
+;     global StudyWindowsMap
+;     csvFile := A_ScriptDir "\data\StudyWindowsMap.csv"
+
+;     for key, value in StudyWindowsMap {
+;         csvLine := key "," value[1] "," value[2] "," value[3] "`n"
+;         FileAppend(csvLine, csvFile)
+;     }
+; }
+
 
 MyGui.Show()
