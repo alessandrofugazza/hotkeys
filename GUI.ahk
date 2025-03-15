@@ -111,22 +111,102 @@ ImportStudyWindowsMapFromCSV() {
         fileContent := FileRead(csvFile)
         for line in StrSplit(fileContent, "`n") {
             lineArray := StrSplit(line, ",")
-            StudyWindowsMap[lineArray[1]] := [lineArray[2], lineArray[3], lineArray[4], lineArray[5]]
-            switch lineArray[4] {
+            FormattedLineArray4 := Integer(lineArray[4])  ; Remove last character from the last string
+            FormattedLineArray5 := Integer(lineArray[5])  ; Remove last character from the last string
+            if (A_Index < StrSplit(fileContent, "`n").Length) {
+                PreFormat6 := SubStr(lineArray[6], 1, -1)
+            } else {
+                PreFormat6 := lineArray[6]
+            }
+            FormattedLineArray6 := Integer(PreFormat6)  ; Remove last character from the last string
+            ; MsgBox Type(PreFormat6)
+            ; MsgBox Type(FormattedLineArray6)
+            StudyWindowsMap[lineArray[1]] := [lineArray[2], lineArray[3], FormattedLineArray4, FormattedLineArray5, FormattedLineArray6]
+            ; testnum := Integer(FormattedLineArray6)
+            ; MsgBox Type(FormattedLineArray6)
+            ; MsgBox Type(testnum)
+            ; MsgBox FormattedLineArray6
+            ; MsgBox Type(Integer(lineArray[6]))
+            switch FormattedLineArray4 {
+                ; what in the fuck
                 case 1:
-                    P1Windows.Push(lineArray[1])
+                    if P1Windows.Length > 0 {
+                        insertIndex := 1
+                        for item in P1Windows {
+                            ; MsgBox Type(StudyWindowsMap[item][5])
+                            ; MsgBox Type(lineArray[6])
+                            if StudyWindowsMap[item][5] > FormattedLineArray6 {
+                                P1Windows.InsertAt(insertIndex, lineArray[1])
+                                break
+                            }
+                            insertIndex++
+                        }
+                        if insertIndex > P1Windows.Length {
+                            P1Windows.Push(lineArray[1])
+                        }
+                    } else {
+                        P1Windows.Push(lineArray[1])
+                    }
                 case 2:
-                    P2Windows.Push(lineArray[1])
+                    if P2Windows.Length > 0 {
+                        insertIndex := 1
+                        for item in P2Windows {
+                            ; MsgBox Type(StudyWindowsMap[item][5])
+                            ; MsgBox Type(lineArray[6])
+                            if StudyWindowsMap[item][5] > FormattedLineArray6 {
+                                P2Windows.InsertAt(insertIndex, lineArray[1])
+                                break
+                            }
+                            insertIndex++
+                        }
+                        if insertIndex > P2Windows.Length {
+                            P2Windows.Push(lineArray[1])
+                        }
+                    } else {
+                        P2Windows.Push(lineArray[1])
+                    }
                 case 3:
-                    P3Windows.Push(lineArray[1])
+                    if P3Windows.Length > 0 {
+                        insertIndex := 1
+                        for item in P3Windows {
+                            ; MsgBox Type(StudyWindowsMap[item][5])
+                            ; MsgBox Type(lineArray[6])
+                            if StudyWindowsMap[item][5] > FormattedLineArray6 {
+                                P3Windows.InsertAt(insertIndex, lineArray[1])
+                                break
+                            }
+                            insertIndex++
+                        }
+                        if insertIndex > P3Windows.Length {
+                            P3Windows.Push(lineArray[1])
+                        }
+                    } else {
+                        P3Windows.Push(lineArray[1])
+                    }
                 case 4:
-                    P4Windows.Push(lineArray[1])
+                    if P4Windows.Length > 0 {
+                        insertIndex := 1
+                        for item in P4Windows {
+                            ; MsgBox Type(StudyWindowsMap[item][5])
+                            ; MsgBox Type(lineArray[6])
+                            if StudyWindowsMap[item][5] > FormattedLineArray6 {
+                                P4Windows.InsertAt(insertIndex, lineArray[1])
+                                break
+                            }
+                            insertIndex++
+                        }
+                        if insertIndex > P4Windows.Length {
+                            P4Windows.Push(lineArray[1])
+                        }
+                    } else {
+                        P4Windows.Push(lineArray[1])
+                    }
                 default:
                     MsgBox "Invalid priority level"
             }
+
         }
     }
-
 }
 
 ImportStudyWindowsMapFromCSV()
@@ -137,19 +217,6 @@ ImportStudyWindowsMapFromCSV()
 ; MsgBox "P3Windows: " P3Windows.Length
 ; MsgBox "P4Windows: " P4Windows.Length
 
-ShuffleArray(arr) {
-    loop arr.Length - 1 {
-        RandIndex := Random(A_Index, arr.Length)
-        Temp := arr[A_Index]
-        arr[A_Index] := arr[RandIndex]
-        arr[RandIndex] := Temp
-    }
-}
-
-ShuffleArray(P1Windows)
-ShuffleArray(P2Windows)
-ShuffleArray(P3Windows)
-ShuffleArray(P4Windows)
 
 ; FinalString := ""
 ; for item in P1Windows {
@@ -198,7 +265,7 @@ CreateButtons(Map) {
         yPos := PADDING_TOP + rowIndex * (BUTTON_HEIGHT + VERTICAL_SPACING)  ; Apply vertical spacing
 
         NewButton := MyGui.Add("Button", "x" xPos " y" yPos " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, StudySubjectName)
-        NewButton.SetColor("00FF00")  ; Initial color green
+        NewButton.SetColor("5ed75e")  ; Initial color green
         NewButton.OnEvent("Click", OnButtonClick.Bind(StudySubjectName))
         StudyButtons[StudySubjectName] := NewButton
         UpdateButtonFontColor(NewButton, "00FF00")  ; Set initial font color
@@ -209,8 +276,10 @@ CreateButtons(Map) {
 ResetButton := MyGui.Add("Button", "x" PADDING_LEFT " y" (PADDING_TOP + BUTTONS_PER_COLUMN * (BUTTON_HEIGHT + VERTICAL_SPACING)) " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, "Reset Timers")
 ResetButton.OnEvent("Click", ResetButtons)
 
+SaveButton := MyGui.Add("Button", "x" PADDING_LEFT + 100 " y" (PADDING_TOP + BUTTONS_PER_COLUMN * (BUTTON_HEIGHT + VERTICAL_SPACING)) " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, "Save All")
+SaveButton.OnEvent("Click", SaveAll)
+
 OnButtonClick(StudySubjectName, *) {
-    msgbox StudyWindowsMap[StudySubjectName][1]
 
     StudyWindowsMap[StudySubjectName][4] := A_TickCount
 
@@ -319,17 +388,52 @@ ResetButtons(*) {
         StudyWindowsMap[StudySubject][4] := -999999999999
     }
     UpdateButtonColors()
+
 }
 
-; ExportStudyWindowsMapToCSV() {
-;     global StudyWindowsMap
-;     csvFile := A_ScriptDir "\data\StudyWindowsMap.csv"
+SaveAll(*) {
+    ShuffleArray(arr) {
+        loop arr.Length - 1 {
+            RandIndex := Random(A_Index, arr.Length)
+            Temp := arr[A_Index]
+            arr[A_Index] := arr[RandIndex]
+            arr[RandIndex] := Temp
+        }
+    }
 
-;     for key, value in StudyWindowsMap {
-;         csvLine := key "," value[1] "," value[2] "," value[3] "`n"
-;         FileAppend(csvLine, csvFile)
-;     }
-; }
+    ShuffleArray(P1Windows)
+    for item in P1Windows {
+        StudyWindowsMap[item][5] := A_Index
+    }
+    ShuffleArray(P2Windows)
+    for item in P2Windows {
+        StudyWindowsMap[item][5] := A_Index
+    }
+    ShuffleArray(P3Windows)
+    for item in P3Windows {
+        StudyWindowsMap[item][5] := A_Index
+    }
+    ShuffleArray(P4Windows)
+    for item in P4Windows {
+        StudyWindowsMap[item][5] := A_Index
+    }
+    ExportStudyWindowsMapToCSV()
+    Reload
+}
+
+
+ExportStudyWindowsMapToCSV() {
+    global StudyWindowsMap
+    csvFile := A_ScriptDir "\data\StudyWindowsMap.csv"
+    FileDelete(csvFile)
+    for key, value in StudyWindowsMap {
+        csvLine := key "," value[1] "," value[2] "," value[3] "," value[4] "," value[5]
+        if (A_Index < StudyWindowsMap.Length) {
+            csvLine .= "`n"
+        }
+        FileAppend(csvLine, csvFile)
+    }
+}
 
 
 MyGui.Show()
