@@ -126,9 +126,11 @@ ImportStudyWindowsMapFromCSV() {
             }
         }
     }
+
 }
 
 ImportStudyWindowsMapFromCSV()
+
 
 ; MsgBox "P1Windows: " P1Windows.Length
 ; MsgBox "P2Windows: " P2Windows.Length
@@ -204,8 +206,8 @@ CreateButtons(Map) {
     PreviousGuiWidth := Max(PreviousGuiWidth, xPos + BUTTON_WIDTH + PADDING_LEFT + SECTIONS_MARGIN)
 }
 
-; ResetButton := MyGui.Add("Button", "x" PADDING_LEFT " y" (PADDING_TOP + BUTTONS_PER_COLUMN * (BUTTON_HEIGHT + VERTICAL_SPACING)) " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, "Reset Timers")
-; ResetButton.OnEvent("Click", ResetButtonTimers)
+ResetButton := MyGui.Add("Button", "x" PADDING_LEFT " y" (PADDING_TOP + BUTTONS_PER_COLUMN * (BUTTON_HEIGHT + VERTICAL_SPACING)) " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, "Reset Timers")
+ResetButton.OnEvent("Click", ResetButtons)
 
 OnButtonClick(StudySubjectName, *) {
     StudyWindowsMap[StudySubjectName][4] := A_TickCount
@@ -254,17 +256,17 @@ SlowWaringLabel:
 
 UpdateButtonColors() {
     global StudyWindowsMap
-    for StudySubjectName, Button in StudyButtons {
+    for StudySubjectName, Info in StudyWindowsMap {
         ; BRILLIANT GOOD JOB CHATGPT GOTTA LEARN THIS
-        elapsed := A_TickCount - StudyWindowsMap[StudySubjectName]
+        elapsed := A_TickCount - StudyWindowsMap[StudySubjectName][4]
         maxTime := MaxHours * 60 * 60 * 1000  ; 8 hours in milliseconds
         numShades := 48
         shadeInterval := maxTime / numShades
 
         ; Calculate the color based on the elapsed time
         if (elapsed >= maxTime) {
-            Button.SetColor("FF0000")  ; Red
-            UpdateButtonFontColor(Button, "FF0000")
+            StudyButtons[StudySubjectName].SetColor("FF0000")  ; Red
+            UpdateButtonFontColor(StudyButtons[StudySubjectName], "FF0000")
         } else {
             shadeIndex := Floor(elapsed / shadeInterval)
             ; Calculate the color gradient from green to yellow to red
@@ -279,8 +281,8 @@ UpdateButtonColors() {
                 greenValue := Floor(255 * ((numShades - shadeIndex) / (numShades / 2)))
                 color := Format("{:02X}{:02X}00", redValue, greenValue)
             }
-            Button.SetColor(color)
-            UpdateButtonFontColor(Button, color)
+            StudyButtons[StudySubjectName].SetColor(color)
+            UpdateButtonFontColor(StudyButtons[StudySubjectName], color)
         }
     }
 }
@@ -304,13 +306,14 @@ UpdateButtonFontColor(Button, bgColor) {
 }
 
 
-; ResetButtonTimers(*) {
-;     global ButtonClickTimes, ButtonTimersFile
-;     for StudySubjectName in ButtonClickTimes {
-;         ButtonClickTimes[StudySubjectName] := -999999999999
-;     }
-;     UpdateButtonColors()
-; }
+ResetButtons(*) {
+
+    global
+    for StudySubject, Info in StudyWindowsMap {
+        StudyWindowsMap[StudySubject][4] := -999999999999
+    }
+    UpdateButtonColors()
+}
 
 ; ExportStudyWindowsMapToCSV() {
 ;     global StudyWindowsMap
