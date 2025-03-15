@@ -111,13 +111,17 @@ ImportStudyWindowsMapFromCSV() {
         fileContent := FileRead(csvFile)
         for line in StrSplit(fileContent, "`n") {
             lineArray := StrSplit(line, ",")
+            ; MsgBox lineArray[6]
+            ; MsgBox lineArray.Length
+
             FormattedLineArray4 := Integer(lineArray[4])  ; Remove last character from the last string
             FormattedLineArray5 := Integer(lineArray[5])  ; Remove last character from the last string
-            if (A_Index < StrSplit(fileContent, "`n").Length) {
-                PreFormat6 := SubStr(lineArray[6], 1, -1)
-            } else {
-                PreFormat6 := lineArray[6]
-            }
+            ; if (A_Index < StrSplit(fileContent, "`n").Length) {
+            ;     PreFormat6 := SubStr(lineArray[6], 1, -1)
+            ; } else {
+            ;     PreFormat6 := lineArray[6]
+            ; }
+            PreFormat6 := lineArray[6]
             FormattedLineArray6 := Integer(PreFormat6)  ; Remove last character from the last string
             ; MsgBox Type(PreFormat6)
             ; MsgBox Type(FormattedLineArray6)
@@ -428,7 +432,7 @@ ExportStudyWindowsMapToCSV() {
     FileDelete(csvFile)
     for key, value in StudyWindowsMap {
         csvLine := key "," value[1] "," value[2] "," value[3] "," value[4] "," value[5]
-        if (A_Index < StudyWindowsMap.Length) {
+        if (A_Index < StudyWindowsMap.Count) {
             csvLine .= "`n"
         }
         FileAppend(csvLine, csvFile)
