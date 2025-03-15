@@ -149,11 +149,11 @@ ShuffleArray(P2Windows)
 ShuffleArray(P3Windows)
 ShuffleArray(P4Windows)
 
-FinalString := ""
-for item in P1Windows {
-    FinalString .= item "`n"
-}
-MsgBox FinalString
+; FinalString := ""
+; for item in P1Windows {
+;     FinalString .= item "`n"
+; }
+; MsgBox FinalString
 
 
 MyGui := Gui()
@@ -165,7 +165,7 @@ MyGui.BackColor := 0x1E1E1E
 ; button := MyGui.Add("Button", "Default", StudyWindowsMap["CompTIA"][2])
 ; button.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap["CompTIA"][1], StudyWindowsMap["CompTIA"][2]))
 
-ButtonTimers := Map()  ; Map to store timers for each button
+StudyButtons := Map()  ; Map to store timers for each button
 ButtonClickTimes := Map()  ; Map to store the last click time for each button
 
 BUTTON_WIDTH := 140
@@ -179,35 +179,6 @@ VERTICAL_SPACING := 5  ; Define the vertical spacing between buttons
 BUTTONS_PER_COLUMN := 10
 SECTIONS_MARGIN := 30
 
-; great names dude
-P1Windows := Map()
-P2Windows := Map()
-P3Windows := Map()
-P4Windows := Map()
-
-; Populate the maps based on the third parameter (true/false)
-for SubjectName, WindowInfo in StudyWindowsMap {
-    Switch WindowInfo[3]
-    {
-        Case 1:
-            P1Windows[SubjectName] := WindowInfo
-        Case 2:
-            P2Windows[SubjectName] := WindowInfo
-        Case 3:
-            P3Windows[SubjectName] := WindowInfo
-        Case 4:
-            P4Windows[SubjectName] := WindowInfo
-        Default:
-            MsgBox "Invalid priority level"
-    }
-}
-
-
-ButtonTimersFile := A_ScriptDir "\data\button-timers-data.txt"
-
-; Load ButtonTimers data from file
-LoadButtonTimersData()
-
 PreviousGuiWidth := 0
 
 CreateButtons(P1Windows)
@@ -215,7 +186,6 @@ CreateButtons(P2Windows)
 CreateButtons(P3Windows)
 CreateButtons(P4Windows)
 
-; Function to create all buttons for the GUI
 CreateButtons(Map) {
     global
 
@@ -227,33 +197,25 @@ CreateButtons(Map) {
 
         NewButton := MyGui.Add("Button", "x" xPos " y" yPos " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, StudySubjectName)
         NewButton.SetColor("00FF00")  ; Initial color green
-        NewButton.OnEvent("Click", OnButtonClick.Bind(StudyWindowsMap[StudySubjectName][1], StudyWindowsMap[StudySubjectName][2], StudySubjectName))
-        ButtonTimers[StudySubjectName] := NewButton
-        if !ButtonClickTimes.Has(StudySubjectName) {
-            ButtonClickTimes[StudySubjectName] := A_TickCount
-        }
+        NewButton.OnEvent("Click", OnButtonClick.Bind(StudySubjectName))
+        StudyButtons[StudySubjectName] := NewButton
         UpdateButtonFontColor(NewButton, "00FF00")  ; Set initial font color
     }
     PreviousGuiWidth := Max(PreviousGuiWidth, xPos + BUTTON_WIDTH + PADDING_LEFT + SECTIONS_MARGIN)
 }
 
-ResetButton := MyGui.Add("Button", "x" PADDING_LEFT " y" (PADDING_TOP + BUTTONS_PER_COLUMN * (BUTTON_HEIGHT + VERTICAL_SPACING)) " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, "Reset Timers")
-ResetButton.OnEvent("Click", ResetButtonTimers)
+; ResetButton := MyGui.Add("Button", "x" PADDING_LEFT " y" (PADDING_TOP + BUTTONS_PER_COLUMN * (BUTTON_HEIGHT + VERTICAL_SPACING)) " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, "Reset Timers")
+; ResetButton.OnEvent("Click", ResetButtonTimers)
 
-OnButtonClick(app, name, StudySubjectName, *) {
-    ; MyGui.Submit()
-    ; isChecked := MyGui["MyCheckbox"].Value
-    ; MsgBox(isChecked ? "Feature Enabled" : "Feature Disabled")
+OnButtonClick(StudySubjectName, *) {
+    StudyWindowsMap[StudySubjectName][4] := A_TickCount
 
-    ButtonClickTimes[StudySubjectName] := A_TickCount  ; Reset the click time for the button
-    SaveButtonTimersData()  ; Save ButtonTimers data after each click
-
-    if (app = KindleExe) {
+    if (StudyWindowsMap[StudySubjectName][1] = KindleExe) {
         global LastKindleBook
         WinActivate("Alessandro's Kindle for PC")
         ; sleep 1000
         SlowWarning := false
-        if (name != LastKindleBook) {
+        if (StudySubjectName != LastKindleBook) {
 
             Send "^!l"
             sleep 400
@@ -262,7 +224,7 @@ SlowWaringLabel:
             foundY := 0
 
             ; if ImageSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, name)
-            if PixelSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "0x" name)
+            if PixelSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "0x" StudySubjectName)
             {
                 MouseMove foundX, foundY
                 ; MouseMove foundX + 70, foundY
@@ -279,23 +241,22 @@ SlowWaringLabel:
                     goto SlowWaringLabel
                 }
             }
-            LastKindleBook := name
+            LastKindleBook := StudySubjectName
         }
-    } else if (app = ChromeExe || app = AdobeExe || app = "ahk_exe GMetrix SMSe.exe" || app = "ahk_exe Photoshop.exe" || app = FirefoxExe) { ; fix this shit
-        WinActivate(name " " app)
+    } else if (StudyWindowsMap[StudySubjectName][1] = ChromeExe || StudyWindowsMap[StudySubjectName][1] = AdobeExe || StudyWindowsMap[StudySubjectName][1] = "ahk_exe GMetrix SMSe.exe" || StudyWindowsMap[StudySubjectName][1] = "ahk_exe Photoshop.exe" || StudyWindowsMap[StudySubjectName][1] = FirefoxExe) { ; fix this shit
+        WinActivate(StudyWindowsMap[StudySubjectName][1] " " StudySubjectName)
     } else {
         MsgBox "Physical"
     }
 
-    UpdateButtonColors()
 }
 
 
 UpdateButtonColors() {
-    global ButtonTimers, ButtonClickTimes
-    for StudySubjectName, Button in ButtonTimers {
+    global StudyWindowsMap
+    for StudySubjectName, Button in StudyButtons {
         ; BRILLIANT GOOD JOB CHATGPT GOTTA LEARN THIS
-        elapsed := A_TickCount - ButtonClickTimes[StudySubjectName]
+        elapsed := A_TickCount - StudyWindowsMap[StudySubjectName]
         maxTime := MaxHours * 60 * 60 * 1000  ; 8 hours in milliseconds
         numShades := 48
         shadeInterval := maxTime / numShades
@@ -342,39 +303,14 @@ UpdateButtonFontColor(Button, bgColor) {
     }
 }
 
-; Save ButtonTimers data to file
-SaveButtonTimersData() {
-    global ButtonClickTimes, ButtonTimersFile
-    FileDelete(ButtonTimersFile)  ; Delete the file if it exists
-    for StudySubjectName, ClickTime in ButtonClickTimes {
-        FileAppend(StudySubjectName "=" ClickTime "`n", ButtonTimersFile)
-    }
-}
 
-; Load ButtonTimers data from file
-LoadButtonTimersData() {
-    global ButtonClickTimes, ButtonTimersFile
-    if FileExist(ButtonTimersFile) {
-        if FileExist(ButtonTimersFile) {
-            fileContent := FileRead(ButtonTimersFile)
-            for line in StrSplit(fileContent, "`n") {
-                lineArray := StrSplit(line, "=")
-                if (lineArray.Length = 2) {
-                    ButtonClickTimes[lineArray[1]] := lineArray[2]
-                }
-            }
-        }
-    }
-}
-
-ResetButtonTimers(*) {
-    global ButtonClickTimes, ButtonTimersFile
-    for StudySubjectName in ButtonClickTimes {
-        ButtonClickTimes[StudySubjectName] := -999999999999
-    }
-    SaveButtonTimersData()
-    UpdateButtonColors()
-}
+; ResetButtonTimers(*) {
+;     global ButtonClickTimes, ButtonTimersFile
+;     for StudySubjectName in ButtonClickTimes {
+;         ButtonClickTimes[StudySubjectName] := -999999999999
+;     }
+;     UpdateButtonColors()
+; }
 
 ; ExportStudyWindowsMapToCSV() {
 ;     global StudyWindowsMap
