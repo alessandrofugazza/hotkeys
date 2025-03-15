@@ -48,7 +48,7 @@ ChatGPTExe := "ahk_exe ChatGPT.exe"
 LButtonIsDown := false
 
 
-#d:: Run("C:\Users\aless\Desktop")
+#d:: Run("C:\Users\aless\Desktop\projects\personal")
 
 ; #z:: Send("#g")
 

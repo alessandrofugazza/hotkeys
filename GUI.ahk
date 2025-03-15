@@ -9,6 +9,7 @@ MaxHours := 4
 
 LastKindleBook := ""
 
+SetTitleMatchMode(3)
 
 ^!a::
 {
@@ -51,8 +52,8 @@ StudyWindowsMap := Map()
 ; StudyWindowsMap["HOML"] := [KindleExe, KindlePixelSearchColorsMap["HOML"]]
 ; StudyWindowsMap["Anaconda"] := [ChromeExe, "Anaconda"]
 ; StudyWindowsMap["Adobe"] := [ChromeExe, "Adobe"]
-; StudyWindowsMap["Canva"] := [ChromeExe, "Canva"]
-; StudyWindowsMap["Jupyter"] := [ChromeExe, "Jupyter"]
+StudyWindowsMap["Canva"] := [ChromeExe, "Canva", 4]
+StudyWindowsMap["Jupyter"] := [ChromeExe, "Jupyter", 4]
 ; StudyWindowsMap["Gamma"] := [ChromeExe, "Gamma"]
 ; StudyWindowsMap["RoboSIM"] := [AdobeExe, "lb-rc-c5e-roboSIM_en.pdf "]
 ; StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
@@ -60,85 +61,91 @@ StudyWindowsMap := Map()
 
 ; WEBDEV
 
-; StudyWindowsMap["Chrome DevTools"] := [ChromeExe, "Chrome DevTools"]
-; StudyWindowsMap["pgAdmin"] := [ChromeExe, "pgAdmin"]
-; StudyWindowsMap["Spring Boot"] := [ChromeExe, "Spring Boot"]
-; StudyWindowsMap["React"] := [KindleExe, KindlePixelSearchColorsMap["React"]]
+StudyWindowsMap["Chrome DevTools"] := [ChromeExe, "Chrome DevTools", 4]
+StudyWindowsMap["pgAdmin"] := [ChromeExe, "pgAdmin", 3]
+StudyWindowsMap["SQL"] := [ChromeExe, "SQL", 3]
+StudyWindowsMap["Spring"] := [ChromeExe, "Spring", 3]
+StudyWindowsMap["Java"] := [ChromeExe, "Java", 3]
+; StudyWindowsMap["Codecademy"] := [ChromeExe, "Codecademy", 1]
+StudyWindowsMap["React"] := [KindleExe, KindlePixelSearchColorsMap["React"], 2]
 
 ; CODING
 
-; StudyWindowsMap["GitHub Copilot"] := [ChromeExe, "GitHub Copilot"]
-; StudyWindowsMap["Markdown"] := [ChromeExe, "Markdown"]
-; StudyWindowsMap["VS Code"] := [ChromeExe, "VS Code"]
-; StudyWindowsMap["AHK"] := [ChromeExe, "AHK"]
-; StudyWindowsMap["IntelliJ"] := [ChromeExe, "IntelliJ"]
+StudyWindowsMap["GitHub Copilot"] := [ChromeExe, "GitHub Copilot", 4]
+StudyWindowsMap["Markdown"] := [ChromeExe, "Markdown", 4]
+StudyWindowsMap["VS Code"] := [ChromeExe, "VS Code", 4]
+StudyWindowsMap["AHK"] := [ChromeExe, "AHK", 4]
+StudyWindowsMap["IntelliJ"] := [ChromeExe, "IntelliJ", 4]
 
 ;PC Software
 
-; StudyWindowsMap["Tweak III"] := [ChromeExe, "Tweak III"]
-; StudyWindowsMap["cFos"] := [ChromeExe, "cFos"]
+StudyWindowsMap["Tweak III"] := [ChromeExe, "Tweak III", 4]
+StudyWindowsMap["cFos"] := [ChromeExe, "cFos", 4]
 
 ; ELECTRONICS
 
-; StudyWindowsMap["Raspberry Pi"] := [ChromeExe, "Raspberry Pi"]
+StudyWindowsMap["Raspberry Pi"] := [ChromeExe, "Raspberry Pi", 4]
 
 
-StudyWindowsMap["iOS Development"] := [ChromeExe, "iOS Development", true]
-StudyWindowsMap["CompTIA"] := [KindleExe, KindlePixelSearchColorsMap["CompTIA"], true]
-StudyWindowsMap["LRP"] := [KindleExe, KindlePixelSearchColorsMap["LRP"], true]
+StudyWindowsMap["iOS Development"] := [ChromeExe, "iOS Development", 1]
+; StudyWindowsMap["CompTIA"] := [KindleExe, KindlePixelSearchColorsMap["CompTIA"], 1]
+StudyWindowsMap["LRP"] := [KindleExe, KindlePixelSearchColorsMap["LRP"], 1]
 ; StudyWindowsMap["CompTIA"] := [ChromeExe, "CompTIA"]
-StudyWindowsMap["RoboDK"] := [ChromeExe, "RoboDK"]
-StudyWindowsMap["Robotics"] := [ChromeExe, "Robotics"]
+StudyWindowsMap["RoboDK"] := [ChromeExe, "RoboDK", 2]
+StudyWindowsMap["Robotics"] := [ChromeExe, "Robotics", 2]
 ; StudyWindowsMap["SOLIDWORKS"] := [FirefoxExe, ""]
-StudyWindowsMap["SOLIDWORKS"] := [ChromeExe, "SOLIDWORKS"]
+StudyWindowsMap["SOLIDWORKS"] := [ChromeExe, "SOLIDWORKS", 2]
 ; StudyWindowsMap["Barman"] := [ChromeExe, "Barman"]
-StudyWindowsMap["Flipper"] := [ChromeExe, "Flipper Zero"]
+StudyWindowsMap["Flipper"] := [ChromeExe, "Flipper Zero", 3]
 ; StudyWindowsMap["HOML"] := [ChromeExe, "HOML"]
 ; StudyWindowsMap["LRP"] := [ChromeExe, "LRP"]
 ; StudyWindowsMap["Python WebAcademy"] := [ChromeExe, "IFTS Python"]
 ; StudyWindowsMap["Python"] := [KindleExe, KindlePixelSearchColorsMap["Python"]]
 ; StudyWindowsMap["PCC"] := [ChromeExe, "PCC"]
 ; StudyWindowsMap["Data Science"] := [ChromeExe, "Data Science"]
-StudyWindowsMap["Character.AI"] := [ChromeExe, "Character.AI"]
-StudyWindowsMap["Python"] := [ChromeExe, "Python", true]
+StudyWindowsMap["Character.AI"] := [ChromeExe, "Character.AI", 2]
+StudyWindowsMap["Python"] := [ChromeExe, "Python", 1]
 ; StudyWindowsMap["Machine Learning"] := [ChromeExe, "Machine Learning"]
-StudyWindowsMap["Shortcuts"] := [ChromeExe, "Shortcuts"]
-StudyWindowsMap["Practical"] := [ChromeExe, "Practical", true]
+StudyWindowsMap["Shortcuts"] := [ChromeExe, "Shortcuts", 3]
+StudyWindowsMap["Practical"] := [ChromeExe, "Practical", 1]
 ; StudyWindowsMap["COMAU"] := [AdobeExe, "Programmatore_di_sistemi_robotizzati_4.0-Presentazione.pdf "]
 ; StudyWindowsMap["COMAU"] := [ChromeExe, "COMAU"]
-StudyWindowsMap["TP Manuals"] := [AdobeExe, "COMAU_c5e-uso-tp5_it_manual (1)[1].pdf "]
+StudyWindowsMap["TP Manuals"] := [AdobeExe, "COMAU_c5e-uso-tp5_it_manual (1)[1].pdf ", 2]
 ; StudyWindowsMap["PDL2"] := [ChromeExe, "PDL2"]
-StudyWindowsMap["WebAcademy"] := [ChromeExe, "WebAcademy", true]
-StudyWindowsMap["Guitar"] := [ChromeExe, "Guitar"]
-StudyWindowsMap["Blender"] := [ChromeExe, "Blender"]
+StudyWindowsMap["WebAcademy"] := [ChromeExe, "WebAcademy", 1]
+StudyWindowsMap["Guitar"] := [ChromeExe, "Guitar", 3]
+StudyWindowsMap["Blender"] := [ChromeExe, "Blender", 3]
 ; StudyWindowsMap["PLC"] := [ChromeExe, "PLC"]
-StudyWindowsMap["Electronics"] := [ChromeExe, "Electronics"]
-StudyWindowsMap["Web Development"] := [ChromeExe, "Web Development", true]
-StudyWindowsMap["PC Software"] := [ChromeExe, "Tweak III"]
-StudyWindowsMap["CT"] := [ChromeExe, "CT"]
-StudyWindowsMap["JavaScript"] := [ChromeExe, "JavaScript"]
-StudyWindowsMap["WordPress Plugins"] := [ChromeExe, "WordPress Plugins"]
-StudyWindowsMap["PHP"] := [ChromeExe, "PHP"]
-StudyWindowsMap["Tkinter"] := [ChromeExe, "Tkinter"]
-StudyWindowsMap["Tutor"] := [ChromeExe, "Tutor"]
-StudyWindowsMap["Soft Skills"] := [ChromeExe, "Soft Skills"]
+StudyWindowsMap["Electronics"] := [ChromeExe, "Electronics", 2]
+StudyWindowsMap["WordPress"] := [ChromeExe, "WordPress", 1]
+StudyWindowsMap["PC Software"] := [ChromeExe, "Tweak III", 2]
+StudyWindowsMap["CT"] := [ChromeExe, "CT", 2]
+StudyWindowsMap["JavaScript"] := [ChromeExe, "JavaScript", 1]
+StudyWindowsMap["WordPress Plugins"] := [ChromeExe, "WordPress Plugins", 2]
+StudyWindowsMap["PHP"] := [ChromeExe, "PHP", 2]
+StudyWindowsMap["Tkinter"] := [ChromeExe, "Tkinter", 2]
+StudyWindowsMap["Tutor"] := [ChromeExe, "Tutor", 3]
+StudyWindowsMap["Soft Skills"] := [ChromeExe, "Soft Skills", 3]
+StudyWindowsMap["MOS"] := [ChromeExe, "MOS", 1]
+StudyWindowsMap["Chrome Extensions Development"] := [ChromeExe, "Chrome Extensions Development", 1]
 
 ; StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf "]
 ; StudyWindowsMap["SH125"] := [AdobeExe, "sh125.pdf "]
 ; StudyWindowsMap["Cybersecurity"] := [AdobeExe, "ROB2_Cybersecurity.pdf "]
 ; StudyWindowsMap["Raspberry Pi"] := [AdobeExe, "BeginnersGuide-5thEd-Eng_v4.pdf "]
-StudyWindowsMap["ELEGOO"] := [AdobeExe, "NEPTUNE 4 MAX User Manual（Multilingual）-V1.8.pdf "]
-StudyWindowsMap["3D Printing"] := [ChromeExe, "3D Printing", true]
+StudyWindowsMap["ELEGOO"] := [AdobeExe, "NEPTUNE 4 MAX User Manual（Multilingual）-V1.8.pdf ", 2]
+StudyWindowsMap["3D Printing"] := [ChromeExe, "3D Printing", 1]
 
-StudyWindowsMap["Patente"] := [KindleExe, KindlePixelSearchColorsMap["Patente"]]
+StudyWindowsMap["Law"] := [KindleExe, KindlePixelSearchColorsMap["Patente"], 2]
 ; StudyWindowsMap["Manners"] := [KindleExe, KindlePixelSearchColorsMap["Manners"]]
 
-StudyWindowsMap["MOS"] := ["ahk_exe GMetrix SMSe.exe", "", true]
+; StudyWindowsMap["MOS"] := ["ahk_exe GMetrix SMSe.exe", "", 1]
 
-; StudyWindowsMap["Adobe"] := ["ahk_exe Photoshop.exe", ""]
-StudyWindowsMap["Adobe"] := ["ahk_exe AfterFX.exe", ""]
+StudyWindowsMap["Photoshop"] := ["ahk_exe Photoshop.exe", "", 4]
+StudyWindowsMap["AfterFX"] := ["ahk_exe AfterFX.exe", "", 3]
 
-StudyWindowsMap["Automotive"] := ["", "", true]
+StudyWindowsMap["Automotive"] := ["", "", 1]
+; StudyWindowsMap["Work"] := ["", "", 1]
 
 StudyWindowsMapKeys := []
 
@@ -182,16 +189,26 @@ VERTICAL_SPACING := 5  ; Define the vertical spacing between buttons
 BUTTONS_PER_COLUMN := 10
 SECTIONS_MARGIN := 30
 
-; Create maps to separate windows based on whether they have "true" attribute
-RegularStudyWindows := Map()
-ImportantStudyWindows := Map()
+; great names dude
+P1Windows := Map()
+P2Windows := Map()
+P3Windows := Map()
+P4Windows := Map()
 
 ; Populate the maps based on the third parameter (true/false)
 for SubjectName, WindowInfo in StudyWindowsMap {
-    if (WindowInfo.Length >= 3 && WindowInfo[3] = true) {
-        ImportantStudyWindows[SubjectName] := WindowInfo
-    } else {
-        RegularStudyWindows[SubjectName] := WindowInfo
+    Switch WindowInfo[3]
+    {
+        Case 1:
+            P1Windows[SubjectName] := WindowInfo
+        Case 2:
+            P2Windows[SubjectName] := WindowInfo
+        Case 3:
+            P3Windows[SubjectName] := WindowInfo
+        Case 4:
+            P4Windows[SubjectName] := WindowInfo
+        Default:
+            MsgBox "Invalid priority level"
     }
 }
 
@@ -203,8 +220,10 @@ LoadButtonTimersData()
 
 PreviousGuiWidth := 0
 
-CreateButtons(ImportantStudyWindows)
-CreateButtons(RegularStudyWindows)
+CreateButtons(P1Windows)
+CreateButtons(P2Windows)
+CreateButtons(P3Windows)
+CreateButtons(P4Windows)
 
 ; Function to create all buttons for the GUI
 CreateButtons(Map) {
