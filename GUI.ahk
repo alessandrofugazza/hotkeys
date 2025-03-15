@@ -123,7 +123,6 @@ ImportStudyWindowsMapFromCSV() {
                     P4Windows.Push(lineArray[1])
                 default:
                     MsgBox "Invalid priority level"
-
             }
         }
     }
@@ -131,29 +130,31 @@ ImportStudyWindowsMapFromCSV() {
 
 ImportStudyWindowsMapFromCSV()
 
-MsgBox "P1Windows: " P1Windows.Length
-MsgBox "P2Windows: " P2Windows.Length
-MsgBox "P3Windows: " P3Windows.Length
-MsgBox "P4Windows: " P4Windows.Length
+; MsgBox "P1Windows: " P1Windows.Length
+; MsgBox "P2Windows: " P2Windows.Length
+; MsgBox "P3Windows: " P3Windows.Length
+; MsgBox "P4Windows: " P4Windows.Length
 
-StudyWindowsMapKeys := []
+ShuffleArray(arr) {
+    loop arr.Length - 1 {
+        RandIndex := Random(A_Index, arr.Length)
+        Temp := arr[A_Index]
+        arr[A_Index] := arr[RandIndex]
+        arr[RandIndex] := Temp
+    }
+}
 
-for key in StudyWindowsMap
-    StudyWindowsMapKeys.Push(key)
+ShuffleArray(P1Windows)
+ShuffleArray(P2Windows)
+ShuffleArray(P3Windows)
+ShuffleArray(P4Windows)
 
-; Convert the array to a newline-separated string
-stringToSort := ""
-for each, item in StudyWindowsMapKeys
-    stringToSort .= item "`n"
+FinalString := ""
+for item in P1Windows {
+    FinalString .= item "`n"
+}
+MsgBox FinalString
 
-; Remove the trailing newline character
-stringToSort := RTrim(stringToSort, "`n")
-
-; Sort the string in ascending alphabetical order
-sortedString := Sort(stringToSort)
-
-; Split the sorted string back into an array
-SortedStudyWindowsMapKeys := StrSplit(sortedString, "`n")
 
 MyGui := Gui()
 MyGui.SetFont("s10 w500")  ; Set font size to 10 and weight to 700 (bold)
