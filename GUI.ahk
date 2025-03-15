@@ -210,6 +210,8 @@ ResetButton := MyGui.Add("Button", "x" PADDING_LEFT " y" (PADDING_TOP + BUTTONS_
 ResetButton.OnEvent("Click", ResetButtons)
 
 OnButtonClick(StudySubjectName, *) {
+    msgbox StudyWindowsMap[StudySubjectName][1]
+
     StudyWindowsMap[StudySubjectName][4] := A_TickCount
 
     if (StudyWindowsMap[StudySubjectName][1] = KindleExe) {
@@ -245,8 +247,12 @@ SlowWaringLabel:
             }
             LastKindleBook := StudySubjectName
         }
-    } else if (StudyWindowsMap[StudySubjectName][1] = ChromeExe || StudyWindowsMap[StudySubjectName][1] = AdobeExe || StudyWindowsMap[StudySubjectName][1] = "ahk_exe GMetrix SMSe.exe" || StudyWindowsMap[StudySubjectName][1] = "ahk_exe Photoshop.exe" || StudyWindowsMap[StudySubjectName][1] = FirefoxExe) { ; fix this shit
-        WinActivate(StudyWindowsMap[StudySubjectName][1] " " StudySubjectName)
+    } else if (StudyWindowsMap[StudySubjectName][1] = ChromeExe) {
+        WinActivate(StudySubjectName)
+    } else if (StudyWindowsMap[StudySubjectName][1] = AdobeExe || StudyWindowsMap[StudySubjectName][1] = "ahk_exe GMetrix SMSe.exe" || StudyWindowsMap[StudySubjectName][1] = "ahk_exe Photoshop.exe" || StudyWindowsMap[StudySubjectName][1] = FirefoxExe) { ; fix this shit
+        ; WinActivate(StudySubjectName)
+        ; msgbox StudyWindowsMap[StudySubjectName][1]
+        WinActivate(StudyWindowsMap[StudySubjectName][1])
     } else {
         MsgBox "Physical"
     }
