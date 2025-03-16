@@ -9,19 +9,37 @@ MaxHours := 4
 
 LastKindleBook := ""
 
+P1StackFile := A_ScriptDir "\data\p1-order-data.csv"
+P2StackFile := A_ScriptDir "\data\p2-order-data.csv"
+P3StackFile := A_ScriptDir "\data\p3-order-data.csv"
+P4StackFile := A_ScriptDir "\data\p4-order-data.csv"
+
+
 SetTitleMatchMode(3)
+
+P1Windows := []
+P2Windows := []
+P3Windows := []
+P4Windows := []
+
+
+P1Windows := LoadPriorityWindowsFromFile(P1StackFile)
+P2Windows := LoadPriorityWindowsFromFile(P2StackFile)
+P3Windows := LoadPriorityWindowsFromFile(P3StackFile)
+P4Windows := LoadPriorityWindowsFromFile(P4StackFile)
 
 ^!a::
 {
+    global
     ExportStudyWindowsMapToCSV()
-    SaveTrueReloadToCsv(0)
+    SavePriorityWindowsToFile(P1StackFile, P1Windows)
+    SavePriorityWindowsToFile(P2StackFile, P2Windows)
+    SavePriorityWindowsToFile(P3StackFile, P3Windows)
+    SavePriorityWindowsToFile(P4StackFile, P4Windows)
     Reload
 }
 ; WinActivate("ahk_exe AutoHotkey64_UIA.exe")
 ; UpdateButtonColors()  ; Update button colors when any button is clicked
-
-
-TrueReload := LoadTrueReloadFromCsv()
 
 
 KindlePixelSearchColorsMap := Map()
@@ -104,10 +122,6 @@ StudyWindowsMap := Map()
 
 ; StudyWindowsMap["Work"] := ["", "", 1]
 
-P1Windows := []
-P2Windows := []
-P3Windows := []
-P4Windows := []
 
 ImportStudyWindowsMapFromCSV() {
     global StudyWindowsMap
@@ -145,7 +159,7 @@ ImportStudyWindowsMapFromCSV() {
                         for item in P1Windows {
                             ; MsgBox Type(StudyWindowsMap[item][5])
                             ; MsgBox Type(lineArray[6])
-                            if StudyWindowsMap[item][5] > FormattedLineArray6 {
+                            if A_Index > FormattedLineArray6 {
                                 P1Windows.InsertAt(insertIndex, lineArray[1])
                                 break
                             }
@@ -163,7 +177,7 @@ ImportStudyWindowsMapFromCSV() {
                         for item in P2Windows {
                             ; MsgBox Type(StudyWindowsMap[item][5])
                             ; MsgBox Type(lineArray[6])
-                            if StudyWindowsMap[item][5] > FormattedLineArray6 {
+                            if A_Index > FormattedLineArray6 {
                                 P2Windows.InsertAt(insertIndex, lineArray[1])
                                 break
                             }
@@ -181,7 +195,7 @@ ImportStudyWindowsMapFromCSV() {
                         for item in P3Windows {
                             ; MsgBox Type(StudyWindowsMap[item][5])
                             ; MsgBox Type(lineArray[6])
-                            if StudyWindowsMap[item][5] > FormattedLineArray6 {
+                            if A_Index > FormattedLineArray6 {
                                 P3Windows.InsertAt(insertIndex, lineArray[1])
                                 break
                             }
@@ -199,7 +213,7 @@ ImportStudyWindowsMapFromCSV() {
                         for item in P4Windows {
                             ; MsgBox Type(StudyWindowsMap[item][5])
                             ; MsgBox Type(lineArray[6])
-                            if StudyWindowsMap[item][5] > FormattedLineArray6 {
+                            if A_Index > FormattedLineArray6 {
                                 P4Windows.InsertAt(insertIndex, lineArray[1])
                                 break
                             }
@@ -439,6 +453,25 @@ ResetButtons(*) {
 
 }
 
+SavePriorityWindowsToFile(File, Stack) {
+    FileDelete(File)
+    for line in Stack {
+        csvLine := line "`n"
+        FileAppend(csvLine, File)
+    }
+}
+
+LoadPriorityWindowsFromFile(File) {
+    PWindows := []
+    if FileExist(File) {
+        fileContent := FileRead(File)
+        for line in StrSplit(fileContent, "`n") {
+            PWindows.Push(line)
+        }
+        return PWindows
+    }
+}
+
 SaveAll(*) {
     ShuffleArray(arr) {
         loop arr.Length - 1 {
@@ -450,37 +483,40 @@ SaveAll(*) {
     }
 
     ShuffleArray(P1Windows)
-    for item in P1Windows {
-        StudyWindowsMap[item][5] := A_Index
-    }
+    ; for item in P1Windows {
+    ;     StudyWindowsMap[item][5] := A_Index
+    ; }
     ShuffleArray(P2Windows)
-    for item in P2Windows {
-        StudyWindowsMap[item][5] := A_Index
-    }
+    ; for item in P2Windows {
+    ;     StudyWindowsMap[item][5] := A_Index
+    ; }
     ShuffleArray(P3Windows)
-    for item in P3Windows {
-        StudyWindowsMap[item][5] := A_Index
-    }
+    ; for item in P3Windows {
+    ;     StudyWindowsMap[item][5] := A_Index
+    ; }
     ShuffleArray(P4Windows)
-    for item in P4Windows {
-        StudyWindowsMap[item][5] := A_Index
-    }
+    ; for item in P4Windows {
+    ;     StudyWindowsMap[item][5] := A_Index
+    ; }
     ExportStudyWindowsMapToCSV()
-    SaveTrueReloadToCsv(true)
+    SavePriorityWindowsToFile(P1StackFile, P1Windows)
+    SavePriorityWindowsToFile(P2StackFile, P2Windows)
+    SavePriorityWindowsToFile(P3StackFile, P3Windows)
+    SavePriorityWindowsToFile(P4StackFile, P4Windows)
     Reload
 }
 
-SaveTrueReloadToCsv(tf) {
-    csvFile := A_ScriptDir "\data\TrueReload.csv"
-    FileDelete(csvFile)
-    csvLine := tf
-    FileAppend(csvLine, csvFile)
-}
-LoadTrueReloadFromCsv() {
-    csvFile := A_ScriptDir "\data\TrueReload.csv"
-    FileContent := FileRead(csvFile)
-    return FileContent
-}
+; SaveTrueReloadToCsv(tf) {
+;     csvFile := A_ScriptDir "\data\TrueReload.csv"
+;     FileDelete(csvFile)
+;     csvLine := tf
+;     FileAppend(csvLine, csvFile)
+; }
+; LoadTrueReloadFromCsv() {
+;     csvFile := A_ScriptDir "\data\TrueReload.csv"
+;     FileContent := FileRead(csvFile)
+;     return FileContent
+; }
 
 
 ExportStudyWindowsMapToCSV() {
