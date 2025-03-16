@@ -13,10 +13,16 @@ SetTitleMatchMode(3)
 
 ^!a::
 {
-
-    WinActivate("ahk_exe AutoHotkey64_UIA.exe")
-    UpdateButtonColors()  ; Update button colors when any button is clicked
+    ExportStudyWindowsMapToCSV()
+    SaveTrueReloadToCsv(0)
+    Reload
 }
+; WinActivate("ahk_exe AutoHotkey64_UIA.exe")
+; UpdateButtonColors()  ; Update button colors when any button is clicked
+
+
+TrueReload := LoadTrueReloadFromCsv()
+
 
 KindlePixelSearchColorsMap := Map()
 ; KindleImageSearchPathsMap := Map()
@@ -284,6 +290,43 @@ SaveButton := MyGui.Add("Button", "x" PADDING_LEFT + 100 " y" (PADDING_TOP + BUT
 SaveButton.OnEvent("Click", SaveAll)
 
 OnButtonClick(StudySubjectName, *) {
+    Priority := StudyWindowsMap[StudySubjectName][3]
+    switch Priority {
+        case 1:
+            for n in P1Windows {
+                if StudySubjectName = n {
+                    P1Windows.RemoveAt(A_Index)
+                    P1Windows.Push(StudySubjectName)
+                    break
+                }
+            }
+        case 2:
+            for n in P2Windows {
+                if StudySubjectName = n {
+                    P2Windows.RemoveAt(A_Index)
+                    P2Windows.Push(StudySubjectName)
+                    break
+                }
+            }
+        case 3:
+            for n in P3Windows {
+                if StudySubjectName = n {
+                    P3Windows.RemoveAt(A_Index)
+                    P3Windows.Push(StudySubjectName)
+                    break
+                }
+            }
+
+        case 4:
+            for n in P4Windows {
+                if StudySubjectName = n {
+                    P4Windows.RemoveAt(A_Index)
+                    P4Windows.Push(StudySubjectName)
+                    break
+                }
+            }
+    }
+
 
     StudyWindowsMap[StudySubjectName][4] := A_TickCount
 
@@ -329,6 +372,7 @@ SlowWaringLabel:
     } else {
         MsgBox "Physical"
     }
+
 
 }
 
@@ -422,7 +466,20 @@ SaveAll(*) {
         StudyWindowsMap[item][5] := A_Index
     }
     ExportStudyWindowsMapToCSV()
+    SaveTrueReloadToCsv(true)
     Reload
+}
+
+SaveTrueReloadToCsv(tf) {
+    csvFile := A_ScriptDir "\data\TrueReload.csv"
+    FileDelete(csvFile)
+    csvLine := tf
+    FileAppend(csvLine, csvFile)
+}
+LoadTrueReloadFromCsv() {
+    csvFile := A_ScriptDir "\data\TrueReload.csv"
+    FileContent := FileRead(csvFile)
+    return FileContent
 }
 
 
