@@ -23,10 +23,10 @@ P3Windows := []
 P4Windows := []
 
 
-P1Windows := LoadPriorityWindowsFromFile(P1StackFile)
-P2Windows := LoadPriorityWindowsFromFile(P2StackFile)
-P3Windows := LoadPriorityWindowsFromFile(P3StackFile)
-P4Windows := LoadPriorityWindowsFromFile(P4StackFile)
+P1Windows := LoadPriorityWindowsFromFile(P1StackFile, false)
+P2Windows := LoadPriorityWindowsFromFile(P2StackFile, false)
+P3Windows := LoadPriorityWindowsFromFile(P3StackFile, false)
+P4Windows := LoadPriorityWindowsFromFile(P4StackFile, false)
 
 ^!a::
 {
@@ -141,95 +141,28 @@ ImportStudyWindowsMapFromCSV() {
             ; } else {
             ;     PreFormat6 := lineArray[6]
             ; }
-            PreFormat6 := lineArray[6]
-            FormattedLineArray6 := Integer(PreFormat6)  ; Remove last character from the last string
+            ; PreFormat6 := lineArray[6]
+            ; FormattedLineArray6 := Integer(PreFormat6)  ; Remove last character from the last string
             ; MsgBox Type(PreFormat6)
             ; MsgBox Type(FormattedLineArray6)
-            StudyWindowsMap[lineArray[1]] := [lineArray[2], lineArray[3], FormattedLineArray4, FormattedLineArray5, FormattedLineArray6]
+            if A_Index = 1 {
+                FormattedLineArray1 := lineArray[1]  ; Remove last character from the last string
+
+            } else {
+                FormattedLineArray1 := lineArray[1]
+            }
+            StudyWindowsMap[FormattedLineArray1] := [lineArray[2], lineArray[3], FormattedLineArray4, FormattedLineArray5]
             ; testnum := Integer(FormattedLineArray6)
             ; MsgBox Type(FormattedLineArray6)
             ; MsgBox Type(testnum)
             ; MsgBox FormattedLineArray6
             ; MsgBox Type(Integer(lineArray[6]))
-            switch FormattedLineArray4 {
-                ; what in the fuck
-                case 1:
-                    if P1Windows.Length > 0 {
-                        insertIndex := 1
-                        for item in P1Windows {
-                            ; MsgBox Type(StudyWindowsMap[item][5])
-                            ; MsgBox Type(lineArray[6])
-                            if A_Index > FormattedLineArray6 {
-                                P1Windows.InsertAt(insertIndex, lineArray[1])
-                                break
-                            }
-                            insertIndex++
-                        }
-                        if insertIndex > P1Windows.Length {
-                            P1Windows.Push(lineArray[1])
-                        }
-                    } else {
-                        P1Windows.Push(lineArray[1])
-                    }
-                case 2:
-                    if P2Windows.Length > 0 {
-                        insertIndex := 1
-                        for item in P2Windows {
-                            ; MsgBox Type(StudyWindowsMap[item][5])
-                            ; MsgBox Type(lineArray[6])
-                            if A_Index > FormattedLineArray6 {
-                                P2Windows.InsertAt(insertIndex, lineArray[1])
-                                break
-                            }
-                            insertIndex++
-                        }
-                        if insertIndex > P2Windows.Length {
-                            P2Windows.Push(lineArray[1])
-                        }
-                    } else {
-                        P2Windows.Push(lineArray[1])
-                    }
-                case 3:
-                    if P3Windows.Length > 0 {
-                        insertIndex := 1
-                        for item in P3Windows {
-                            ; MsgBox Type(StudyWindowsMap[item][5])
-                            ; MsgBox Type(lineArray[6])
-                            if A_Index > FormattedLineArray6 {
-                                P3Windows.InsertAt(insertIndex, lineArray[1])
-                                break
-                            }
-                            insertIndex++
-                        }
-                        if insertIndex > P3Windows.Length {
-                            P3Windows.Push(lineArray[1])
-                        }
-                    } else {
-                        P3Windows.Push(lineArray[1])
-                    }
-                case 4:
-                    if P4Windows.Length > 0 {
-                        insertIndex := 1
-                        for item in P4Windows {
-                            ; MsgBox Type(StudyWindowsMap[item][5])
-                            ; MsgBox Type(lineArray[6])
-                            if A_Index > FormattedLineArray6 {
-                                P4Windows.InsertAt(insertIndex, lineArray[1])
-                                break
-                            }
-                            insertIndex++
-                        }
-                        if insertIndex > P4Windows.Length {
-                            P4Windows.Push(lineArray[1])
-                        }
-                    } else {
-                        P4Windows.Push(lineArray[1])
-                    }
-                default:
-                    MsgBox "Invalid priority level"
-            }
-
         }
+        f := ""
+        for k, v in StudyWindowsMap {
+            f .= k " " StrLen(k) " `n"
+        }
+        MsgBox "SWM " f
     }
 }
 
@@ -283,6 +216,7 @@ CreateButtons(Map) {
     global
 
     for StudySubjectName in Map {
+        ; TrimmedStudySubjectName := SubStr(StudySubjectName, 1, -1)  ; Remove last character from the string
         colIndex := (A_Index - 1) // BUTTONS_PER_COLUMN
         rowIndex := Mod((A_Index - 1), BUTTONS_PER_COLUMN)
         xPos := PreviousGuiWidth + PADDING_LEFT + HORIZONTAL_SPACING + colIndex * (BUTTON_WIDTH + HORIZONTAL_SPACING)
@@ -294,6 +228,11 @@ CreateButtons(Map) {
         StudyButtons[StudySubjectName] := NewButton
         UpdateButtonFontColor(NewButton, "00FF00")  ; Set initial font color
     }
+    f := ""
+    for k, v in StudyButtons {
+        f .= k " " StrLen(k) " `n"
+    }
+    MsgBox "CB " f
     PreviousGuiWidth := Max(PreviousGuiWidth, xPos + BUTTON_WIDTH + PADDING_LEFT + SECTIONS_MARGIN)
 }
 
@@ -392,7 +331,8 @@ SlowWaringLabel:
 
 
 UpdateButtonColors() {
-    global StudyWindowsMap
+    global StudyWindowsMap, StudyButtons
+
     for StudySubjectName, Info in StudyWindowsMap {
         ; BRILLIANT GOOD JOB CHATGPT GOTTA LEARN THIS
         elapsed := A_TickCount - StudyWindowsMap[StudySubjectName][4]
@@ -456,18 +396,33 @@ ResetButtons(*) {
 SavePriorityWindowsToFile(File, Stack) {
     FileDelete(File)
     for line in Stack {
-        csvLine := line "`n"
+        csvLine := line
+        if (A_Index < Stack.Length) {
+            csvLine .= "`n"
+        }
         FileAppend(csvLine, File)
     }
 }
 
-LoadPriorityWindowsFromFile(File) {
+LoadPriorityWindowsFromFile(File, RemoveLastChar := true) {
     PWindows := []
     if FileExist(File) {
         fileContent := FileRead(File)
-        for line in StrSplit(fileContent, "`n") {
-            PWindows.Push(line)
+        LineArr := StrSplit(fileContent, "`n")
+        for line in LineArr {
+            FormattedLine := line
+            if RemoveLastChar && A_Index < LineArr.Length {
+                if RemoveLastChar {
+                    FormattedLine := SubStr(line, 1, -1)  ; Remove last character from the string
+                }
+            }
+            PWindows.Push(FormattedLine)
         }
+        f := ""
+        for v in PWindows {
+            f .= v " " StrLen(v) " `n"
+        }
+        MsgBox "PW`n" f
         return PWindows
     }
 }
@@ -524,7 +479,7 @@ ExportStudyWindowsMapToCSV() {
     csvFile := A_ScriptDir "\data\StudyWindowsMap.csv"
     FileDelete(csvFile)
     for key, value in StudyWindowsMap {
-        csvLine := key "," value[1] "," value[2] "," value[3] "," value[4] "," value[5]
+        csvLine := key "," value[1] "," value[2] "," value[3] "," value[4]
         if (A_Index < StudyWindowsMap.Count) {
             csvLine .= "`n"
         }
