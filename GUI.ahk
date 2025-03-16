@@ -131,8 +131,6 @@ ImportStudyWindowsMapFromCSV() {
         fileContent := FileRead(csvFile)
         for line in StrSplit(fileContent, "`n") {
             lineArray := StrSplit(line, ",")
-            ; MsgBox lineArray[6]
-            ; MsgBox lineArray.Length
 
             FormattedLineArray4 := Integer(lineArray[4])  ; Remove last character from the last string
             FormattedLineArray5 := Integer(lineArray[5])  ; Remove last character from the last string
@@ -143,8 +141,6 @@ ImportStudyWindowsMapFromCSV() {
             ; }
             ; PreFormat6 := lineArray[6]
             ; FormattedLineArray6 := Integer(PreFormat6)  ; Remove last character from the last string
-            ; MsgBox Type(PreFormat6)
-            ; MsgBox Type(FormattedLineArray6)
             if A_Index = 1 {
                 FormattedLineArray1 := lineArray[1]  ; Remove last character from the last string
 
@@ -153,33 +149,21 @@ ImportStudyWindowsMapFromCSV() {
             }
             StudyWindowsMap[FormattedLineArray1] := [lineArray[2], lineArray[3], FormattedLineArray4, FormattedLineArray5]
             ; testnum := Integer(FormattedLineArray6)
-            ; MsgBox Type(FormattedLineArray6)
-            ; MsgBox Type(testnum)
-            ; MsgBox FormattedLineArray6
-            ; MsgBox Type(Integer(lineArray[6]))
         }
         f := ""
         for k, v in StudyWindowsMap {
             f .= k " " StrLen(k) " `n"
         }
-        MsgBox "SWM " f
     }
 }
 
 ImportStudyWindowsMapFromCSV()
 
 
-; MsgBox "P1Windows: " P1Windows.Length
-; MsgBox "P2Windows: " P2Windows.Length
-; MsgBox "P3Windows: " P3Windows.Length
-; MsgBox "P4Windows: " P4Windows.Length
-
-
 ; FinalString := ""
 ; for item in P1Windows {
 ;     FinalString .= item "`n"
 ; }
-; MsgBox FinalString
 
 
 MyGui := Gui()
@@ -232,7 +216,6 @@ CreateButtons(Map) {
     for k, v in StudyButtons {
         f .= k " " StrLen(k) " `n"
     }
-    MsgBox "CB " f
     PreviousGuiWidth := Max(PreviousGuiWidth, xPos + BUTTON_WIDTH + PADDING_LEFT + SECTIONS_MARGIN)
 }
 
@@ -320,7 +303,6 @@ SlowWaringLabel:
         WinActivate(StudySubjectName)
     } else if (StudyWindowsMap[StudySubjectName][1] = AdobeExe || StudyWindowsMap[StudySubjectName][1] = "ahk_exe GMetrix SMSe.exe" || StudyWindowsMap[StudySubjectName][1] = "ahk_exe Photoshop.exe" || StudyWindowsMap[StudySubjectName][1] = FirefoxExe) { ; fix this shit
         ; WinActivate(StudySubjectName)
-        ; msgbox StudyWindowsMap[StudySubjectName][1]
         WinActivate(StudyWindowsMap[StudySubjectName][1])
     } else {
         MsgBox "Physical"
@@ -422,7 +404,6 @@ LoadPriorityWindowsFromFile(File, RemoveLastChar := true) {
         for v in PWindows {
             f .= v " " StrLen(v) " `n"
         }
-        MsgBox "PW`n" f
         return PWindows
     }
 }
@@ -489,3 +470,4 @@ ExportStudyWindowsMapToCSV() {
 
 
 MyGui.Show()
+UpdateButtonColors()
