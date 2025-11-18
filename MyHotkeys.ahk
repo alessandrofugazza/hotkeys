@@ -38,7 +38,9 @@ ChatGPTExe := "ahk_exe ChatGPT.exe"
 ; }
 
 #WheelDown:: {
+    ; WinActivate("ITA " ChromeExe)
     WinActivate(ChatGPTExe)
+
 }
 #WheelUp:: {
     WinActivate("Main " ChromeExe)
@@ -76,6 +78,18 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 ^XButton1:: send "{enter}"
 
 +XButton1:: Send "{Media_Play_Pause}"
+
+toggle := false
+
+; F1:: {
+;     global toggle
+;     toggle := !toggle
+;     if toggle {
+;         SendEvent("{LButton down}")
+;     } else {
+;         SendEvent("{LButton up}")
+;     }
+; }
 
 
 #Include Chrome.ahk

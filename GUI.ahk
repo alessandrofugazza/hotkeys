@@ -13,6 +13,11 @@ P1StackFile := A_ScriptDir "\data\p1-order-data.csv"
 P2StackFile := A_ScriptDir "\data\p2-order-data.csv"
 P3StackFile := A_ScriptDir "\data\p3-order-data.csv"
 P4StackFile := A_ScriptDir "\data\p4-order-data.csv"
+P5StackFile := A_ScriptDir "\data\p5-order-data.csv"
+P6StackFile := A_ScriptDir "\data\p6-order-data.csv"
+P7StackFile := A_ScriptDir "\data\p7-order-data.csv"
+P8StackFile := A_ScriptDir "\data\p8-order-data.csv"
+P9StackFile := A_ScriptDir "\data\p9-order-data.csv"
 
 
 SetTitleMatchMode(3)
@@ -21,12 +26,22 @@ P1Windows := []
 P2Windows := []
 P3Windows := []
 P4Windows := []
+P5Windows := []
+P6Windows := []
+P7Windows := []
+P8Windows := []
+P9Windows := []
 
 
 P1Windows := LoadPriorityWindowsFromFile(P1StackFile, false)
 P2Windows := LoadPriorityWindowsFromFile(P2StackFile, false)
 P3Windows := LoadPriorityWindowsFromFile(P3StackFile, false)
 P4Windows := LoadPriorityWindowsFromFile(P4StackFile, false)
+P5Windows := LoadPriorityWindowsFromFile(P5StackFile, false)
+P6Windows := LoadPriorityWindowsFromFile(P6StackFile, false)
+P7Windows := LoadPriorityWindowsFromFile(P7StackFile, false)
+P8Windows := LoadPriorityWindowsFromFile(P8StackFile, false)
+P9Windows := LoadPriorityWindowsFromFile(P9StackFile, false)
 
 ^!a::
 {
@@ -36,6 +51,11 @@ P4Windows := LoadPriorityWindowsFromFile(P4StackFile, false)
     SavePriorityWindowsToFile(P2StackFile, P2Windows)
     SavePriorityWindowsToFile(P3StackFile, P3Windows)
     SavePriorityWindowsToFile(P4StackFile, P4Windows)
+    SavePriorityWindowsToFile(P5StackFile, P5Windows)
+    SavePriorityWindowsToFile(P6StackFile, P6Windows)
+    SavePriorityWindowsToFile(P7StackFile, P7Windows)
+    SavePriorityWindowsToFile(P8StackFile, P8Windows)
+    SavePriorityWindowsToFile(P9StackFile, P9Windows)
     Reload
 }
 ; WinActivate("ahk_exe AutoHotkey64_UIA.exe")
@@ -63,64 +83,6 @@ KindlePixelSearchColorsMap["Manners"] := "DB3D60"
 
 
 StudyWindowsMap := Map()
-
-
-; IMPROVE really bad
-
-; HOLD
-
-; StudyWindowsMap["ROS"] := [ChromeExe, "ROS"]
-; StudyWindowsMap["English"] := [ChromeExe, "English"]
-; StudyWindowsMap["Robotics Engineering Book"] := [KindleExe, KindlePixelSearchColorsMap["Robotics Engineering"]]
-; StudyWindowsMap["CoppeliaSim"] := [ChromeExe, "CoppeliaSim"]
-; StudyWindowsMap["HOML"] := [KindleExe, KindlePixelSearchColorsMap["HOML"]]
-; StudyWindowsMap["Anaconda"] := [ChromeExe, "Anaconda"]
-; StudyWindowsMap["Adobe"] := [ChromeExe, "Adobe"]
-; StudyWindowsMap["Gamma"] := [ChromeExe, "Gamma"]
-; StudyWindowsMap["RoboSIM"] := [AdobeExe, "lb-rc-c5e-roboSIM_en.pdf "]
-; StudyWindowsMap["e.DO"] := [AdobeExe, "E.DO Service Manual.pdf "]
-; StudyWindowsMap["RoboShop Manual"] := [AdobeExe, "lb-rc-c5e-roboshop_it.pdf "]
-
-; WEBDEV
-
-; StudyWindowsMap["Codecademy"] := [ChromeExe, "Codecademy", 1]
-
-; CODING
-
-
-;PC Software
-
-
-; ELECTRONICS
-
-
-; StudyWindowsMap["CompTIA"] := [KindleExe, KindlePixelSearchColorsMap["CompTIA"], 1]
-; StudyWindowsMap["CompTIA"] := [ChromeExe, "CompTIA"]
-; StudyWindowsMap["SOLIDWORKS"] := [FirefoxExe, ""]
-; StudyWindowsMap["Barman"] := [ChromeExe, "Barman"]
-; StudyWindowsMap["HOML"] := [ChromeExe, "HOML"]
-; StudyWindowsMap["LRP"] := [ChromeExe, "LRP"]
-; StudyWindowsMap["Python WebAcademy"] := [ChromeExe, "IFTS Python"]
-; StudyWindowsMap["Python"] := [KindleExe, KindlePixelSearchColorsMap["Python"]]
-; StudyWindowsMap["PCC"] := [ChromeExe, "PCC"]
-; StudyWindowsMap["Data Science"] := [ChromeExe, "Data Science"]
-; StudyWindowsMap["Machine Learning"] := [ChromeExe, "Machine Learning"]
-; StudyWindowsMap["COMAU"] := [AdobeExe, "Programmatore_di_sistemi_robotizzati_4.0-Presentazione.pdf "]
-; StudyWindowsMap["COMAU"] := [ChromeExe, "COMAU"]
-; StudyWindowsMap["PDL2"] := [ChromeExe, "PDL2"]
-; StudyWindowsMap["PLC"] := [ChromeExe, "PLC"]
-
-
-; StudyWindowsMap["Barman"] := [AdobeExe, "Guida-su-Lavoro-Carriera-Formazione-del-Barman.pdf "]
-; StudyWindowsMap["SH125"] := [AdobeExe, "sh125.pdf "]
-; StudyWindowsMap["Cybersecurity"] := [AdobeExe, "ROB2_Cybersecurity.pdf "]
-; StudyWindowsMap["Raspberry Pi"] := [AdobeExe, "BeginnersGuide-5thEd-Eng_v4.pdf "]
-
-; StudyWindowsMap["Manners"] := [KindleExe, KindlePixelSearchColorsMap["Manners"]]
-
-; StudyWindowsMap["MOS"] := ["ahk_exe GMetrix SMSe.exe", "", 1]
-
-; StudyWindowsMap["Work"] := ["", "", 1]
 
 
 ImportStudyWindowsMapFromCSV() {
@@ -195,6 +157,11 @@ CreateButtons(P1Windows)
 CreateButtons(P2Windows)
 CreateButtons(P3Windows)
 CreateButtons(P4Windows)
+CreateButtons(P5Windows)
+CreateButtons(P6Windows)
+CreateButtons(P7Windows)
+CreateButtons(P8Windows)
+CreateButtons(P9Windows)
 
 CreateButtons(Map) {
     global
@@ -261,6 +228,46 @@ OnButtonClick(StudySubjectName, *) {
                     break
                 }
             }
+        case 5:
+            for n in P5Windows {
+                if StudySubjectName = n {
+                    P5Windows.RemoveAt(A_Index)
+                    P5Windows.Push(StudySubjectName)
+                    break
+                }
+            }
+        case 6:
+            for n in P6Windows {
+                if StudySubjectName = n {
+                    P6Windows.RemoveAt(A_Index)
+                    P6Windows.Push(StudySubjectName)
+                    break
+                }
+            }
+        case 7:
+            for n in P7Windows {
+                if StudySubjectName = n {
+                    P7Windows.RemoveAt(A_Index)
+                    P7Windows.Push(StudySubjectName)
+                    break
+                }
+            }
+        case 8:
+            for n in P8Windows {
+                if StudySubjectName = n {
+                    P8Windows.RemoveAt(A_Index)
+                    P8Windows.Push(StudySubjectName)
+                    break
+                }
+            }
+        case 9:
+            for n in P9Windows {
+                if StudySubjectName = n {
+                    P8Windows.RemoveAt(A_Index)
+                    P8Windows.Push(StudySubjectName)
+                    break
+                }
+            }
     }
 
 
@@ -280,7 +287,7 @@ SlowWaringLabel:
             foundY := 0
 
             ; if ImageSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, name)
-            if PixelSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "0x" StudySubjectName)
+            if PixelSearch(&foundX, &foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "0x" StudyWindowsMap[StudySubjectName][2])
             {
                 MouseMove foundX, foundY
                 ; MouseMove foundX + 70, foundY
@@ -301,7 +308,7 @@ SlowWaringLabel:
         }
     } else if (StudyWindowsMap[StudySubjectName][1] = ChromeExe) {
         WinActivate(StudySubjectName)
-    } else if (StudyWindowsMap[StudySubjectName][1] = AdobeExe || StudyWindowsMap[StudySubjectName][1] = "ahk_exe GMetrix SMSe.exe" || StudyWindowsMap[StudySubjectName][1] = "ahk_exe Photoshop.exe" || StudyWindowsMap[StudySubjectName][1] = FirefoxExe) { ; fix this shit
+    } else if (StudyWindowsMap[StudySubjectName][1] = AdobeExe || StudyWindowsMap[StudySubjectName][1] = "ahk_exe GMetrix SMSe.exe" || StudyWindowsMap[StudySubjectName][1] = "ahk_exe Photoshop.exe" || StudyWindowsMap[StudySubjectName][1] = "ahk_exe DigitalEditions.exe" || StudyWindowsMap[StudySubjectName][1] = FirefoxExe) { ; fix this shit
         ; WinActivate(StudySubjectName)
         WinActivate(StudyWindowsMap[StudySubjectName][1])
     } else {
@@ -431,6 +438,11 @@ SaveAll(*) {
     ;     StudyWindowsMap[item][5] := A_Index
     ; }
     ShuffleArray(P4Windows)
+    ShuffleArray(P5Windows)
+    ShuffleArray(P6Windows)
+    ShuffleArray(P7Windows)
+    ShuffleArray(P8Windows)
+    ShuffleArray(P9Windows)
     ; for item in P4Windows {
     ;     StudyWindowsMap[item][5] := A_Index
     ; }
@@ -439,6 +451,11 @@ SaveAll(*) {
     SavePriorityWindowsToFile(P2StackFile, P2Windows)
     SavePriorityWindowsToFile(P3StackFile, P3Windows)
     SavePriorityWindowsToFile(P4StackFile, P4Windows)
+    SavePriorityWindowsToFile(P5StackFile, P5Windows)
+    SavePriorityWindowsToFile(P6StackFile, P6Windows)
+    SavePriorityWindowsToFile(P7StackFile, P7Windows)
+    SavePriorityWindowsToFile(P8StackFile, P8Windows)
+    SavePriorityWindowsToFile(P9StackFile, P9Windows)
     Reload
 }
 
