@@ -1,4 +1,4 @@
-#Include C:/Users/aless/Desktop/projects/personal/ahk/hotkeys/dependencies/ColorButton.ahk
+#Include C:/MyLibrary/projects/personal/ahk/hotkeys/dependencies/ColorButton.ahk
 
 ChromeExe := "ahk_exe chrome.exe"
 AdobeExe := "ahk_exe Acrobat.exe"

@@ -50,7 +50,7 @@ ChatGPTExe := "ahk_exe ChatGPT.exe"
 LButtonIsDown := false
 
 
-#d:: Run("C:\Users\aless\Desktop\projects\personal")
+#d:: Run("C:\MyLibrary\projects\personal")
 
 ; #z:: Send("#g")
 
@@ -81,15 +81,15 @@ Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 
 toggle := false
 
-; F1:: {
-;     global toggle
-;     toggle := !toggle
-;     if toggle {
-;         SendEvent("{LButton down}")
-;     } else {
-;         SendEvent("{LButton up}")
-;     }
-; }
+F1:: {
+    global toggle
+    toggle := !toggle
+    if toggle {
+        SendEvent("{LButton down}")
+    } else {
+        SendEvent("{LButton up}")
+    }
+}
 
 
 #Include Chrome.ahk
