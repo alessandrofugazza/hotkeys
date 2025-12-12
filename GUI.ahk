@@ -1,4 +1,4 @@
-#Include C:/MyLibrary/projects/personal/ahk/hotkeys/dependencies/ColorButton.ahk
+#Include C:/Users/aless/MyLibrary/projects/personal/ahk/hotkeys/dependencies/ColorButton.ahk
 
 ChromeExe := "ahk_exe chrome.exe"
 AdobeExe := "ahk_exe Acrobat.exe"
@@ -18,6 +18,7 @@ P6StackFile := A_ScriptDir "\data\p6-order-data.csv"
 P7StackFile := A_ScriptDir "\data\p7-order-data.csv"
 P8StackFile := A_ScriptDir "\data\p8-order-data.csv"
 P9StackFile := A_ScriptDir "\data\p9-order-data.csv"
+P10StackFile := A_ScriptDir "\data\p10-order-data.csv"
 
 
 SetTitleMatchMode(3)
@@ -31,6 +32,7 @@ P6Windows := []
 P7Windows := []
 P8Windows := []
 P9Windows := []
+P10Windows := []
 
 
 P1Windows := LoadPriorityWindowsFromFile(P1StackFile, false)
@@ -42,6 +44,7 @@ P6Windows := LoadPriorityWindowsFromFile(P6StackFile, false)
 P7Windows := LoadPriorityWindowsFromFile(P7StackFile, false)
 P8Windows := LoadPriorityWindowsFromFile(P8StackFile, false)
 P9Windows := LoadPriorityWindowsFromFile(P9StackFile, false)
+P10Windows := LoadPriorityWindowsFromFile(P10StackFile, false)
 
 ^!a::
 {
@@ -56,6 +59,7 @@ P9Windows := LoadPriorityWindowsFromFile(P9StackFile, false)
     SavePriorityWindowsToFile(P7StackFile, P7Windows)
     SavePriorityWindowsToFile(P8StackFile, P8Windows)
     SavePriorityWindowsToFile(P9StackFile, P9Windows)
+    SavePriorityWindowsToFile(P10StackFile, P10Windows)
     Reload
 }
 ; WinActivate("ahk_exe AutoHotkey64_UIA.exe")
@@ -93,9 +97,10 @@ ImportStudyWindowsMapFromCSV() {
         fileContent := FileRead(csvFile)
         for line in StrSplit(fileContent, "`n") {
             lineArray := StrSplit(line, ",")
-
-            FormattedLineArray4 := Integer(lineArray[4])  ; Remove last character from the last string
-            FormattedLineArray5 := Integer(lineArray[5])  ; Remove last character from the last string
+            value := Trim(lineArray[4], "`r`n `t")
+            FormattedLineArray4 := Integer(value)  ; Remove last character from the last string
+            value := Trim(lineArray[5], "`r`n `t")
+            FormattedLineArray5 := Integer(value)
             ; if (A_Index < StrSplit(fileContent, "`n").Length) {
             ;     PreFormat6 := SubStr(lineArray[6], 1, -1)
             ; } else {
@@ -162,6 +167,7 @@ CreateButtons(P6Windows)
 CreateButtons(P7Windows)
 CreateButtons(P8Windows)
 CreateButtons(P9Windows)
+CreateButtons(P10Windows)
 
 CreateButtons(Map) {
     global
@@ -263,8 +269,16 @@ OnButtonClick(StudySubjectName, *) {
         case 9:
             for n in P9Windows {
                 if StudySubjectName = n {
-                    P8Windows.RemoveAt(A_Index)
-                    P8Windows.Push(StudySubjectName)
+                    P9Windows.RemoveAt(A_Index)
+                    P9Windows.Push(StudySubjectName)
+                    break
+                }
+            }
+        case 10:
+            for n in P10Windows {
+                if StudySubjectName = n {
+                    P10Windows.RemoveAt(A_Index)
+                    P10Windows.Push(StudySubjectName)
                     break
                 }
             }
@@ -443,6 +457,7 @@ SaveAll(*) {
     ShuffleArray(P7Windows)
     ShuffleArray(P8Windows)
     ShuffleArray(P9Windows)
+    ShuffleArray(P10Windows)
     ; for item in P4Windows {
     ;     StudyWindowsMap[item][5] := A_Index
     ; }
@@ -456,6 +471,7 @@ SaveAll(*) {
     SavePriorityWindowsToFile(P7StackFile, P7Windows)
     SavePriorityWindowsToFile(P8StackFile, P8Windows)
     SavePriorityWindowsToFile(P9StackFile, P9Windows)
+    SavePriorityWindowsToFile(P10StackFile, P10Windows)
     Reload
 }
 

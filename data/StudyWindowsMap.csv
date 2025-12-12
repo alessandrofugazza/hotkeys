@@ -1,71 +1,67 @@
-3D Printing,ahk_exe chrome.exe,3D Printing,7,-999999999999
-@flowfuse/dashboard,ahk_exe chrome.exe,@flowfuse/dashboard,3,-999999999999
-AHK,ahk_exe chrome.exe,AHK,8,-999999999999
+3D Printing,ahk_exe chrome.exe,3D Printing,9,-999999999999
+@flowfuse/dashboard,ahk_exe chrome.exe,@flowfuse/dashboard,4,-999999999999
 Anaconda,ahk_exe chrome.exe,Anaconda,7,-999999999999
 Anki,ahk_exe chrome.exe,Anki,4,-999999999999
 Arduino,ahk_exe chrome.exe,Arduino,7,-999999999999
-Artificial Intelligence,ahk_exe chrome.exe,Artificial Intelligence,6,-999999999999
-Autodesk Inventor,ahk_exe chrome.exe,Autodesk Inventor,4,-999999999999
-Automation,ahk_exe chrome.exe,Automation,6,-999999999999
-Automotive,ahk_exe chrome.exe,Automotive,2,-999999999999
-C++,ahk_exe chrome.exe,C++,5,-999999999999
-CRI,ahk_exe chrome.exe,CRI,1,138084453
+Arduino IDE,ahk_exe chrome.exe,Arduino IDE,4,-999999999999
+Artificial Intelligence,ahk_exe chrome.exe,Artificial Intelligence,7,-999999999999
+Autodesk Inventor,ahk_exe chrome.exe,Autodesk Inventor,6,-999999999999
+Automation,ahk_exe chrome.exe,Automation,7,-999999999999
+Automotive,ahk_exe chrome.exe,Automotive,2,7122265
+C++,ahk_exe chrome.exe,C++,2,6133984
 CT,ahk_exe chrome.exe,CT,4,-999999999999
-Canophilia,ahk_exe chrome.exe,Canophilia,1,141433140
-Canva,ahk_exe chrome.exe,Canva,9,-999999999999
-Character.AI,ahk_exe chrome.exe,Character.AI,8,-999999999999
-Chrome DevTools,ahk_exe chrome.exe,Chrome DevTools,6,-999999999999
-Chrome Extensions Development,ahk_exe chrome.exe,Chrome Extensions Development,2,-999999999999
-CompTIA,ahk_exe chrome.exe,CompTIA,3,-999999999999
-Corvina,ahk_exe chrome.exe,Corvina,2,146051281
-Cura,ahk_exe chrome.exe,Cura,7,-999999999999
-Cursor,ahk_exe chrome.exe,Cursor,6,-999999999999
-Data Science,ahk_exe chrome.exe,Data Science,2,-999999999999
-Drawing,ahk_exe chrome.exe,Drawing,9,-999999999999
-ELEGOO,ahk_exe Acrobat.exe,NEPTUNE 4 MAX User Manual(Multilingual)-V1.8.pdf ,8,-999999999999
-Electronics,ahk_exe chrome.exe,Electronics,3,-999999999999
-Excel,ahk_exe chrome.exe,Excel,2,142951656
+Canophilia,ahk_exe chrome.exe,Canophilia,3,5958593
+Canva,ahk_exe chrome.exe,Canva,10,-999999999999
+Character.AI,ahk_exe chrome.exe,Character.AI,9,-999999999999
+ChatGPT API,ahk_exe chrome.exe,ChatGPT API,6,-999999999999
+Chrome DevTools,ahk_exe chrome.exe,Chrome DevTools,7,-999999999999
+Chrome Extensions Development,ahk_exe chrome.exe,Chrome Extensions Development,3,-999999999999
+CompTIA,ahk_exe chrome.exe,CompTIA,5,-999999999999
+Corvina,ahk_exe chrome.exe,Corvina,2,-999999999999
+Cura,ahk_exe chrome.exe,Cura,9,-999999999999
+Cursor,ahk_exe chrome.exe,Cursor,8,-999999999999
+Data Science,ahk_exe chrome.exe,Data Science,3,-999999999999
+Docker,ahk_exe chrome.exe,Docker,5,-999999999999
+ELEGOO,ahk_exe Acrobat.exe,NEPTUNE 4 MAX User Manual(Multilingual)-V1.8.pdf ,9,-999999999999
+Electronics,ahk_exe chrome.exe,Electronics,2,-999999999999
+Excel,ahk_exe chrome.exe,Excel,1,2253781
+FTO,ahk_exe chrome.exe,FTO,1,3869156
 Finance,ahk_exe chrome.exe,Finance,3,-999999999999
-Flipper,ahk_exe chrome.exe,Flipper,5,-999999999999
-Fuck Them Off,ahk_exe chrome.exe,Fuck Them Off,1,139733875
-GitHub Copilot,ahk_exe chrome.exe,GitHub Copilot,6,-999999999999
-Guitar,ahk_exe chrome.exe,Guitar,9,-999999999999
-Insta360,ahk_exe chrome.exe,Insta360,6,-999999999999
-JavaScript,ahk_exe chrome.exe,JavaScript,3,-999999999999
-KTM 390 Adventure SW,ahk_exe Acrobat.exe,24_3214963_en_OM.pdf,5,-999999999999
-LRP,ahk_exe Kindle.exe,102B39,1,145209359
-Law,ahk_exe DigitalEditions.exe,,6,-999999999999
+Flipper,ahk_exe chrome.exe,Flipper,6,-999999999999
+GitHub Copilot,ahk_exe chrome.exe,GitHub Copilot,7,-999999999999
+Insta360,ahk_exe chrome.exe,Insta360,8,-999999999999
+JavaScript,ahk_exe chrome.exe,JavaScript,2,-999999999999
+KTM 390 Adventure SW,ahk_exe Acrobat.exe,24_3214963_en_OM.pdf,7,-999999999999
+LRP,ahk_exe Kindle.exe,102B39,2,1092203
+Law,ahk_exe DigitalEditions.exe,Law,7,-999999999999
 MT-09 SP,ahk_exe Acrobat.exe,BMM-28199-H0_12.pdf,3,-999999999999
 Markdown,ahk_exe chrome.exe,Markdown,8,-999999999999
-MySQL,ahk_exe chrome.exe,MySQL,5,-999999999999
-NX500,ahk_exe chrome.exe,NX-500,4,-999999999999
-Node-RED,ahk_exe chrome.exe,Node-RED,1,145354390
+MicroPython,ahk_exe chrome.exe,MicroPython,5,-999999999999
+MySQL,ahk_exe chrome.exe,MySQL,7,-999999999999
+NX500,ahk_exe chrome.exe,NX-500,5,-999999999999
+Node-RED,ahk_exe chrome.exe,Node-RED,2,-999999999999
 Node.js,ahk_exe chrome.exe,Node.js,5,-999999999999
-PLC,ahk_exe chrome.exe,PLC,6,-999999999999
-PoliMi,ahk_exe chrome.exe,PoliMi,4,-999999999999
-Power Point,ahk_exe chrome.exe,Power Point,4,-999999999999
-Power User,ahk_exe chrome.exe,Power User,5,-999999999999
-Practical,ahk_exe chrome.exe,Practical,3,-999999999999
-Project Serena,ahk_exe chrome.exe,Project Serena,2,-999999999999
-Prompt Engineering,ahk_exe chrome.exe,Prompt Engineering,7,-999999999999
-Python,ahk_exe chrome.exe,Python,4,-999999999999
-ROS,ahk_exe chrome.exe,ROS,4,-999999999999
-Raspberry Pi,ahk_exe chrome.exe,Raspberry Pi,7,-999999999999
-RoboDK,ahk_exe chrome.exe,RoboDK,7,-999999999999
-Robotics,ahk_exe chrome.exe,Robotics,3,-999999999999
-Shortcuts,ahk_exe chrome.exe,Shortcuts,7,-999999999999
-Soft Skills,ahk_exe chrome.exe,Soft Skills,9,-999999999999
-Swift,ahk_exe chrome.exe,Swift,6,-999999999999
-Tinkercad,ahk_exe chrome.exe,Tinkercad,8,-999999999999
-Tweak III,ahk_exe chrome.exe,Tweak III,9,-999999999999
-TwoNav,ahk_exe chrome.exe,TwoNav,8,-999999999999
-VS Code,ahk_exe chrome.exe,VS Code,4,-999999999999
-Web Development,ahk_exe chrome.exe,Web Development,3,-999999999999
-Windows Development,ahk_exe chrome.exe,Windows Development,2,145251531
-Word,ahk_exe chrome.exe,Word,4,-999999999999
-Work,ahk_exe chrome.exe,Work,1,141426671
+PLC,ahk_exe chrome.exe,PLC,8,-999999999999
+Power Point,ahk_exe chrome.exe,Power Point,3,-999999999999
+Power User,ahk_exe chrome.exe,Power User,4,-999999999999
+Practical,ahk_exe chrome.exe,Practical,4,-999999999999
+Project Serena,ahk_exe chrome.exe,Project Serena,1,1962625
+Prompt Engineering,ahk_exe chrome.exe,Prompt Engineering,8,-999999999999
+Python,ahk_exe chrome.exe,Python,5,-999999999999
+ROS,ahk_exe chrome.exe,ROS,6,-999999999999
+Raspberry Pi,ahk_exe chrome.exe,Raspberry Pi,8,-999999999999
+RoboDK,ahk_exe chrome.exe,RoboDK,8,-999999999999
+Robotics,ahk_exe chrome.exe,Robotics,5,-999999999999
+Shortcuts,ahk_exe chrome.exe,Shortcuts,8,-999999999999
+Soft Skills,ahk_exe chrome.exe,Soft Skills,10,-999999999999
+Swift,ahk_exe chrome.exe,Swift,8,-999999999999
+Tinkercad,ahk_exe chrome.exe,Tinkercad,9,-999999999999
+TwoNav,ahk_exe chrome.exe,TwoNav,10,-999999999999
+VS Code,ahk_exe chrome.exe,VS Code,6,-999999999999
+Web Development,ahk_exe chrome.exe,Web Development,4,-999999999999
+Windows Development,ahk_exe chrome.exe,Windows Development,1,4917703
+Word,ahk_exe chrome.exe,Word,5,-999999999999
+WordPress,ahk_exe chrome.exe,WordPress,2,-999999999999
+Work,ahk_exe chrome.exe,Work,1,4675062
 ZX-6R,ahk_exe chrome.exe,ZX-6R,3,-999999999999
-cFos,ahk_exe chrome.exe,cFos,9,-999999999999
 iOS Development,ahk_exe chrome.exe,iOS Development,5,-999999999999
-MicroPython,ahk_exe chrome.exe,MicroPython,2,-999999999999
-ChatGPT API,ahk_exe chrome.exe,ChatGPT API,3,-999999999999

@@ -1,0 +1,6 @@
+AHK,ahk_exe chrome.exe,AHK,8,-1E+12
+Tweak III,ahk_exe chrome.exe,Tweak III,9,-1E+12
+Guitar,ahk_exe chrome.exe,Guitar,9,-1E+12
+Drawing,ahk_exe chrome.exe,Drawing,9,-1E+12
+cFos,ahk_exe chrome.exe,cFos,9,-1E+12
+CRI,ahk_exe chrome.exe,CRI,1,210755109
