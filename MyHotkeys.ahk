@@ -43,7 +43,7 @@ ChatGPTExe := "ahk_exe ChatGPT.exe"
 
 }
 #WheelUp:: {
-    WinActivate("Main " ChromeExe)
+    WinActivate("MAIN " ChromeExe)
 }
 
 

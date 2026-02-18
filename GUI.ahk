@@ -97,9 +97,9 @@ ImportStudyWindowsMapFromCSV() {
         fileContent := FileRead(csvFile)
         for line in StrSplit(fileContent, "`n") {
             lineArray := StrSplit(line, ",")
-            value := Trim(lineArray[4], "`r`n `t")
+            value := Trim(lineArray[4], " `t`r`n")
             FormattedLineArray4 := Integer(value)  ; Remove last character from the last string
-            value := Trim(lineArray[5], "`r`n `t")
+            value := Trim(lineArray[5], " `t`r`n")
             FormattedLineArray5 := Integer(value)
             ; if (A_Index < StrSplit(fileContent, "`n").Length) {
             ;     PreFormat6 := SubStr(lineArray[6], 1, -1)
@@ -173,16 +173,18 @@ CreateButtons(Map) {
     global
 
     for StudySubjectName in Map {
+        tStudySubjectName := Trim(StudySubjectName, " `t`r`n")
+
         ; TrimmedStudySubjectName := SubStr(StudySubjectName, 1, -1)  ; Remove last character from the string
         colIndex := (A_Index - 1) // BUTTONS_PER_COLUMN
         rowIndex := Mod((A_Index - 1), BUTTONS_PER_COLUMN)
         xPos := PreviousGuiWidth + PADDING_LEFT + HORIZONTAL_SPACING + colIndex * (BUTTON_WIDTH + HORIZONTAL_SPACING)
         yPos := PADDING_TOP + rowIndex * (BUTTON_HEIGHT + VERTICAL_SPACING)  ; Apply vertical spacing
 
-        NewButton := MyGui.Add("Button", "x" xPos " y" yPos " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, StudySubjectName)
+        NewButton := MyGui.Add("Button", "x" xPos " y" yPos " w" BUTTON_WIDTH " h" BUTTON_HEIGHT, tStudySubjectName)
         NewButton.SetColor("5ed75e")  ; Initial color green
-        NewButton.OnEvent("Click", OnButtonClick.Bind(StudySubjectName))
-        StudyButtons[StudySubjectName] := NewButton
+        NewButton.OnEvent("Click", OnButtonClick.Bind(tStudySubjectName))
+        StudyButtons[tStudySubjectName] := NewButton
         UpdateButtonFontColor(NewButton, "00FF00")  ; Set initial font color
     }
     f := ""
@@ -334,17 +336,30 @@ SlowWaringLabel:
 
 
 UpdateButtonColors() {
+
     global StudyWindowsMap, StudyButtons
 
     for StudySubjectName, Info in StudyWindowsMap {
+        ; MsgBox StrLen(StudySubjectName)
         ; BRILLIANT GOOD JOB CHATGPT GOTTA LEARN THIS
         elapsed := A_TickCount - StudyWindowsMap[StudySubjectName][4]
         maxTime := MaxHours * 60 * 60 * 1000  ; 8 hours in milliseconds
         numShades := 48
         shadeInterval := maxTime / numShades
 
+
         ; Calculate the color based on the elapsed time
         if (elapsed >= maxTime) {
+            ; out := ""
+            ; for key, value in StudyButtons {
+            ;     tkey := Trim(key, " `t`r`n")
+            ;     out .= tkey
+
+            ; }
+
+            ; MsgBox out
+
+
             StudyButtons[StudySubjectName].SetColor("FF0000")  ; Red
             UpdateButtonFontColor(StudyButtons[StudySubjectName], "FF0000")
         } else {
