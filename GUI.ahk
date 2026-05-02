@@ -17,8 +17,7 @@ P5StackFile := A_ScriptDir "\data\p5-order-data.csv"
 P6StackFile := A_ScriptDir "\data\p6-order-data.csv"
 P7StackFile := A_ScriptDir "\data\p7-order-data.csv"
 P8StackFile := A_ScriptDir "\data\p8-order-data.csv"
-P9StackFile := A_ScriptDir "\data\p9-order-data.csv"
-P10StackFile := A_ScriptDir "\data\p10-order-data.csv"
+; P9StackFile := A_ScriptDir "\data\p9-order-data.csv"
 
 
 SetTitleMatchMode(3)
@@ -31,8 +30,7 @@ P5Windows := []
 P6Windows := []
 P7Windows := []
 P8Windows := []
-P9Windows := []
-P10Windows := []
+; P9Windows := []
 
 
 P1Windows := LoadPriorityWindowsFromFile(P1StackFile, false)
@@ -43,8 +41,7 @@ P5Windows := LoadPriorityWindowsFromFile(P5StackFile, false)
 P6Windows := LoadPriorityWindowsFromFile(P6StackFile, false)
 P7Windows := LoadPriorityWindowsFromFile(P7StackFile, false)
 P8Windows := LoadPriorityWindowsFromFile(P8StackFile, false)
-P9Windows := LoadPriorityWindowsFromFile(P9StackFile, false)
-P10Windows := LoadPriorityWindowsFromFile(P10StackFile, false)
+; P9Windows := LoadPriorityWindowsFromFile(P9StackFile, false)
 
 ^!a::
 {
@@ -58,8 +55,7 @@ P10Windows := LoadPriorityWindowsFromFile(P10StackFile, false)
     SavePriorityWindowsToFile(P6StackFile, P6Windows)
     SavePriorityWindowsToFile(P7StackFile, P7Windows)
     SavePriorityWindowsToFile(P8StackFile, P8Windows)
-    SavePriorityWindowsToFile(P9StackFile, P9Windows)
-    SavePriorityWindowsToFile(P10StackFile, P10Windows)
+    ; SavePriorityWindowsToFile(P9StackFile, P9Windows)
     Reload
 }
 ; WinActivate("ahk_exe AutoHotkey64_UIA.exe")
@@ -166,8 +162,7 @@ CreateButtons(P5Windows)
 CreateButtons(P6Windows)
 CreateButtons(P7Windows)
 CreateButtons(P8Windows)
-CreateButtons(P9Windows)
-CreateButtons(P10Windows)
+; CreateButtons(P9Windows)
 
 CreateButtons(Map) {
     global
@@ -268,22 +263,15 @@ OnButtonClick(StudySubjectName, *) {
                     break
                 }
             }
-        case 9:
-            for n in P9Windows {
-                if StudySubjectName = n {
-                    P9Windows.RemoveAt(A_Index)
-                    P9Windows.Push(StudySubjectName)
-                    break
-                }
-            }
-        case 10:
-            for n in P10Windows {
-                if StudySubjectName = n {
-                    P10Windows.RemoveAt(A_Index)
-                    P10Windows.Push(StudySubjectName)
-                    break
-                }
-            }
+            ; case 9:
+            ;     for n in P9Windows {
+            ;         if StudySubjectName = n {
+            ;             P9Windows.RemoveAt(A_Index)
+            ;             P9Windows.Push(StudySubjectName)
+            ;             break
+            ;         }
+            ;     }
+
     }
 
 
@@ -298,7 +286,7 @@ OnButtonClick(StudySubjectName, *) {
 
             Send "^!l"
             sleep 400
-SlowWaringLabel:
+        SlowWaringLabel:
             foundX := 0
             foundY := 0
 
@@ -471,8 +459,7 @@ SaveAll(*) {
     ShuffleArray(P6Windows)
     ShuffleArray(P7Windows)
     ShuffleArray(P8Windows)
-    ShuffleArray(P9Windows)
-    ShuffleArray(P10Windows)
+    ; ShuffleArray(P9Windows)
     ; for item in P4Windows {
     ;     StudyWindowsMap[item][5] := A_Index
     ; }
@@ -485,8 +472,7 @@ SaveAll(*) {
     SavePriorityWindowsToFile(P6StackFile, P6Windows)
     SavePriorityWindowsToFile(P7StackFile, P7Windows)
     SavePriorityWindowsToFile(P8StackFile, P8Windows)
-    SavePriorityWindowsToFile(P9StackFile, P9Windows)
-    SavePriorityWindowsToFile(P10StackFile, P10Windows)
+    ; SavePriorityWindowsToFile(P9StackFile, P9Windows)
     Reload
 }
 
