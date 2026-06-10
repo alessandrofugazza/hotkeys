@@ -8,14 +8,6 @@ CoordMode("Mouse", "Screen")
 IconPath := ".\tray-icon.png"
 TraySetIcon IconPath
 
-; intervals
-
-defaultInterval := 50
-mediumInterval := 250
-semilongInterval := 1000
-longInterval := 4000
-superlongInterval := 7000
-
 KindlePointer := "pan"
 AdobePointer := "pan"
 
@@ -23,9 +15,6 @@ AdobePointer := "pan"
 ChatGPTExe := "ahk_exe ChatGPT.exe"
 
 #Include UtilityFunctions.ahk
-
-#Include GUI.ahk
-
 
 ; !F1:: {
 ;     WinActivate("Alessandro's Kindle for PC")
@@ -54,17 +43,6 @@ LButtonIsDown := false
 
 ; #z:: Send("#g")
 
-
-Ins:: {
-    choice := InputBox("1. Hotkeys", "Quick Code", "w100 h200")
-    choice := choice.Value
-    if choice == "1"
-        Run(A_ScriptDir . "`\..`\hotkeys`\hotkeys.code-workspace")
-    else
-        MsgBox "idiot"
-
-}
-
 ; NumpadClear:: {
 ;     spotifyExe := "ahk_exe Spotify.exe"
 ;     if WinActive(spotifyExe)
@@ -73,7 +51,7 @@ Ins:: {
 ;         WinActivate(spotifyExe)
 ; }
 
-Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
+; Pause:: DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
 
 ^XButton1:: send "{enter}"
 
@@ -90,6 +68,15 @@ F1:: {
         SendEvent("{LButton up}")
     }
 }
+
+#HotIf WinActive("ahk_exe parsecd.exe")
+
+LAlt::LWin
+LWin::LAlt
+RAlt::RWin
+RWin::RAlt
+
+#HotIf
 
 
 #Include Chrome.ahk
