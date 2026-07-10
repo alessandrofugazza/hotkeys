@@ -60,8 +60,9 @@ XButton1:: {
     CheckIfKindleIsActive()
     Send "{LButton Up}"
     Send "{RButton Up}"
-    KindleCopy()
+    ; KindleCopy()
     Send "{RButton}"
+    sleep 1000
     KindleHighlight()
 }
 
@@ -96,9 +97,18 @@ KindleCopy() {
 }
 
 KindleHighlight() {
-    Send "{Right 3}"
-    sleep 10
-    Send "{Space}"
+     targetColor := 0x00A5A7
+
+    ; Search full screen
+    found := PixelSearch(&x, &y, 0, 0, A_ScreenWidth, A_ScreenHeight, targetColor, 10)
+
+    if found {
+        Click x, y
+        sleep 100
+        Click x, y
+    } else {
+        MsgBox "Color not found"
+    }
 }
 
 CheckIfKindleIsActive() {
